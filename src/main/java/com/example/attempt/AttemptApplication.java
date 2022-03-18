@@ -10,6 +10,7 @@ public class AttemptApplication {
     public static void main(String[] args) {
         Flyway flyway = Flyway.configure().dataSource("jdbc:postgresql://localhost:5432/Attempt_db", "postgres", "mamapapa").load();
         flyway.migrate();
+
       //  SpringApplication.run(AttemptApplication.class, args);
 
 
