@@ -1,7 +1,8 @@
 package com.example.attempt.rest;
 
+import com.example.attempt.model.Company;
 import com.example.attempt.model.Student;
-import com.example.attempt.service.StudentServiceImpl;
+import com.example.attempt.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,63 +15,65 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/student")
-public class StudentRestControllerV1 {
+public class CompanyRestControllerV1 {
 
     @Autowired
-    private StudentServiceImpl studentService;
+    private CompanyService companyService;
+
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Student> getStudent(@PathVariable("id") Long studentId) {
-        if(studentId == null){
+    public ResponseEntity<Company> getCompany(@PathVariable("id") Long companyId) {
+        if(companyId == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Student student = this.studentService.getById(studentId);
+        Company company = this.companyService.getById(companyId);
 
-        if (student == null){
+        if (company == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(student,HttpStatus.OK);
+        return new ResponseEntity<>(company,HttpStatus.OK);
     }
 
     @RequestMapping(value="", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Student> saveStudent(@RequestBody Student student){
+    public ResponseEntity<Company> saveStudent(@RequestBody Company company){
         HttpHeaders headers = new HttpHeaders();
 
-        if(student == null){
+        if(company == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        this.studentService.save(student);
-        return new ResponseEntity<>(student, headers, HttpStatus.CREATED);
+        this.companyService.save(company);
+        return new ResponseEntity<>(company, headers, HttpStatus.CREATED);
     }
+
     @RequestMapping(value="",method=RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student, UriComponentsBuilder builder){
+    public ResponseEntity<Company> updateStudent(@RequestBody Company company, UriComponentsBuilder builder){
         HttpHeaders headers = new HttpHeaders();
 
-        if (student == null){
+        if (company == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        this.studentService.save(student);
+        this.companyService.save(company);
 
-        return new ResponseEntity<>(student, headers, HttpStatus.OK);
+        return new ResponseEntity<>(company, headers, HttpStatus.OK);
     }
     @RequestMapping(value="{id}",method=RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Student> deleteStudent (@PathVariable("id") Long id){
-        Student student = this.studentService.getById(id);
+    public ResponseEntity<Company> deleteStudent (@PathVariable("id") Long id){
+        Company company = this.companyService.getById(id);
 
-        if(student == null){
+        if(company == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        this.studentService.delete(id);
+        this.companyService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @RequestMapping(value="",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Student>> getAllStudents(){
-        List<Student> students = this.studentService.getAll();
+    public ResponseEntity<List<Company>> getAllStudents(){
+        List<Company> companies = this.companyService.getAll();
 
-        if(students.isEmpty()){
+        if(companies.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(students, HttpStatus.OK);
+        return new ResponseEntity<>(companies, HttpStatus.OK);
     }
 }
