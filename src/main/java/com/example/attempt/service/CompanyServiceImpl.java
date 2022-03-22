@@ -19,7 +19,7 @@ public class CompanyServiceImpl implements CompanyService{
     @Override
     public Company getById(Long id) {
         log.info("IN CompanyService getById {}", id);
-        return companyRepository.getById(id);
+        return companyRepository.findById(id).get();
     }
 
     @Override

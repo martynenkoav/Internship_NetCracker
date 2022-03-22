@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/student")
+@RequestMapping("/api/v1/company")
 public class CompanyRestControllerV1 {
 
     @Autowired
@@ -34,7 +34,7 @@ public class CompanyRestControllerV1 {
     }
 
     @RequestMapping(value="", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Company> saveStudent(@RequestBody Company company){
+    public ResponseEntity<Company> saveCompany(@RequestBody Company company){
         HttpHeaders headers = new HttpHeaders();
 
         if(company == null){
@@ -45,7 +45,7 @@ public class CompanyRestControllerV1 {
     }
 
     @RequestMapping(value="",method=RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Company> updateStudent(@RequestBody Company company, UriComponentsBuilder builder){
+    public ResponseEntity<Company> updateCompany(@RequestBody Company company, UriComponentsBuilder builder){
         HttpHeaders headers = new HttpHeaders();
 
         if (company == null){
@@ -56,7 +56,7 @@ public class CompanyRestControllerV1 {
         return new ResponseEntity<>(company, headers, HttpStatus.OK);
     }
     @RequestMapping(value="{id}",method=RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Company> deleteStudent (@PathVariable("id") Long id){
+    public ResponseEntity<Company> deleteCompany (@PathVariable("id") Long id){
         Company company = this.companyService.getById(id);
 
         if(company == null){
@@ -68,7 +68,7 @@ public class CompanyRestControllerV1 {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @RequestMapping(value="",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Company>> getAllStudents(){
+    public ResponseEntity<List<Company>> getAllCompanies(){
         List<Company> companies = this.companyService.getAll();
 
         if(companies.isEmpty()){
