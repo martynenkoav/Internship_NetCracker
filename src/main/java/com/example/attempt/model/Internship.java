@@ -8,16 +8,15 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "student")
+@Table(name = "internship")
 @Getter
 @Setter
 @ToString
-public class Student extends BaseEntity {
-    @Column(name = "FIO")
-    private String fio;
+public class Internship extends BaseEntity {
 
-    @Column(name = "email")
-    private String email;
+    @ManyToOne()
+    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "company_id"))
+    private Company company;
 
     @OneToMany()
     @JoinColumn(name = "forms")
