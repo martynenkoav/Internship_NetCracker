@@ -21,8 +21,10 @@ CREATE TABLE internship
 
 CREATE TABLE form
 (
+    id SERIAL PRIMARY KEY,
     student_id INTEGER,
     internship_id INTEGER,
     FOREIGN KEY (student_id) REFERENCES student (id),
-    FOREIGN KEY (internship_id) REFERENCES internship (id)
+    FOREIGN KEY (internship_id) REFERENCES internship (id),
+    CONSTRAINT foreign_id_unique UNIQUE (student_id, internship_id)
 )
