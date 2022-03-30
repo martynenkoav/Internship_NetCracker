@@ -13,7 +13,10 @@ CREATE TABLE IF NOT EXISTS users
     FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 
-
+CREATE SEQUENCE seq_for_all
+    MINVALUE 1
+    START WITH 1
+    INCREMENT BY 1;
 
 CREATE TABLE IF NOT EXISTS student
 (
@@ -42,6 +45,7 @@ CREATE TABLE IF NOT EXISTS internship
 
 CREATE TABLE IF NOT EXISTS form
 (
+    id SERIAL PRIMARY KEY,
     student_id INTEGER,
     internship_id INTEGER,
     FOREIGN KEY (student_id) REFERENCES student (id),
@@ -67,9 +71,9 @@ BEGIN
          RETURN NEW;*/
     IF (TG_OP = 'INSERT') THEN
         IF (NEW.role_id = 2) THEN
-            INSERT INTO student VALUES(NEW.id, NEW.id, NULL, NULL);
+            INSERT INTO student VALUES(nextval('seq_for_all'), NEW.id, NULL, NULL);
         ELSIF (NEW.role_id = 3) THEN
-            INSERT INTO company VALUES(NEW.id, NEW.id, NULL, NULL);
+            INSERT INTO company VALUES(nextval('seq_for_all'), NEW.id, NULL, NULL);
         END IF;
         RETURN NEW;
     END IF;
