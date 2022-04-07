@@ -1,0 +1,15 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import {CompanyForm} from "./model/companyForm";
+import {CompanyComponent} from "./company/company.component";
+
+
+const routes: Routes = [
+  {path: 'company', component: CompanyComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
