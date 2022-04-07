@@ -1,0 +1,22 @@
+{{ companyForm | json }}
+<div class="container">
+  <form #companyFormSpy="ngForm">
+    <div class="form-group">
+      <label for="name">Company Name</label>
+      <input required id="name" #name="ngModel" type="text" [(ngModel)]="companyForm.name" class="form-control"  name="name">
+      <div class="alert alert-danger"[hidden]="name.valid || name.pristine">
+        Поле 'Имя' обязательно для заполнения
+      </div>
+
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input required id="description" #description="ngModel" type="text" [(ngModel)]="companyForm.description" class="form-control"  name="description">
+      <div class="alert alert-danger"[hidden]="description.valid || description.pristine">
+        Поле 'Описание' обязательно для заполнения
+      </div>
+    </div>
+    <input type="submit" class="btn btn-success" [disabled]="!companyFormSpy.form.valid" (click)="onSubmit()" text="save">
+    <button type="button" (click)="cleanButtonClicked(); companyFormSpy.reset()" class="btn btn-light">delete</button>
+  </form>
+</div>
