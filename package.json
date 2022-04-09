@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular/http": "^7.2.16",
+    "rxjs-compat": "^6.6.7"
+  }
+}
