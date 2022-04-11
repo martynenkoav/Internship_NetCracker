@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {CompanyForm} from "../model/companyForm";
+import {CompanyModel} from "../model/companyModel";
 import {HttpClient} from "@angular/common/http";
-import {CompanyFormService} from "../company-form.service";
+import {CompanyService} from "../service/company.service";
 
 
 @Component({
@@ -11,40 +11,27 @@ import {CompanyFormService} from "../company-form.service";
   styleUrls: ['./company.component.css']
 })
 export class CompanyComponent implements OnInit {
-  public companyForm: CompanyForm;
- // registrationForm: FormGroup;
+  public companyForm: CompanyModel;
 
-  constructor(private companyFormService: CompanyFormService) {}
+  constructor(private companyFormService: CompanyService) {
+  }
 
   ngOnInit(): void {
     this.companyForm = {
-      name: "",
+      companyName: "",
       description: ""
     }
   }
-  onSubmit(){
 
-    this.companyFormService.companyFormSend(this.companyForm).subscribe(
-      ()=> console.log('Added correctly'),
+  onSubmit() {
+
+    this.companyFormService.getCompanies().subscribe(
+      () => console.log('Getting correctly'),
       error => console.warn(error)
     )
   }
 
-/*  public onSubmitted()
-  {
-    console.log(companyFrom.name);
-  }*/
-
-
-  public cleanButtonClicked()
-    {
-      this.companyForm = new CompanyForm();
-    }
-
-
-    /*this.registrationForm = new FormGroup({
-      name: new FormControl('klk'),
-      description: new FormControl('fkljl')
-    })*/
-
+  public cleanButtonClicked() {
+    this.companyForm = new CompanyModel();
+  }
 }

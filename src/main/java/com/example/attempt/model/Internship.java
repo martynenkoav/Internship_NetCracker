@@ -14,6 +14,9 @@ import java.util.Set;
 @ToString
 public class Internship extends BaseEntity {
 
+    @Column(name = "description")
+    private String description;
+
     @ManyToOne()
     @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "company_id"))
     private Company company;

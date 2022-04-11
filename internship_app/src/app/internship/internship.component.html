@@ -1,0 +1,35 @@
+<main>
+  <section class="row-section">
+    <div class="container" *ngFor="let internship of internships">
+      <div class="col-md-10 offset-md-1 row-block">
+
+            <ul class="list-group">
+                <li class="list-group-item">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{internship.company.companyName}}</h5>
+                  </div>
+                  <p class="mb-1">{{internship.description}}</p>
+                </li>
+              </ul>
+
+        <div class="media-right align-self-center">
+          <a href="#" class="btn btn-default">Откликнуться</a>
+        </div>
+
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <script>
+    $( function() {
+      $( "#sortable" ).sortable();
+      $( "#sortable" ).disableSelection();
+    } );
+  </script>
+  <script	  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+</main>
+
+

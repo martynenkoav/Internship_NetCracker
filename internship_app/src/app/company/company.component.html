@@ -3,7 +3,7 @@
   <form #companyFormSpy="ngForm">
     <div class="form-group">
       <label for="name">Company Name</label>
-      <input required id="name" #name="ngModel" type="text" [(ngModel)]="companyForm.name" class="form-control"  name="name">
+      <input required id="name" #name="ngModel" type="text" [(ngModel)]="companyForm.companyName" class="form-control"  name="name">
       <div class="alert alert-danger"[hidden]="name.valid || name.pristine">
         Поле 'Имя' обязательно для заполнения
       </div>

@@ -1,4 +1,4 @@
-export class CompanyForm {
+export class StudentModel {
   name: string;
   description: string;
 }

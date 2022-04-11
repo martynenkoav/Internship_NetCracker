@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS internship
 (
     id SERIAL PRIMARY KEY,
     company_id INTEGER,
+    description VARCHAR,
     FOREIGN KEY (company_id) REFERENCES company (id)
 );
 
@@ -48,6 +49,7 @@ CREATE TABLE IF NOT EXISTS form
     id SERIAL PRIMARY KEY,
     student_id INTEGER,
     internship_id INTEGER,
+    description VARCHAR,
     FOREIGN KEY (student_id) REFERENCES student (id),
     FOREIGN KEY (internship_id) REFERENCES internship (id)
 );

@@ -5,17 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CompanyComponent } from './company/company.component';
-import { CompanyFormService } from './company-form.service';
-import { CompanyForm } from "./model/companyForm";
+import { CompanyService } from './service/company.service';
+import { CompanyModel } from "./model/companyModel";
 import {HttpClientModule} from "@angular/common/http";
 import { RouterModule, Routes } from '@angular/router';
+import { InternshipComponent } from './internship/internship.component';
+import { NavComponent } from './nav/nav.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CompanyComponent
+    CompanyComponent,
+    InternshipComponent,
+    NavComponent
   ],
     imports: [
         BrowserModule,
@@ -25,7 +29,7 @@ import { RouterModule, Routes } from '@angular/router';
         HttpClientModule
     ],
   providers: [
-    CompanyFormService
+    CompanyService
   ],
   bootstrap: [AppComponent]
 })
