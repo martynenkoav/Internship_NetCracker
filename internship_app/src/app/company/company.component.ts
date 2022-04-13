@@ -18,14 +18,13 @@ export class CompanyComponent implements OnInit {
 
   ngOnInit(): void {
     this.companyForm = {
-      companyName: "",
+      name: "",
       description: ""
     }
   }
 
   onSubmit() {
-
-    this.companyFormService.getCompanies().subscribe(
+    this.companyFormService.deleteCompany().subscribe(
       () => console.log('Getting correctly'),
       error => console.warn(error)
     )

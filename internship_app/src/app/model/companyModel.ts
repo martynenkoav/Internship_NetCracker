@@ -1,4 +1,4 @@
 export class CompanyModel {
-  companyName: string;
+  name: string;
   description: string;
 }

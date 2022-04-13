@@ -1,3 +1,4 @@
+/*
 package com.example.attempt.rest;
 
 import com.example.attempt.model.User;
@@ -43,3 +44,4 @@ public class RegistrationController {
         return "redirect:/";
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.example.attempt;
 
 import com.example.attempt.service.UserDetailsServiceImpl;
@@ -33,7 +34,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+   */
+/* @Bean
     public FilterRegistrationBean corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
@@ -51,25 +53,53 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return bean;
-    }
+    }*//*
 
-   /* @Bean
+
+    */
+/*@Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
 
         return authProvider;
-    }*/
+    }*//*
 
-    /*@Override
+
+
+    */
+/*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
-    }*/
+    }*//*
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService());
+    }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.cors();
+        http.csrf().disable()
+                .authorizeRequests().antMatchers("/api/v1/company","/company", "/api/v1/student", "/api/v1/internship", "/api/v1/form").permitAll()
+                */
+/*.antMatchers(
+                        "/api/user/**",
+                        "/update-password-by-admin/**",
+                        "/recipe_rating/remove-by-admin/**",
+                        "/userinfo/{\\d+}",
+                        "/grant-admin-access/**",
+                        "/disable-admin-access/**")
+                .hasRole("ADMIN")*//*
+
+                .anyRequest().authenticated().and().logout().invalidateHttpSession(true).logoutUrl("/logout").permitAll()
+                .and().httpBasic();
+
+       */
+/* http.authorizeRequests()
                 .antMatchers("/registration").not().fullyAuthenticated()
                 .antMatchers("/api/v1/student").permitAll()
                 .antMatchers("/api/v1/company").permitAll()
@@ -81,7 +111,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")
                 .and()
-                .httpBasic();
+                .httpBasic();*//*
+
     }
 
 }
+*/

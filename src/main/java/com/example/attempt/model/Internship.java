@@ -17,6 +17,9 @@ public class Internship extends BaseEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "name")
+    private String name;
+
     @ManyToOne()
     @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "company_id"))
     private Company company;

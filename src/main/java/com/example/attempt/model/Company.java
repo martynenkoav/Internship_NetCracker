@@ -14,8 +14,8 @@ import java.util.Set;
 @Setter
 @ToString
 public class Company extends BaseEntity {
-    @Column(name = "company_name")
-    private String companyName;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "description")
     private String description;
@@ -24,6 +24,4 @@ public class Company extends BaseEntity {
     @JoinColumn(name = "internships")
     private Set<Internship> internshipSet;
 
-    /*@OneToMany(mappedBy = "company")
-    private Set<Internship> internshipSet;*/
 }

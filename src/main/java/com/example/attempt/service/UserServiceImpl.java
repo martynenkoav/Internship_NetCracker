@@ -1,3 +1,4 @@
+/*
 package com.example.attempt.service;
 
 import com.example.attempt.model.User;
@@ -32,7 +33,9 @@ public class UserServiceImpl implements UserService{
         user.setRoles(role_.getById(2L));
         user_.save(user);
         return true;
-        /* подумать насчет того как происходит сохранение*/
+        */
+/* подумать насчет того как происходит сохранение*//*
+
     }
 
     @Override
@@ -40,3 +43,4 @@ public class UserServiceImpl implements UserService{
         return user_.findByUsername(username);
     }
 }
+*/

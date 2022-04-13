@@ -1,3 +1,4 @@
+/*
 package com.example.attempt.service;
 
 import com.example.attempt.model.Role;
@@ -31,4 +32,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return new MyUserDetails(user);
     }
-}
+}*/

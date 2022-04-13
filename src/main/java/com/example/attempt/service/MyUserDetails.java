@@ -1,3 +1,4 @@
+/*
 package com.example.attempt.service;
 
 import com.example.attempt.model.Role;
@@ -58,3 +59,4 @@ public class MyUserDetails implements UserDetails {
         return true;
     }
 }
+*/

@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS student
 (
     id SERIAL PRIMARY KEY,
     user_id INTEGER,
-    FIO varchar(60),
-    email varchar(30),
+    FIO VARCHAR,
+    email VARCHAR,
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS company
 (
     id SERIAL PRIMARY KEY,
     user_id INTEGER,
-    company_name varchar(60),
-    description text,
+    name VARCHAR,
+    description VARCHAR,
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS internship
 (
     id SERIAL PRIMARY KEY,
     company_id INTEGER,
+    name VARCHAR,
     description VARCHAR,
     FOREIGN KEY (company_id) REFERENCES company (id)
 );
