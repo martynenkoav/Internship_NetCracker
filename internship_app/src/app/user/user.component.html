@@ -1,0 +1,22 @@
+{{ user | json }}
+<div class="container">
+  <form #companyFormSpy="ngForm">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input required id="username" #name="ngModel" type="text" [(ngModel)]="user.username" class="form-control"  name="username">
+      <div class="alert alert-danger"[hidden]="name.valid || name.pristine">
+        Поле 'Имя' обязательно для заполнения
+      </div>
+
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input required id="password" #description="ngModel" type="text" [(ngModel)]="user.password" class="form-control"  name="password">
+      <div class="alert alert-danger"[hidden]="description.valid || description.pristine">
+        Поле 'Описание' обязательно для заполнения
+      </div>
+    </div>
+    <input type="submit" (click)="loginUser()" class="btn btn-success" text="save">
+    <button type="button" (click)="cleanButtonClicked(); companyFormSpy.reset()" class="btn btn-light">delete</button>
+  </form>
+</div>
