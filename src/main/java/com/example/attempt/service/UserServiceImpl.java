@@ -1,46 +1,39 @@
-/*
 package com.example.attempt.service;
 
 import com.example.attempt.model.User;
-import com.example.attempt.repository.RoleRepository;
 import com.example.attempt.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserRepository user_;
-
-    @Autowired
-    private RoleRepository role_;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;;
+    UserRepository userRepository;
 
     @Override
-    public boolean save(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
-
-        if (userFromDB != null) {
-            return false;
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(role_.getById(2L));
-        user_.save(user);
-        return true;
-        */
-/* подумать насчет того как происходит сохранение*//*
-
+    public User getById(Long id) {
+       // log.info("IN UserService getById {}", id);
+        return userRepository.findById(id).get();
     }
 
     @Override
-    public User findByUsername(String username) {
-        return user_.findByUsername(username);
+    public void save(User user) {
+     //   log.info("IN UserService save {}", user);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void delete(Long id) {
+       // log.info("IN CompanyService delete {}", id);
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<User> getAll() {
+       // log.info("IN CompanyService getAll");
+        return userRepository.findAll();
     }
 }
-*/

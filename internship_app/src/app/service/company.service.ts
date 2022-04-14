@@ -8,6 +8,16 @@ import {catchError, retry} from 'rxjs/operators';
 import {InternshipModel} from "../model/internshipModel";
 
 
+/*const headerDict = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+  'Access-Control-Allow-Headers': 'Content-Type',
+}
+const requestOptions = {
+  headers: headerDict
+};*/
+
+
 @Injectable({
   providedIn: 'root'
 })

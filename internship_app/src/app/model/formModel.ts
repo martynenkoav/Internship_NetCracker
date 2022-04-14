@@ -1,5 +1,5 @@
-export class formModel {
+export class FormModel {
   description: string
-  /*company_id: number;
-  * student_id: number;*/
+  company_id: number;
+  student_id: number;
 }

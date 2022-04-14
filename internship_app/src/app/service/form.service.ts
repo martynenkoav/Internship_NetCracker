@@ -1,7 +1,6 @@
-/*
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {formModel} from "../model/formModel";
+import {FormModel} from "../model/formModel";
 
 @Injectable({
   providedIn: 'root'
@@ -33,4 +32,3 @@ export class FormService {
   }
 
 }
-*/
