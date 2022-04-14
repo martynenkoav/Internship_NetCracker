@@ -24,7 +24,7 @@ export class CompanyComponent implements OnInit {
   }
 
   onSubmit() {
-    this.companyFormService.deleteCompany().subscribe(
+    this.companyFormService.postCompany(this.companyForm).subscribe(
       () => console.log('Getting correctly'),
       error => console.warn(error)
     )

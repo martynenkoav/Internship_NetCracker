@@ -17,8 +17,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Transient
-    private String confirmPassword;
+   /* @Transient
+    private String confirmPassword;*/
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -48,13 +48,13 @@ public class User {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
+   /* public String getConfirmPassword() {
         return confirmPassword;
     }
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
-    }
+    }*/
 
     public Role getRoles() {
         return role;

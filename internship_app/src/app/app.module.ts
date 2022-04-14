@@ -9,8 +9,13 @@ import { CompanyService } from './service/company.service';
 import { CompanyModel } from "./model/companyModel";
 import {HttpClientModule} from "@angular/common/http";
 import { RouterModule, Routes } from '@angular/router';
+//import { LoginComponent } from './user/login.component';
+import { UserComponent } from './user/user.component';
 import { InternshipComponent } from './internship/internship.component';
 import { NavComponent } from './nav/nav.component';
+import { RegisterComponent } from './register/register.component';
+import {RegisterService} from "./service/register.service";
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -18,8 +23,11 @@ import { NavComponent } from './nav/nav.component';
   declarations: [
     AppComponent,
     CompanyComponent,
+    UserComponent,
     InternshipComponent,
-    NavComponent
+    NavComponent,
+    RegisterComponent,
+    LoginComponent
   ],
     imports: [
         BrowserModule,
@@ -29,7 +37,8 @@ import { NavComponent } from './nav/nav.component';
         HttpClientModule
     ],
   providers: [
-    CompanyService
+    CompanyService,
+    RegisterService
   ],
   bootstrap: [AppComponent]
 })
