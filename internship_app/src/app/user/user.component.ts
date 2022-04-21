@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 //import {CompanyForm} from "../model/companyForm";
 //import {CompanyFormService} from "../company-form.service";
-import {User} from "../model/user";
-import {AuthService} from "../auth.service";
+import {UserModel} from "../model/userModel";
+import {AuthService} from "../service/auth.service";
 import {Route} from "@angular/router";
 import {InternshipService} from "../service/internship.service";
 import {CompanyService} from "../service/company.service";
@@ -14,7 +14,7 @@ import {CompanyService} from "../service/company.service";
 })
 export class UserComponent implements OnInit {
 
-  public user: User;
+  public user: UserModel;
 
   constructor(private companyService: CompanyService) {}
 
@@ -46,7 +46,7 @@ export class UserComponent implements OnInit {
   }
   public cleanButtonClicked()
   {
-    this.user = new User();
+    this.user = new UserModel();
   }
 
 }

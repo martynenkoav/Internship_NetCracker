@@ -1,6 +1,7 @@
 package com.example.attempt.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,12 +18,19 @@ public class User {
     @Column(name = "password")
     private String password;
 
-   /* @Transient
-    private String confirmPassword;*/
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+    public User() {
+    }
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public Long getId() {
         return id;
@@ -56,12 +64,12 @@ public class User {
         this.confirmPassword = confirmPassword;
     }*/
 
-    public Role getRoles() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
+    }
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
-    public void setRoles(Role role) {
-        this.role = role;
-    }
 
 }

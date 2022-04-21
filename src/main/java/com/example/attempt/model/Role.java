@@ -2,6 +2,7 @@ package com.example.attempt.model;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,9 +15,13 @@ public class Role {
     @Column(name = "name")
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "role_id")
-    private Set<User> users;
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<User> users = new HashSet<>();
+
+    public Role(String name, Set<User> users) {
+        this.name = name;
+        this.users = users;
+    }
 
     public Role() {
     }

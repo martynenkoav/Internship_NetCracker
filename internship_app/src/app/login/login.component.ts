@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from "../model/user";
+import {UserModel} from "../model/userModel";
 import {LoginService} from "../service/login.service";
 import {Observable} from "rxjs";
+import {Router} from "@angular/router";
+import {RoleModel} from "../model/roleModel";
+import {AuthService} from "../service/auth.service";
+import {TokenStorageService} from "../service/token-storage.service";
 
 @Component({
   selector: 'app-login',
@@ -9,26 +13,58 @@ import {Observable} from "rxjs";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public user: User;
+  public user: UserModel;
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
 
-  constructor(private loginService: LoginService) { }
+  constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.roles = this.tokenStorage.getUser().roles;
+    }
     this.user = {
       username: "",
-      password: "",
+      password: ""
     }
   }
   onSubmit(): void {
-    this.loginService.login(this.user).subscribe(
-      () => console.log('Getting correctly'),
-      error => console.warn(error)
-    );
+    this.authService.login(this.user)
+      .subscribe(
+        data => {
+          this.tokenStorage.saveToken(data.accessToken);
+          this.tokenStorage.saveUser(data);
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          this.roles = this.tokenStorage.getUser().roles;
+          if (this.roles.includes('ROLE_STUDENT')) {
+            this.router.navigate(["/student"]).then(() => {
+              this.reloadPage()})
+          } else {
+            this.router.navigate(["/company"]).then(() => {
+              this.reloadPage()})
+          }
+
+        },
+        err => {
+          this.errorMessage = err.error.message;
+          this.isLoginFailed = true;
+        });
+    /*let resp = this.loginService.login(this.user);
+    resp.subscribe(data => {
+        this.router.navigate(["/company"]) });*/
   }
 
   public cleanButtonClicked()
   {
-    this.user = new User();
+    this.user = new UserModel();
+  }
+
+  reloadPage(): void {
+    window.location.reload();
   }
 
 }

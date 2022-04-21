@@ -8,8 +8,14 @@ CREATE TABLE IF NOT EXISTS users
 (
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS users_roles
+(
+    user_id INTEGER,
     role_id INTEGER,
+    FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 
@@ -58,7 +64,8 @@ CREATE TABLE IF NOT EXISTS form
 INSERT INTO roles VALUES(1, 'ROLE_ADMIN');
 INSERT INTO roles VALUES(2, 'ROLE_STUDENT');
 INSERT INTO roles VALUES(3, 'ROLE_COMPANY');
-INSERT INTO users VALUES(1, 'admin', '$2a$10$IqTJTjn39IU5.7sSCDQxzu3xug6z/LPU6IF0azE/8CkHCwYEnwBX.', 1);
+INSERT INTO users VALUES(1, 'admin', '$2a$10$IqTJTjn39IU5.7sSCDQxzu3xug6z/LPU6IF0azE/8CkHCwYEnwBX.');
+INSERT INTO users VALUES(2, 'alex', '$2a$10$IqTJTjn39IU5.7sSCDQxzu3xug6z/LPU6IF0azE/8CkHCwYEnwBX.');
 
 CREATE OR REPLACE FUNCTION user_student() RETURNS TRIGGER AS $user_student$
 BEGIN
@@ -74,9 +81,9 @@ BEGIN
          RETURN NEW;*/
     IF (TG_OP = 'INSERT') THEN
         IF (NEW.role_id = 2) THEN
-            INSERT INTO student VALUES(nextval('seq_for_all'), NEW.id, NULL, NULL);
+            INSERT INTO student VALUES(nextval('seq_for_all'), NEW.user_id, NULL, NULL);
         ELSIF (NEW.role_id = 3) THEN
-            INSERT INTO company VALUES(nextval('seq_for_all'), NEW.id, NULL, NULL);
+            INSERT INTO company VALUES(nextval('seq_for_all'), NEW.user_id, NULL, NULL);
         END IF;
         RETURN NEW;
     END IF;
@@ -85,8 +92,9 @@ END
 $user_student$ LANGUAGE plpgsql;
 
 CREATE TRIGGER user_student
-    AFTER INSERT ON users
+    AFTER INSERT ON users_roles
     FOR EACH ROW EXECUTE PROCEDURE user_student();
 
-INSERT INTO users VALUES(2, 'alex', '$2a$10$IqTJTjn39IU5.7sSCDQxzu3xug6z/LPU6IF0azE/8CkHCwYEnwBX.', 3);
+INSERT INTO users_roles VALUES(1, 1);
+INSERT INTO users_roles VALUES(2, 2);
 

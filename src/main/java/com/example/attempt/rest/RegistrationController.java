@@ -2,6 +2,7 @@ package com.example.attempt.rest;
 
 import com.example.attempt.model.Company;
 import com.example.attempt.model.User;
+import com.example.attempt.model.UserBuilder;
 import com.example.attempt.service.CompanyService;
 import com.example.attempt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,18 +41,19 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
+    public ResponseEntity<User> saveUser(@RequestBody UserBuilder userBuilder) {
         HttpHeaders headers = new HttpHeaders();
 
-        if (user == null) {
+        if (userBuilder == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        this.userService.save(user);
+        User user = this.userService.getUserFromBuilder(userBuilder);
+        this.userService.save(userBuilder);
         return new ResponseEntity<>(user, headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<User> updateCompany(@RequestBody User user, UriComponentsBuilder builder) {
+    public ResponseEntity<UserBuilder> updateCompany(@RequestBody UserBuilder user, UriComponentsBuilder builder) {
         HttpHeaders headers = new HttpHeaders();
 
         if (user == null) {
