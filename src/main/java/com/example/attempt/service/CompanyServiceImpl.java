@@ -16,6 +16,7 @@ public class CompanyServiceImpl implements CompanyService{
     @Autowired
     CompanyRepository companyRepository;
 
+
     @Override
     public Company getById(Long id) {
         log.info("IN CompanyService getById {}", id);
@@ -39,4 +40,6 @@ public class CompanyServiceImpl implements CompanyService{
         log.info("IN CompanyService getAll");
         return companyRepository.findAll();
     }
+
+
 }

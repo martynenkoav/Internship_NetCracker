@@ -20,6 +20,10 @@ public class Company extends BaseEntity {
     @Column(name = "description")
     private String description;
 
+    @ManyToOne()
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "company_id"))
+    private User user;
+
     @OneToMany()
     @JoinColumn(name = "internships")
     private Set<Internship> internshipSet;

@@ -1,18 +1,21 @@
 package com.example.attempt.rest;
 
 import com.example.attempt.model.Company;
+import com.example.attempt.model.CompanyBuilder;
 import com.example.attempt.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasRole('ROLE_COMPANY')")
 @RequestMapping("/api/v1/company")
 public class CompanyRestControllerV1 {
 
@@ -32,16 +35,27 @@ public class CompanyRestControllerV1 {
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Company> saveCompany(@RequestBody Company company) {
+  /*  @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Company> saveCompany(@RequestBody CompanyBuilder companyBuilder) {
         HttpHeaders headers = new HttpHeaders();
 
-        if (company == null) {
+        if (companyBuilder == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
         this.companyService.save(company);
         return new ResponseEntity<>(company, headers, HttpStatus.CREATED);
-    }
+    }*/
+  @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public ResponseEntity<Company> saveCompany(@RequestBody Company company) {
+      HttpHeaders headers = new HttpHeaders();
+
+      if (company == null) {
+          return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      }
+      this.companyService.save(company);
+      return new ResponseEntity<>(company, headers, HttpStatus.CREATED);
+  }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Company> updateCompany(@RequestBody Company company, UriComponentsBuilder builder) {
