@@ -4,11 +4,15 @@ public class CompanyBuilder {
     private Long user_id;
     private String name;
     private String description;
+    private String email;
+    private String address;
 
-    CompanyBuilder(Long id, String name, String description){
+    CompanyBuilder(Long id, String name, String description, String email, String address) {
         this.user_id = id;
         this.name = name;
         this.description = description;
+        this.email = email;
+        this.address = address;
     }
 
     public Long getId() {

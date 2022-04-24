@@ -12,8 +12,22 @@ export class InternshipService {
 
   INTERNSHIP_URL: string = 'http://localhost:8081/api/v1/internship';
 
-  getInternshipById(id: number) {
-    return this.http.get(this.INTERNSHIP_URL + "/" + id)
+  /*public getInternshipById(id: number):Observable<InternshipModel> {
+    return this.http.get<InternshipModel>(this.INTERNSHIP_URL + "/" + id).pipe(
+      map((resp)=>{
+        console.log(resp);
+        return resp;
+      })
+    )
+  }*/
+
+  public getInternshipsByCompanyId(id: number): Observable<InternshipModel[]> {
+    return this.http.get<InternshipModel[]>(this.INTERNSHIP_URL + "/" + id).pipe(
+      map((resp) => {
+        console.log(resp);
+        return resp;
+      })
+    )
   }
 
   public getInternships(): Observable<InternshipModel[]> {
@@ -33,8 +47,7 @@ export class InternshipService {
     return this.http.patch(this.INTERNSHIP_URL, internshipForm)
   }
 
-  public deleteInternship() {
-    return this.http.delete(this.INTERNSHIP_URL)
+  public deleteInternship(id: number) {
+    return this.http.delete(this.INTERNSHIP_URL + "/" + id)
   }
-
 }

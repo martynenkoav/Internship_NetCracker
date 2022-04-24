@@ -38,4 +38,9 @@ public class StudentServiceImpl implements StudentService{
         log.info("IN StudentService getAll");
         return studentRepository.findAll();
     }
+
+    public Student getByUserId(Long id) {
+        log.info("IN CompanyService getByUserId {}", id);
+        return studentRepository.getByUserId(id);
+    }
 }

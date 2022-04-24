@@ -28,8 +28,11 @@ CREATE TABLE IF NOT EXISTS student
 (
     id SERIAL PRIMARY KEY,
     user_id INTEGER,
-    FIO VARCHAR,
+    first_name VARCHAR,
+    last_name VARCHAR,
+    patronymic VARCHAR,
     email VARCHAR,
+    phone VARCHAR,
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
@@ -39,6 +42,8 @@ CREATE TABLE IF NOT EXISTS company
     user_id INTEGER,
     name VARCHAR,
     description VARCHAR,
+    email VARCHAR,
+    address VARCHAR,
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 

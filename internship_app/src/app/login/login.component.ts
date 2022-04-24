@@ -44,10 +44,9 @@ export class LoginComponent implements OnInit {
             this.router.navigate(["/company"]).then(() => {
               this.reloadPage()})
           } else {
-            this.router.navigate(["/register"]).then(() => {
+            this.router.navigate(["/student"]).then(() => {
               this.reloadPage()})
           }
-
         },
         err => {
           this.errorMessage = err.error.message;

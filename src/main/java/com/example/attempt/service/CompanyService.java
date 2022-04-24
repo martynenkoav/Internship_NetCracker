@@ -13,4 +13,6 @@ public interface CompanyService {
 
     List<Company> getAll();
 
+    Company getByUserId(Long id);
+
 }

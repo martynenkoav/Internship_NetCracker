@@ -5,7 +5,6 @@ import 'rxjs';
 import {CompanyComponent} from "../company/company.component";
 import {map, Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
-import {InternshipModel} from "../model/internshipModel";
 import {TokenStorageService} from "./token-storage.service";
 
 
@@ -27,11 +26,26 @@ export class CompanyService {
   }
 
 
-  COMPANY_URL: string = 'http://localhost:8081/api/v1/company';
+  private COMPANY_URL: string = 'http://localhost:8081/api/v1/company';
 
-  public getCompanyById(id: number) {
-    return this.http.get(this.COMPANY_URL + "/" + id)
+  public getCompanyById(id: number): Observable<CompanyModel> {
+    return this.http.get<CompanyModel>(this.COMPANY_URL + "/" + id).pipe(
+      map((resp) => {
+        console.log(resp);
+        return resp;
+      })
+    )
   }
+
+
+  /*public getCompanyById(id: number): Observable<CompanyModel> {
+    return this.http.get<CompanyModel>(this.COMPANY_URL + "/" + id).pipe(
+      map((resp) => {
+        console.log(resp);
+        return resp;
+      })
+    )
+  }*/
 
   public getCompanies(): Observable<CompanyModel[]> {
 
@@ -43,8 +57,13 @@ export class CompanyService {
     );
   }
 
-  public postCompany(id: number, companyForm: CompanyModel) {
-    return this.http.post(this.COMPANY_URL + "/" + id, companyForm);
+ /* public postCompany(companyForm: CompanyModel) {
+
+    return this.http.post(this.COMPANY_URL, companyForm);
+  }*/
+
+  public postCompany(id: number, company: CompanyModel) {
+    return this.http.post(this.COMPANY_URL + "/" + id, company);
   }
 
   public patchCompany(companyForm: CompanyModel) {

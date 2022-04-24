@@ -13,12 +13,12 @@ import javax.persistence.*;
 @ToString
 public class Form extends BaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "student_id", foreignKey = @ForeignKey(name = "student_id"))
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "student_id")
     private Student student;
 
 
-    @ManyToOne
-    @JoinColumn(name = "internship_id", foreignKey = @ForeignKey(name = "internship_id"))
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "internship_id")
     private Internship internship;
 }

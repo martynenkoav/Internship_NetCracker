@@ -8,6 +8,8 @@ import {InternshipComponent} from "./internship/internship.component";
 import {RegisterComponent} from "./register/register.component";
 import {LoginComponent} from "./login/login.component";
 import {ProfileComponent} from "./profile/profile.component";
+import {Internship_add} from "./internship_add/internship_add";
+import {StudentComponent} from "./student/student.component";
 
 
 const routes: Routes = [
@@ -16,7 +18,9 @@ const routes: Routes = [
   {path: 'internship', component: InternshipComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'profile', component: ProfileComponent}
+  {path: 'profile', component: ProfileComponent},
+  {path: 'by_internship_id', component: Internship_add},
+  {path: 'student', component: StudentComponent}
 ];
 
 @NgModule({

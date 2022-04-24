@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {StudentModel} from "../model/studentModel";
+import {map, Observable} from "rxjs";
+import {readSpanComment} from "@angular/compiler-cli/src/ngtsc/typecheck/src/comments";
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +13,13 @@ export class StudentService {
 
   STUDENT_URL: string = 'http://localhost:8081/api/v1/student';
 
-  public getStudentById(id: number) {
-    return this.http.get(this.STUDENT_URL + "/" + id)
+  public getStudentById(id: number):Observable<StudentModel> {
+    return this.http.get<StudentModel>(this.STUDENT_URL + "/" + id).pipe(
+      map((resp)=>{
+        console.log(resp);
+        return resp;
+      })
+    )
   }
 
   public getStudents() {

@@ -1,6 +1,10 @@
 package com.example.attempt.rest;
 
+import com.example.attempt.model.Company;
 import com.example.attempt.model.Internship;
+import com.example.attempt.model.InternshipBuilder;
+import com.example.attempt.service.CompanyService;
+import com.example.attempt.service.CompanyServiceImpl;
 import com.example.attempt.service.InternshipServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +23,11 @@ public class InternshipRestControllerV1 {
 
     @Autowired
     private InternshipServiceImpl internshipService;
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+
+    @Autowired
+    private CompanyServiceImpl companyService;
+
+    /*@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Internship> getInternship(@PathVariable("id") Long internshipId) {
         if(internshipId == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -30,11 +38,22 @@ public class InternshipRestControllerV1 {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(internship,HttpStatus.OK);
-    }
+    }*/
 
     @RequestMapping(value="", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Internship> saveInternship(@RequestBody Internship internship){
+    public ResponseEntity<Internship> saveInternship(@RequestBody InternshipBuilder internshipBuilder){
         HttpHeaders headers = new HttpHeaders();
+
+        Internship internship = new Internship(
+                internshipBuilder.getDescription(),
+                internshipBuilder.getName());
+
+        Long company_id = internshipBuilder.getCompany_id();
+
+        Company company = new Company();
+        company.setId(company_id);
+
+        internship.setCompany(company);
 
         if(internship == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -75,4 +94,21 @@ public class InternshipRestControllerV1 {
         return new ResponseEntity<>(internships, HttpStatus.OK);
     }
 
+
+    @RequestMapping(value="{id}",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Internship>> getAllInternshipsByCompanyId(@PathVariable("id") Long userId){
+
+        Long companyId = this.companyService.getByUserId(userId).getId();
+
+        if(companyId == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        List<Internship> internships = this.internshipService.getAllByCompanyId(companyId);
+
+        if(internships.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(internships, HttpStatus.OK);
+    }
 }

@@ -13,15 +13,16 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/student")
 public class StudentRestControllerV1 {
 
     @Autowired
     private StudentServiceImpl studentService;
+
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Student> getStudent(@PathVariable("id") Long studentId) {
-        if(studentId == null){
+    public ResponseEntity<Student> getStudentByUserId(@PathVariable("id") Long userId) {
+        Long studentId = this.studentService.getByUserId(userId).getId();
+        if (userId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Student student = this.studentService.getById(studentId);

@@ -1,4 +1,8 @@
 export class StudentModel {
-  name: string;
-  description: string;
+  id: number;
+  first_name: string;
+  last_name: string;
+  patronymic: string;
+  email: string;
+  phone: string;
 }

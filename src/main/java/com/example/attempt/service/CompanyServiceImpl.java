@@ -41,5 +41,8 @@ public class CompanyServiceImpl implements CompanyService{
         return companyRepository.findAll();
     }
 
-
+    public Company getByUserId(Long id){
+        log.info("IN CompanyService getByUserId {}", id);
+        return companyRepository.getByUserId(id);
+    }
 }

@@ -1,92 +1,10 @@
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>bootstrap table search filter</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div class="container mt-3">
-  <div class="row">
-    <div class="col-md-8">
-      <h2>Filterable Table</h2>
-      <p>Just type something in the below input text field to search the table for first names, last names, emails,
-        Contact Number & Address:</p>
-      <input class="form-control" id="myInput" type="text" placeholder="Search..">
-      <br>
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th>Firstname</th>
-          <th>Lastname</th>
-          <th>Email</th>
-          <th>Contact Number</th>
-          <th>Address</th>
-        </tr>
-        </thead>
-        <tbody id="tableData">
-        <tr>
-          <td>Rahul</td>
-          <td>Singh</td>
-          <td>rahul@example.com</td>
-          <td>+91-0000000000</td>
-          <td>Uttar Pradesh</td>
-        </tr>
-        <tr>
-          <td>Ram</td>
-          <td>Singh</td>
-          <td>singh@example.com</td>
-          <td>+91-0000000000</td>
-          <td>Madhya Pradesh</td>
-        </tr>
-        <tr>
-          <td>Jai</td>
-          <td>Singh</td>
-          <td>jai@example.com</td>
-          <td>+91-0000000000</td>
-          <td>Madhya Pradesh</td>
-        </tr>
-        <tr>
-          <td>Aryan</td>
-          <td>Singh</td>
-          <td>singh@htmlcsstutorials.com</td>
-          <td>+91-0000000000</td>
-          <td>Uttar Pradesh</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-md-4"> Sidebar</div>
-  </div>
-</div>
-<script>
-  $(document).ready(function () {
-    $("#myInput").on("keyup", function () {
-      var value = $(this).val().toLowerCase();
-      $("#tableData tr").filter(function () {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
-  });
-</script>
-</body>
-</html>-->
-
-<head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-
 <section class="row-section">
+  <br>
   <div class="container">
     <div class="col-md-10 offset-md-1 row-block">
-      <input class="form-control" id="myInput" type="text" placeholder="Search..">
+      <input class="form-control" id="myInput" type="text" placeholder="Search.." (change)="filterList($event)">
       <br>
-        <ul id="sortable" *ngFor="let internship of internships">
+      <ul id="sortable" *ngFor="let internship of internships">
         <li>
           <div class="media">
             <div class="media-body">
@@ -107,16 +25,4 @@
     </div>
   </div>
 </section>
-
-
-<script>
-  $(document).ready(function () {
-    $("#myInput").on("keyup", function () {
-      var value = $(this).val().toLowerCase();
-      $("#sortable li").filter(function () {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
-  });
-</script>
 

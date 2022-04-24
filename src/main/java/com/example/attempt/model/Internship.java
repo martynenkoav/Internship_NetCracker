@@ -20,11 +20,19 @@ public class Internship extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne()
-    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "company_id"))
+    @ManyToOne
+    @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToMany()
+    /*@OneToMany()
     @JoinColumn(name = "forms")
-    private Set<Form> formSet;
+    private Set<Form> formSet;*/
+
+    public Internship(String description, String name) {
+        this.description = description;
+        this.name = name;
+    }
+
+    public Internship() {
+    }
 }

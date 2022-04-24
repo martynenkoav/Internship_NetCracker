@@ -20,12 +20,21 @@ public class Company extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne()
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "company_id"))
-    private User user;
+    @Column(name = "email")
+    private String email;
 
-    @OneToMany()
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "user_id")
+    private Long userId;
+
+    /*@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "company_id"))
+    private User user;*/
+
+   /* @OneToMany()
     @JoinColumn(name = "internships")
-    private Set<Internship> internshipSet;
+    private Set<Internship> internshipSet;*/
 
 }

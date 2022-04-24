@@ -1,21 +1,114 @@
-{{ companyForm | json }}
-<div class="container">
-  <form #companyFormSpy="ngForm">
-    <div class="form-group">
-      <label for="name">Company Name</label>
-      <input required id="name" #name="ngModel" type="text" [(ngModel)]="companyForm.name" class="form-control"  name="name">
-      <div class="alert alert-danger"[hidden]="name.valid || name.pristine">
-        Поле 'Имя' обязательно для заполнения
+<section class="row-section">
+  <div class="container rounded bg-white">
+    <div class="row">
+      <div class="col-md-3 border-right">
+        <!-- <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{company.name}}</span><span class="text-black-50">{{company.email}}</span><span> </span></div>-->
+        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+                                                                                     width="150px"
+                                                                                     src="https://content.freelancehunt.com/company/logo/225/3344.png"><span
+          class="font-weight-bold">{{company.name}}</span><span
+          class="text-black-50">{{company.email}}</span><span> </span></div>
+      </div>
+      <div class="col-md-6 border-right">
+        <div class="p-3 py-5">
+          <div class="d-flex justify-content-between align-items-center mb-6">
+            <h4 class="text-center">Настройки профиля компании</h4>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-12"><label class="labels">Название</label>
+              <input id="inputName" #name="ngModel" type="text" [(ngModel)]="company.name" class="form-control"
+                     name="name"></div>
+            <div class="col-md-12"><br><label class="labels">Описание</label>
+              <textarea id="inputDescription" #description="ngModel" type="text" [(ngModel)]="company.description"
+                        class="form-control" name="description"></textarea></div>
+            <div class="col-md-12"><br><br><label class="labels">Почта</label>
+              <input id="inputEmail" #email="ngModel" type="text" [(ngModel)]="company.email" class="form-control"
+                     name="email"></div>
+            <div class="col-md-12"><br><label class="labels">Адрес</label>
+              <textarea id="inputAddress" #address="ngModel" type="text" [(ngModel)]="company.address"
+                        class="form-control" name="address"></textarea></div>
+          </div>
+          <br>
+          <div class="mt-5 text-center"><a class="btn btn-default" (click)="postCompany()"> Сохранить изменения </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 m-5">
+        <div class="p-3 py-5">
+          <div class="d-flex justify-content-between align-items-center experience"><a class="btn btn-default"
+                                                                                       routerLink="/by_internship_id"><i
+            class="fa fa-plus"></i>&nbsp;Добавить стажировку</a></div>
+          <br>
+          <a class="btn btn-default" routerLink="/internship"> Просмотр всех стажировок </a>
+        </div>
       </div>
     </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <input required id="description" #description="ngModel" type="text" [(ngModel)]="companyForm.description" class="form-control"  name="description">
-      <div class="alert alert-danger"[hidden]="description.valid || description.pristine">
-        Поле 'Описание' обязательно для заполнения
-      </div>
+  </div>
+</section>
+
+
+<!--
+
+<section class="row-section">
+  <br>
+  <div class="container">
+    <div class="col-md-10 offset-md-1 row-block">
+      <h4>Настойки профиля</h4>
+      <form>
+
+        <div class="form-group row">
+          <label for="inputName" class="col-sm-2 col-form-label">Название</label>
+          <div class="col-sm-10">
+            <input id="inputName" #name="ngModel" type="text" [(ngModel)]="company.name"
+                   class="form-control"
+                   name="name">
+          </div>
+        </div>
+        <br>
+        <div class="form-group row">
+          <label for="inputDescription" class="col-sm-2 col-form-label">Описание</label>
+          <div class="col-sm-10">
+            <textarea id="inputDescription" #description="ngModel" type="text" [(ngModel)]="company.description"
+                      class="form-control" name="description"></textarea>
+          </div>
+        </div>
+        <br><br><br>
+        <div class="form-group row">
+          <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <input id="inputEmail" #email="ngModel" type="text" [(ngModel)]="company.email"
+                      class="form-control" name="email">
+          </div>
+        </div>
+        <br>
+        <div class="form-group row">
+          <label for="inputAddress" class="col-sm-2 col-form-label">Адрес</label>
+          <div class="col-sm-10">
+            <input id="inputAddress" #address="ngModel" type="text" [(ngModel)]="company.address"
+                      class="form-control" name="address">
+          </div>
+        </div>
+        <br>
+        <div class="form-group row">
+          <div class="media-right align-self-center">
+            <a class="btn btn-default" (click)="postCompany()"> Сохранить изменения </a>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row">
+          <div class="media-right align-self-center">
+            <a class="btn btn-default" routerLink="/internship"> Просмотр всех стажировок </a>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row">
+          <div class="media-right align-self-center">
+            <a class="btn btn-default" routerLink="/by_internship_id"> Добавить стажировку </a>
+          </div>
+        </div>
+      </form>
     </div>
-    <input type="submit" class="btn btn-success" [disabled]="!companyFormSpy.form.valid" (click)="onSubmit()" text="save">
-    <button type="button" (click)="cleanButtonClicked(); companyFormSpy.reset()" class="btn btn-light">delete</button>
-  </form>
-</div>
+  </div>
+</section>
+
+-->

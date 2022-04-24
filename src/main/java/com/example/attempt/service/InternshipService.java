@@ -12,4 +12,6 @@ public interface InternshipService {
     void delete(Long id);
 
     List<Internship> getAll();
+
+    List<Internship> getAllByCompanyId(Long id);
 }

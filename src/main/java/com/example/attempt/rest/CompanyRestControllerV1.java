@@ -23,8 +23,9 @@ public class CompanyRestControllerV1 {
 
     @PreAuthorize("hasRole('ROLE_COMPANY')")
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Company> getCompany(@PathVariable("id") Long companyId) {
-        if (companyId == null) {
+    public ResponseEntity<Company> getCompanyByUserId(@PathVariable("id") Long userId) {
+        Long companyId = this.companyService.getByUserId(userId).getId();
+        if (userId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Company company = this.companyService.getById(companyId);
@@ -35,29 +36,28 @@ public class CompanyRestControllerV1 {
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 
-  /*  @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Company> saveCompany(@RequestBody CompanyBuilder companyBuilder) {
+    @PreAuthorize("#id == authentication.principal.id")
+    @RequestMapping(value = "{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Company> saveCompany(@PathVariable long id, @RequestBody Company company) {
         HttpHeaders headers = new HttpHeaders();
 
-        if (companyBuilder == null) {
+        if (company == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        this.companyService.save(company);
+        return new ResponseEntity<>(company, headers, HttpStatus.CREATED);
+    }
 
+    /*@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Company> saveCompany(@RequestBody Company company) {
+        HttpHeaders headers = new HttpHeaders();
+
+        if (company == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         this.companyService.save(company);
         return new ResponseEntity<>(company, headers, HttpStatus.CREATED);
     }*/
-
-    @PreAuthorize("#id == authentication.principal.id")
-  @RequestMapping(value = "{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public ResponseEntity<Company> saveCompany(@PathVariable long id ,@RequestBody Company company) {
-      HttpHeaders headers = new HttpHeaders();
-
-      if (company == null) {
-          return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-      }
-      this.companyService.save(company);
-      return new ResponseEntity<>(company, headers, HttpStatus.CREATED);
-  }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Company> updateCompany(@RequestBody Company company, UriComponentsBuilder builder) {

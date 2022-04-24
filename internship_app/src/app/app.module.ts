@@ -19,6 +19,8 @@ import { LoginComponent } from './login/login.component';
 import {MatSelectModule} from "@angular/material/select";
 import {authInterceptorProviders} from "./auth.interceptor";
 import { ProfileComponent } from './profile/profile.component';
+import { Internship_add } from './internship_add/internship_add';
+import { StudentComponent } from './student/student.component';
 //import {MatInputModule} from "@angular/material/input";
 
 
@@ -32,7 +34,9 @@ import { ProfileComponent } from './profile/profile.component';
     NavComponent,
     RegisterComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    Internship_add,
+    StudentComponent
   ],
   imports: [
     BrowserModule,
