@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {CompanyModel} from "../model/companyModel";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CompanyService} from "../service/company.service";
 import {TokenStorageService} from "../service/token-storage.service";
 import {Router} from "@angular/router";
@@ -21,10 +21,10 @@ export class CompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.roles.includes('ROLE_COMPANY')) {
+  /*  if (!this.roles.includes('ROLE_COMPANY')) {
       this.router.navigate(["/register"])
         .then(r => console.log('You do not have the permission'));
-    }
+    }*/
     this.currentId = this.token.getUser().id;
     this.companyForm = {
       name: "",
@@ -33,7 +33,7 @@ export class CompanyComponent implements OnInit {
   }
 
   onSubmit() {
-      this.companyFormService.postCompany(this.companyForm).subscribe(
+      this.companyFormService.postCompany(1, this.companyForm).subscribe(
         () => console.log('Getting correctly'),
         error => console.warn(error)
       )

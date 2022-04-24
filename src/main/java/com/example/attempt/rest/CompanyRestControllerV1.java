@@ -15,13 +15,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@PreAuthorize("hasRole('ROLE_COMPANY')")
 @RequestMapping("/api/v1/company")
 public class CompanyRestControllerV1 {
 
     @Autowired
     private CompanyService companyService;
 
+    @PreAuthorize("hasRole('ROLE_COMPANY')")
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Company> getCompany(@PathVariable("id") Long companyId) {
         if (companyId == null) {
@@ -46,8 +46,10 @@ public class CompanyRestControllerV1 {
         this.companyService.save(company);
         return new ResponseEntity<>(company, headers, HttpStatus.CREATED);
     }*/
-  @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public ResponseEntity<Company> saveCompany(@RequestBody Company company) {
+
+    @PreAuthorize("#id == authentication.principal.id")
+  @RequestMapping(value = "{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public ResponseEntity<Company> saveCompany(@PathVariable long id ,@RequestBody Company company) {
       HttpHeaders headers = new HttpHeaders();
 
       if (company == null) {

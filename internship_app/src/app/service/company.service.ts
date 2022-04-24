@@ -6,6 +6,7 @@ import {CompanyComponent} from "../company/company.component";
 import {map, Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import {InternshipModel} from "../model/internshipModel";
+import {TokenStorageService} from "./token-storage.service";
 
 
 /*const headerDict = {
@@ -22,7 +23,7 @@ const requestOptions = {
   providedIn: 'root'
 })
 export class CompanyService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private token: TokenStorageService) {
   }
 
 
@@ -42,9 +43,8 @@ export class CompanyService {
     );
   }
 
-  public postCompany(companyForm: CompanyModel) {
-
-    return this.http.post(this.COMPANY_URL, companyForm);
+  public postCompany(id: number, companyForm: CompanyModel) {
+    return this.http.post(this.COMPANY_URL + "/" + id, companyForm);
   }
 
   public patchCompany(companyForm: CompanyModel) {

@@ -85,7 +85,9 @@ import {AuthService} from "../service/auth.service";
 
 export class RegisterComponent implements OnInit {
 
+  public roles: string[];
   public user: UserModel;
+  submitted = false;
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
@@ -94,8 +96,8 @@ export class RegisterComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.submitted = true;
     this.user = {
-      id: 10,
       username: "",
       password: "",
       role_id: 0
