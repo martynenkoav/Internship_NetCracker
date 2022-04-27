@@ -30,5 +30,5 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
-
+.btn-primary{background:#6B456A; color:#fff; border-radius:5px; border:none; font-size:16px;}
 

@@ -6,13 +6,13 @@ public class UserBuilder {
     private Long id;
     private String username;
     private String password;
-    private Long role_id;
+    private Long roleId;
 
-    UserBuilder(Long id, String username, String password, Long role_id){
+    UserBuilder(Long id, String username, String password, Long roleId){
         this.id = id;
         this.username = username;
         this.password = password;
-        this.role_id = role_id;
+        this.roleId = roleId;
     }
 
     public Long getId() {
@@ -40,10 +40,10 @@ public class UserBuilder {
     }
 
     public Long getRole() {
-        return role_id;
+        return roleId;
     }
 
-    public void setRole(Long role_id) {
-        this.role_id = role_id;
+    public void setRole(Long roleId) {
+        this.roleId = roleId;
     }
 }

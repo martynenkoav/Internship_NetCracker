@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {CompanyModel} from "../model/companyModel";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CompanyService} from "../service/company.service";
 import {TokenStorageService} from "../service/token-storage.service";
 import {Router} from "@angular/router";
@@ -22,7 +22,6 @@ export class CompanyComponent implements OnInit {
 */
   constructor(private companyService: CompanyService, private router: Router, private token: TokenStorageService) {
   }
-
 
   ngOnInit(): void {
     this.getCompany();

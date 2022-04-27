@@ -75,6 +75,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {DialogRole} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {AuthService} from "../service/auth.service";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import Validation from "./validation";
 
 @Component({
   selector: 'app-register',
@@ -84,6 +86,12 @@ import {AuthService} from "../service/auth.service";
 
 
 export class RegisterComponent implements OnInit {
+  form: FormGroup = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl(''),
+    confirmPassword: new FormControl(''),
+    roleId: new FormControl(''),
+  });
 
   public roles: string[];
   public user: UserModel;
@@ -92,30 +100,55 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
 
   ngOnInit(): void {
-    this.submitted = true;
     this.user = {
       username: "",
       password: "",
-      role_id: 0
+      roleId: 0
     }
-    /*this.role = {
-      id: 0,
-      name: ""
-    }*/
+    this.submitted = true;
+    this.form = this.formBuilder.group(
+      {
+        username: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(20)
+          ]
+        ],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(40)
+          ]
+        ],
+        confirmPassword: ['', Validators.required],
+        roleId: [0]
+      },
+      {
+        validators: [Validation.match('password', 'confirmPassword')]
+      }
+    );
+  }
+  get f(): { [key: string]: AbstractControl } {
+    return this.form.controls;
   }
 
   onSubmit(): void {
-    /*if (this.user.role_id == 2){
-      this.role.id = 2;
-      this.role.name = "ROLE_STUDENT"
-    } else {
-      this.role.id = 3;
-      this.role.name = "ROLE_COMPANY"
-    }*/
+    this.submitted = true;
+    if (this.form.invalid) {
+      return;
+    }
+    this.user.id = 0;
+    this.user.username = String(this.form.value.username);
+    this.user.password = String(this.form.value.password);
+    this.user.roleId = Number(this.form.value.roleId);
     this.authService.register(this.user).subscribe(
       data => {
         console.log(data);

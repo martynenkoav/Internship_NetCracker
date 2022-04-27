@@ -22,8 +22,15 @@
               <textarea id="inputDescription" #description="ngModel" type="text" [(ngModel)]="company.description"
                         class="form-control" name="description"></textarea></div>
             <div class="col-md-12"><br><br><label class="labels">Почта</label>
-              <input id="inputEmail" #email="ngModel" type="text" [(ngModel)]="company.email" class="form-control"
-                     name="email"></div>
+              <input id="inputEmail" #email="ngModel" type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                     [(ngModel)]="company.email" class="form-control"
+                     name="email">
+              <div *ngIf="email.errors &&(email.touched || email.dirty)" class ="alert alert-danger">
+                <div [hidden]="!email.errors?.['pattern']">
+                  Неверный формат почты
+                </div>
+              </div>
+            </div>
             <div class="col-md-12"><br><label class="labels">Адрес</label>
               <textarea id="inputAddress" #address="ngModel" type="text" [(ngModel)]="company.address"
                         class="form-control" name="address"></textarea></div>
