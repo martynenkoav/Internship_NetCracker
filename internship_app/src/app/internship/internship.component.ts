@@ -17,16 +17,17 @@ export class InternshipComponent implements OnInit {
   internships!: Array<InternshipModel>;
   internshipsWithoutFilt!: Array<InternshipModel>;
   company: CompanyModel;
+  roles: string[] = [];
+  hasAccess: boolean;
 
   currentUser: any;
 
 
   constructor(private internshipService: InternshipService, private companyService: CompanyService,
-              private token: TokenStorageService) {
+              private tokenStorage: TokenStorageService) {
   }
 
   ngOnInit(): void {
-
     this.internshipService.getInternships().subscribe(
       (response) => {
         console.log('Getting correctly');
@@ -35,10 +36,14 @@ export class InternshipComponent implements OnInit {
       },
       error => console.warn(error)
     )
+    this.roles = this.tokenStorage.getUser().roles;
+    if (this.roles.includes("ROLE_STUDENT")) {
+      this.hasAccess = true;
+    }
   }
 
   getCompanyById() {
-    this.companyService.getCompanyById(this.token.getUser().id).subscribe(
+    this.companyService.getCompanyById(this.tokenStorage.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
         this.company = response;

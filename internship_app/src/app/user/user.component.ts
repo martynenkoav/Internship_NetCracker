@@ -23,7 +23,7 @@ export class UserComponent implements OnInit {
       id: 10,
       username: "",
       password: "",
-      roleId: 1
+      role: ""
     }
   }
 

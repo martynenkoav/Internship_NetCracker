@@ -1,11 +1,14 @@
 package com.example.attempt.model;
 
+import com.example.attempt.EmailValidator;
+
 public class CompanyBuilder {
     private Long user_id;
     private String name;
     private String description;
     private String email;
     private String address;
+    private EmailValidator emailValidator;
 
     CompanyBuilder(Long id, String name, String description, String email, String address) {
         this.user_id = id;
@@ -37,6 +40,18 @@ public class CompanyBuilder {
 
     public void setDescription(String password) {
         this.description = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean emailValidationCheck() {
+        return emailValidator.validate(this.email);
     }
 
 }

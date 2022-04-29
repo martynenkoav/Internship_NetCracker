@@ -90,7 +90,7 @@ export class RegisterComponent implements OnInit {
     username: new FormControl(''),
     password: new FormControl(''),
     confirmPassword: new FormControl(''),
-    roleId: new FormControl(''),
+    role: new FormControl(''),
   });
 
   public roles: string[];
@@ -107,7 +107,7 @@ export class RegisterComponent implements OnInit {
     this.user = {
       username: "",
       password: "",
-      roleId: 0
+      role: ""
     }
     this.submitted = true;
     this.form = this.formBuilder.group(
@@ -129,7 +129,7 @@ export class RegisterComponent implements OnInit {
           ]
         ],
         confirmPassword: ['', Validators.required],
-        roleId: [0]
+        role: ['', Validators.required]
       },
       {
         validators: [Validation.match('password', 'confirmPassword')]
@@ -145,11 +145,7 @@ export class RegisterComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    this.user.id = 0;
-    this.user.username = String(this.form.value.username);
-    this.user.password = String(this.form.value.password);
-    this.user.roleId = Number(this.form.value.roleId);
-    this.authService.register(this.user).subscribe(
+    this.authService.register(this.form.value).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;

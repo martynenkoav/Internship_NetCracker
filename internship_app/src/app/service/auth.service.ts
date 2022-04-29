@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {UserModel} from "../model/userModel";
-import {FormControl} from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
 const AUTH_API = 'http://localhost:8080/api/auth';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,7 +15,8 @@ export class AuthService {
   login(user: UserModel): Observable<any> {
     return this.http.post('http://localhost:8081/api/auth/signin', user, httpOptions);
   }
-  register(user: UserModel): Observable<any> {
+
+    register(user: FormGroup): Observable<any> {
     return this.http.post('http://localhost:8081/api/auth', user, httpOptions);
   }
 }

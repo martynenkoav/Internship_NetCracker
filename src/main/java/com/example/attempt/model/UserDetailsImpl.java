@@ -2,17 +2,14 @@
 package com.example.attempt.model;
 
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-//import com.bezkoder.spring.security.postgresql.models.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import static java.util.stream.Collectors.toList;
+
+
 public class UserDetailsImpl implements UserDetails {
     private User user;
 
@@ -24,7 +21,7 @@ public class UserDetailsImpl implements UserDetails {
         this.user = user;
         this.isActive = true;
         grantedAuthorityList = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
     }
 

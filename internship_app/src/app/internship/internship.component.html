@@ -17,7 +17,8 @@
               <p class="mb-1">{{internship.description}}</p>
             </div>
             <div class="media-right align-self-center">
-              <a href="#" class="btn btn-default">Откликнуться</a>
+              <button href="#" class="btn btn-default" *ngIf="hasAccess; else elseBlock">Откликнуться</button>
+                <ng-template #elseBlock></ng-template>
             </div>
           </div>
         </li>

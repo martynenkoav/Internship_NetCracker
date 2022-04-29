@@ -1,14 +1,12 @@
-package com.example.attempt.security;
+package com.example.attempt.rest;
 
-import com.example.attempt.model.Role;
-import com.example.attempt.model.User;
-import com.example.attempt.model.UserBuilder;
-import com.example.attempt.model.UserDetailsImpl;
+import com.example.attempt.DTO.UserDTO;
+import com.example.attempt.model.*;
 import com.example.attempt.payload.JwtResponse;
 import com.example.attempt.payload.MessageResponse;
 import com.example.attempt.repository.RoleRepository;
 import com.example.attempt.repository.UserRepository;
-import com.example.attempt.service.UserService;
+import com.example.attempt.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,12 +36,11 @@ public class AuthController {
     RoleRepository roleRepository;
     @Autowired
     PasswordEncoder encoder;
-    @Autowired
-    private UserService userService;
+
     @Autowired
     JwtUtils jwtUtils;
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserBuilder userBuilder) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserDTO userBuilder) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userBuilder.getUsername(), userBuilder.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -59,31 +56,14 @@ public class AuthController {
                 roles));
     }
     @PostMapping("")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody UserBuilder userBuilder) {
-        if (userRepository.existsByUsername(userBuilder.getUsername())) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO userDTO) {
+        if (userRepository.existsByUsername(userDTO.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
         // Create new user's account
-        User user = new User(userBuilder.getUsername(),
-                encoder.encode(userBuilder.getPassword()));
-        Long roleId = userBuilder.getRole();
-        Set<Role> roles = new HashSet<>();
-        if (roleId == 1) {
-            Role adminRole = roleRepository.findByName("ROLE_ADMIN")
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(adminRole);
-        } else if (roleId == 2) {
-            Role studentRole = roleRepository.findByName("ROLE_STUDENT")
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(studentRole);
-        } else if (roleId == 3) {
-            Role companyRole = roleRepository.findByName("ROLE_COMPANY")
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(companyRole);
-        }
-        user.setRoles(roles);
+        User user = userDTO.toUser(roleRepository, encoder);
         userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }

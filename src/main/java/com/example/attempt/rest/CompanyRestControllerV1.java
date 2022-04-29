@@ -21,7 +21,7 @@ public class CompanyRestControllerV1 {
     @Autowired
     private CompanyService companyService;
 
-    @PreAuthorize("hasRole('ROLE_COMPANY')")
+
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Company> getCompanyByUserId(@PathVariable("id") Long userId) {
         Long companyId = this.companyService.getByUserId(userId).getId();

@@ -1,8 +1,7 @@
 package com.example.attempt.service;
 
+import com.example.attempt.DTO.UserDTO;
 import com.example.attempt.model.Role;
-import com.example.attempt.model.User;
-import com.example.attempt.model.UserBuilder;
 import com.example.attempt.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,8 +15,8 @@ public class RoleServiceImpl implements RoleService{
     }
 
     @Override
-    public Role getRoleFromBuilder(UserBuilder userbuilder){
-        return getById(userbuilder.getId());
+    public Role getRoleFromBuilder(UserDTO userDTO){
+        return getById(userDTO.getId());
     }
 
    /* @Override
