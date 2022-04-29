@@ -28,7 +28,7 @@ export class CompanyService {
 
   private COMPANY_URL: string = 'http://localhost:8081/api/v1/company';
 
-  public getCompanyById(id: number): Observable<CompanyModel> {
+  public getCompanyByUserId(id: number): Observable<CompanyModel> {
     return this.http.get<CompanyModel>(this.COMPANY_URL + "/" + id).pipe(
       map((resp) => {
         console.log(resp);
@@ -37,9 +37,8 @@ export class CompanyService {
     )
   }
 
-
-  /*public getCompanyById(id: number): Observable<CompanyModel> {
-    return this.http.get<CompanyModel>(this.COMPANY_URL + "/" + id).pipe(
+ /* getCompanyById(id: number): Observable<CompanyModel> {
+    return this.http.get<CompanyModel>(this.COMPANY_URL + "/" + id, id).pipe(
       map((resp) => {
         console.log(resp);
         return resp;
@@ -56,11 +55,6 @@ export class CompanyService {
       })
     );
   }
-
- /* public postCompany(companyForm: CompanyModel) {
-
-    return this.http.post(this.COMPANY_URL, companyForm);
-  }*/
 
   public postCompany(id: number, company: CompanyModel) {
     return this.http.post(this.COMPANY_URL + "/" + id, company);

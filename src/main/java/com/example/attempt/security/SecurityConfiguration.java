@@ -87,6 +87,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/auth").permitAll()
                 .antMatchers("/api/auth/signin").permitAll()
                 .antMatchers("/api/v1/internship").permitAll()
+                .antMatchers("/api/v1/internship/3").permitAll()
                 .anyRequest().authenticated();
                /* .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()*/
                 /*.and().logout().invalidateHttpSession(true).logoutUrl("/logout").permitAll()

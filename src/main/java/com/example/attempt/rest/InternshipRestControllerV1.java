@@ -1,7 +1,6 @@
 package com.example.attempt.rest;
 
 import com.example.attempt.DTO.InternshipDTO;
-import com.example.attempt.model.Company;
 import com.example.attempt.model.Internship;
 import com.example.attempt.service.CompanyServiceImpl;
 import com.example.attempt.service.InternshipServiceImpl;
@@ -53,20 +52,24 @@ public class InternshipRestControllerV1 {
         return new ResponseEntity<>(internship, headers, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("#id == authentication.principal.id")
-    @RequestMapping(value="",method=RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Internship> updateInternship(@RequestBody Internship internship, UriComponentsBuilder builder){
+
+    //@PreAuthorize("#id == authentication.principal.id")
+    @RequestMapping(value="{id}",method=RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Internship> updateInternship(@PathVariable Long id, @RequestBody InternshipDTO internshipDTO){
         HttpHeaders headers = new HttpHeaders();
+
+        Internship internship = this.internshipService.getById(id);
+
+        internship.setResponses(internshipDTO.getResponses());
 
         if (internship == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         this.internshipService.save(internship);
-
         return new ResponseEntity<>(internship, headers, HttpStatus.OK);
     }
 
-    @PreAuthorize("#id == authentication.principal.id")
+    //@PreAuthorize("#id == authentication.principal.id")
     @RequestMapping(value="{id}",method=RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Internship> deleteInternship (@PathVariable("id") Long id){
         Internship internship = this.internshipService.getById(id);
@@ -80,7 +83,6 @@ public class InternshipRestControllerV1 {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
     @RequestMapping(value="",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Internship>> getAllInternships(){
         List<Internship> internships = this.internshipService.getAll();
@@ -91,7 +93,7 @@ public class InternshipRestControllerV1 {
         return new ResponseEntity<>(internships, HttpStatus.OK);
     }
 
-    @PreAuthorize("#id == authentication.principal.id")
+    //@PreAuthorize("#id == authentication.principal.id")
     @RequestMapping(value="{id}",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Internship>> getAllInternshipsByCompanyId(@PathVariable("id") Long id){
 

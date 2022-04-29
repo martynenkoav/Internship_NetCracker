@@ -19,7 +19,7 @@ export class Internship_add implements OnInit {
 
   internship: InternshipModel;
 
-  company:CompanyModel;
+  company: CompanyModel;
 
   internshipForm!: FormGroup;
 
@@ -32,21 +32,20 @@ export class Internship_add implements OnInit {
   ngOnInit(): void {
     this.internshipForm = this.formBuilder.group({
       name: [''],
-      description: ['']
+      description: [''],
+      url: ['']
     })
-    this.getCompanyById();
 
-    this.loadInternships();
-  }
 
-  getCompanyById(){
-    this.companyService.getCompanyById(this.token.getUser().id).subscribe(
+    this.companyService.getCompanyByUserId(this.token.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
         this.company = response;
       },
       error => console.warn(error)
     )
+
+    this.loadInternships();
   }
 
   loadInternships() {
@@ -99,6 +98,8 @@ export class Internship_add implements OnInit {
     newInternship.name = internshipData.name;
     newInternship.description = internshipData.description;
     newInternship.company_id = this.company.id;
+    newInternship.url = internshipData.url;
+    newInternship.responses = 0;
 
     console.log(newInternship);
 

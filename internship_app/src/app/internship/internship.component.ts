@@ -24,7 +24,7 @@ export class InternshipComponent implements OnInit {
 
 
   constructor(private internshipService: InternshipService, private companyService: CompanyService,
-              private tokenStorage: TokenStorageService) {
+              private token: TokenStorageService) {
   }
 
   ngOnInit(): void {
@@ -36,25 +36,38 @@ export class InternshipComponent implements OnInit {
       },
       error => console.warn(error)
     )
-    this.roles = this.tokenStorage.getUser().roles;
+    this.roles = this.token.getUser().roles;
     if (this.roles.includes("ROLE_STUDENT")) {
       this.hasAccess = true;
     }
-    this.currentUser = this.tokenStorage.getUser();
-  }
-
-  getCompanyById() {
-    this.companyService.getCompanyById(this.tokenStorage.getUser().id).subscribe(
-      (response) => {
-        console.log('Getting correctly');
-        this.company = response;
-      },
-      error => console.warn(error)
-    )
+    this.currentUser = this.token.getUser();
   }
 
   filterList(event: any) {
     console.log(event);
     this.internships = this.internshipsWithoutFilt.filter(x => x.name.toLowerCase().includes(event.target.value.toLowerCase()));
+  }
+
+  goToTheLink(internship: InternshipModel) {
+
+    internship.responses = internship.responses + 1;
+
+    this.internshipService.patchInternship(internship.id, internship).subscribe(
+      () => console.log('Getting correctly'),
+      error => console.warn(error)
+    )
+    open(internship.url);
+  }
+
+  goToCompany(companyId: number) {
+
+    /*this.companyService.getCompanyById(companyId).subscribe(
+      (response) => {
+        console.log('Getting correctly');
+        this.company = response;
+      },
+      error => console.warn(error)
+    )*/
+
   }
 }

@@ -40,12 +40,12 @@ export class InternshipService {
     );
   }
 
-  public postInternship(id: Number, internshipForm: InternshipModel) {
-    return this.http.post(this.INTERNSHIP_URL+ "/" + id, internshipForm);
+  public postInternship(id: Number, internship: InternshipModel) {
+    return this.http.post(this.INTERNSHIP_URL+ "/" + id, internship);
   }
 
-  public patchInternship(internshipForm: InternshipModel) {
-    return this.http.patch(this.INTERNSHIP_URL, internshipForm)
+  public patchInternship(id: Number, internship: InternshipModel) {
+    return this.http.patch(this.INTERNSHIP_URL+ "/" + id, internship)
   }
 
   public deleteInternship(id: number) {

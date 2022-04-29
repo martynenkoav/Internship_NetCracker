@@ -12,4 +12,6 @@ export class InternshipModel {
   name: string;
   company_id: number;
   company: CompanyModel;
+  url: string;
+  responses: number;
 }

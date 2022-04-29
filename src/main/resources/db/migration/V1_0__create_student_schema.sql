@@ -53,6 +53,8 @@ CREATE TABLE IF NOT EXISTS internship
     company_id INTEGER,
     name VARCHAR,
     description VARCHAR,
+    url VARCHAR,
+    responses INTEGER,
     FOREIGN KEY (company_id) REFERENCES company (id)
 );
 

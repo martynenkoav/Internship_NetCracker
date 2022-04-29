@@ -43,7 +43,7 @@ public class StudentRestControllerV1 {
         this.studentService.save(student);
         return new ResponseEntity<>(student, headers, HttpStatus.CREATED);
     }
-    @RequestMapping(value="",method=RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value="",method=RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Student> updateStudent(@RequestBody Student student, UriComponentsBuilder builder){
         HttpHeaders headers = new HttpHeaders();
 

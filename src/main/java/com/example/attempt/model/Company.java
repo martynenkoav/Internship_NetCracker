@@ -26,12 +26,11 @@ public class Company extends BaseEntity {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "user_id")
-    private Long userId;
+    /*@Column(name = "user_id")
+    private Long userId;*/
 
-    /*@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "company_id"))
-    private User user;*/
+    @OneToOne(fetch = FetchType.LAZY)
+    private User user;
 
    /* @OneToMany()
     @JoinColumn(name = "internships")

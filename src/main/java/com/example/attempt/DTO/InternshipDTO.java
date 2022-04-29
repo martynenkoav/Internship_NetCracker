@@ -14,18 +14,24 @@ public class InternshipDTO {
     private String name;
     private String description;
     private Long company_id;
+    private String url;
+    private Long responses;
 
-    InternshipDTO(Long id, String name, String description, Long company_id){
+    InternshipDTO(Long id, String name, String description, Long company_id, String url, Long responses) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.company_id = company_id;
+        this.url = url;
+        this.responses = responses;
     }
 
-    public Internship toInternship(){
+    public Internship toInternship() {
         Internship internship = new Internship(
                 this.getDescription(),
-                this.getName());
+                this.getName(),
+                this.getUrl(),
+                this.getResponses());
 
         Long company_id = this.getCompany_id();
 

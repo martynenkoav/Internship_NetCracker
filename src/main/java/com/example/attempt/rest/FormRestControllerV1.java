@@ -41,7 +41,7 @@ public class FormRestControllerV1 {
         this.formService.save(form);
         return new ResponseEntity<>(form, headers, HttpStatus.CREATED);
     }
-    @RequestMapping(value="",method=RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value="",method=RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Form> updateForm(@RequestBody Form form, UriComponentsBuilder builder){
         HttpHeaders headers = new HttpHeaders();
 

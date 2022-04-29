@@ -16,29 +16,15 @@ export class CompanyComponent implements OnInit {
 
   public company: CompanyModel;
 
-  /*currentId: number;
-  public companyForm: CompanyModel;
-  roles: string[] = [];
-*/
   constructor(private companyService: CompanyService, private router: Router, private token: TokenStorageService) {
   }
 
   ngOnInit(): void {
     this.getCompany();
-    /*if (!this.roles.includes('ROLE_COMPANY')) {
-      this.router.navigate(["/register"])
-        .then(r => console.log('You do not have the permission'));
-    }
-    this.currentId = this.token.getUser().id;*/
-
-
-    /*this.company.id = this.token.getUser().id;
-    this.company.name = '';
-    this.company.description = '';*/
   }
 
   getCompany() {
-    this.companyService.getCompanyById(this.token.getUser().id).subscribe(
+    this.companyService.getCompanyByUserId(this.token.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
         this.company = response;
@@ -47,12 +33,6 @@ export class CompanyComponent implements OnInit {
     )
   }
 
- /* postCompany() {
-    this.companyService.postCompany(this.company).subscribe(
-      () => console.log('Getting correctly'),
-      error => console.warn(error)
-    )
-  }*/
   postCompany() {
     this.companyService.postCompany(this.token.getUser().id, this.company).subscribe(
       () => console.log('Getting correctly'),

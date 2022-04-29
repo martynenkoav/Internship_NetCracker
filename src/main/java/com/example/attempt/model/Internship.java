@@ -20,6 +20,12 @@ public class Internship extends BaseEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "url")
+    private String url;
+
+    @Column(name = "responses")
+    private Long responses;
+
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
@@ -28,9 +34,11 @@ public class Internship extends BaseEntity {
     @JoinColumn(name = "forms")
     private Set<Form> formSet;*/
 
-    public Internship(String description, String name) {
+    public Internship(String description, String name, String url, Long responses) {
         this.description = description;
         this.name = name;
+        this.url = url;
+        this.responses = responses;
     }
 
     public Internship() {
