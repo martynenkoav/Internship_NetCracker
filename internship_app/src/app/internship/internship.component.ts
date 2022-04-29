@@ -40,6 +40,7 @@ export class InternshipComponent implements OnInit {
     if (this.roles.includes("ROLE_STUDENT")) {
       this.hasAccess = true;
     }
+    this.currentUser = this.tokenStorage.getUser();
   }
 
   getCompanyById() {

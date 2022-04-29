@@ -2,12 +2,13 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {InternshipModel} from "../model/internshipModel";
 import {map, Observable, of} from 'rxjs';
+import {TokenStorageService} from "./token-storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class InternshipService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) {
   }
 
   INTERNSHIP_URL: string = 'http://localhost:8081/api/v1/internship';
@@ -39,8 +40,8 @@ export class InternshipService {
     );
   }
 
-  public postInternship(internshipForm: InternshipModel) {
-    return this.http.post(this.INTERNSHIP_URL, internshipForm);
+  public postInternship(id: Number, internshipForm: InternshipModel) {
+    return this.http.post(this.INTERNSHIP_URL+ "/" + id, internshipForm);
   }
 
   public patchInternship(internshipForm: InternshipModel) {

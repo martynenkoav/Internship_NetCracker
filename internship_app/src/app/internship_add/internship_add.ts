@@ -77,7 +77,7 @@ export class Internship_add implements OnInit {
   postInternship() {
     let newInternship = this.extractFormData();
 
-    this.internshipService.postInternship(newInternship).subscribe(
+    this.internshipService.postInternship(this.token.getUser().id, newInternship).subscribe(
       value => {
         console.log('Getting correctly');
         this.loadInternships();

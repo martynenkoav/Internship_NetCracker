@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -41,8 +42,8 @@ public class InternshipRestControllerV1 {
     }*/
 
     @PreAuthorize("#id == authentication.principal.id")
-    @RequestMapping(value="", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Internship> saveInternship(@RequestBody InternshipDTO internshipDTO){
+    @RequestMapping(value="{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Internship> saveInternship(@PathVariable("id") Long id, @RequestBody InternshipDTO internshipDTO){
         HttpHeaders headers = new HttpHeaders();
         Internship internship = internshipDTO.toInternship();
         if(internship == null){
@@ -92,9 +93,9 @@ public class InternshipRestControllerV1 {
 
     @PreAuthorize("#id == authentication.principal.id")
     @RequestMapping(value="{id}",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Internship>> getAllInternshipsByCompanyId(@PathVariable("id") Long userId){
+    public ResponseEntity<List<Internship>> getAllInternshipsByCompanyId(@PathVariable("id") Long id){
 
-        Long companyId = this.companyService.getByUserId(userId).getId();
+        Long companyId = this.companyService.getByUserId(id).getId();
 
         if(companyId == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
