@@ -1,28 +1,3 @@
-{{ user | json }}
-<!--
-<div class="container">
-  <form #companyFormSpy="ngForm">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input required id="username" #name="ngModel" type="text" [(ngModel)]="user.username" class="form-control"  name="username">
-      <div class="alert alert-danger"[hidden]="name.valid || name.pristine">
-        Поле 'Имя' обязательно для заполнения
-      </div>
-
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input required id="password" #password="ngModel" type="text" [(ngModel)]="user.password" class="form-control"  name="password">
-      <div class="alert alert-danger"[hidden]="password.valid || password.pristine">
-        Поле 'Пароль' обязательно для заполнения
-      </div>
-    </div>
-    <input type="submit" class="btn btn-success" (click)="onSubmit()" text="save">
-    <button type="button" (click)="cleanButtonClicked(); companyFormSpy.reset()" class="btn btn-light">delete</button>
-  </form>
-</div>
--->
-
 <div class="col-md-12">
   <div class="card card-container">
     <img
@@ -35,8 +10,7 @@
       name="form"
       (ngSubmit)="f.form.valid && onSubmit()"
       #f="ngForm"
-      novalidate
-    >
+      novalidate>
       <div class="form-group">
         <label for="username">Имя пользователя</label>
         <input
@@ -51,8 +25,7 @@
         <div
           class="alert alert-danger"
           role="alert"
-          *ngIf="username.errors && f.submitted"
-        >
+          *ngIf="username.errors && f.submitted">
           Имя пользователя обязательно для заполнения!
         </div>
       </div>
@@ -71,8 +44,7 @@
         <div
           class="alert alert-danger"
           role="alert"
-          *ngIf="password.errors && f.submitted"
-        >
+          *ngIf="password.errors && f.submitted">
           <div *ngIf="password.errors['required']">Password is required</div>
           <div *ngIf="password.errors['minlength']">
             Пароль должен содержать не менее 6 символов
@@ -88,8 +60,7 @@
         <div
           class="alert alert-danger"
           role="alert"
-          *ngIf="f.submitted && isLoginFailed"
-        >
+          *ngIf="f.submitted && isLoginFailed">
           Ошибка входа: {{ errorMessage }}
         </div>
       </div>

@@ -1,33 +1,3 @@
-{{ form.value | json }}
-{{ user | json }}
-<!--<div class="container">
-  <form #companyFormSpy="ngForm">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input required id="username" #name="ngModel" type="text" [(ngModel)]="user.username" class="form-control"  name="username">
-      <div class="alert alert-danger" [hidden]="name.valid || name.pristine">
-        Поле 'Имя' обязательно для заполнения
-      </div>
-
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input required id="password" #password="ngModel" type="text" [(ngModel)]="user.password" class="form-control"  name="password">
-      <div class="alert alert-danger" [hidden]="password.valid || password.pristine">
-        Поле 'Пароль' обязательно для заполнения
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="select">Please choose the role</label>
-      <select id="select" [(ngModel)] = "user.role_id"  name = "role">
-        <option type="radio" value="2">Student</option>>
-        <option type="radio" value="3">Company</option>
-      </select>
-    </div>
-    <input type="submit" class="btn btn-success" (click)="onSubmit()" text="save">
-    <button type="button" (click)="cleanButtonClicked(); companyFormSpy.reset()" class="btn btn-light">delete</button>
-  </form>
-</div>-->
 <div class="col-md-12">
   <div class="card card-container">
     <img
@@ -83,8 +53,7 @@
           />
           <div
             *ngIf="submitted && f['confirmPassword'].errors"
-            class="invalid-feedback"
-          >
+            class="invalid-feedback">
             <div *ngIf="f['confirmPassword'].errors['required']">
               Confirm Password is required
             </div>
@@ -95,7 +64,7 @@
         </div>
         <div class="form-group">
           <label for="select">Роль</label>
-          <select id="select" [(ngModel)] = "f['role']" formControlName="role"
+          <select id="select" [(ngModel)]="f['role']" formControlName="role"
                   class="form-control" [ngClass]="{ 'is-invalid': submitted && f['role'].errors}">
             <option type="radio" value="student">Студент</option>
             <option type="radio" value="company">Компания</option>
@@ -106,13 +75,12 @@
         </div>
         <div class="form-group">
           <button type="submit" (click)="onSubmit()" class="btn btn-primary">Register</button>
-          <!--<button type="button" (click)="cleanButtonClicked()"  class="btn btn-warning float-right">Reset</button>-->
         </div>
       </form>
     </div>
-      <div class="alert alert-warning" *ngIf="submitted && isSignUpFailed">
-        Вход не выполнен!<br />{{ errorMessage }}
-      </div>
+    <div class="alert alert-warning" *ngIf="submitted && isSignUpFailed">
+      Вход не выполнен!<br/>{{ errorMessage }}
+    </div>
     <div class="alert alert-success" *ngIf="isSuccessful">
       Вход выполнен успешно!
     </div>

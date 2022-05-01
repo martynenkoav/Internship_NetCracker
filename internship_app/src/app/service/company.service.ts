@@ -37,14 +37,14 @@ export class CompanyService {
     )
   }
 
- /* getCompanyById(id: number): Observable<CompanyModel> {
-    return this.http.get<CompanyModel>(this.COMPANY_URL + "/" + id, id).pipe(
-      map((resp) => {
-        console.log(resp);
-        return resp;
-      })
-    )
-  }*/
+  /* getCompanyById(id: number): Observable<CompanyModel> {
+     return this.http.get<CompanyModel>(this.COMPANY_URL + "/" + id, id).pipe(
+       map((resp) => {
+         console.log(resp);
+         return resp;
+       })
+     )
+   }*/
 
   public getCompanies(): Observable<CompanyModel[]> {
 
