@@ -1,9 +1,7 @@
 package com.example.attempt.security;
 
-import java.security.SignatureException;
 import java.util.Date;
 
-import com.example.attempt.model.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

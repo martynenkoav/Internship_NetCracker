@@ -1,7 +1,7 @@
 package com.example.attempt.rest;
 
+import com.example.attempt.security.EmailValidator;
 import com.example.attempt.model.Company;
-import com.example.attempt.model.CompanyBuilder;
 import com.example.attempt.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/company")
@@ -55,7 +53,10 @@ public class CompanyRestControllerV1 {
     public ResponseEntity<Company> saveCompany(@PathVariable long id, @RequestBody Company company) {
         HttpHeaders headers = new HttpHeaders();
 
-        if (company == null) {
+        if (company == null)  {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (!EmailValidator.validate(company.getEmail(), EmailValidator.EMAIL_PATTERN)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         this.companyService.save(company);
@@ -77,9 +78,10 @@ public class CompanyRestControllerV1 {
     public ResponseEntity<Company> updateCompany(@RequestBody Company company, UriComponentsBuilder builder) {
         HttpHeaders headers = new HttpHeaders();
 
-        if (company == null) {
+        if (company == null)  {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
         this.companyService.save(company);
 
         return new ResponseEntity<>(company, headers, HttpStatus.OK);

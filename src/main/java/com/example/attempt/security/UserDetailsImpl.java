@@ -1,13 +1,17 @@
 
-package com.example.attempt.model;
+package com.example.attempt.security;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.attempt.model.User;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 
 
 public class UserDetailsImpl implements UserDetails {
@@ -30,23 +34,35 @@ public class UserDetailsImpl implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() { return grantedAuthorityList; }
 
     @Override
-    public String getPassword() { return this.user.getPassword(); }
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
 
 
     @Override
-    public String getUsername() { return this.user.getUsername(); }
+    public boolean isAccountNonExpired() {
+        return false;
+    }
 
     @Override
-    public boolean isAccountNonExpired() { return this.isActive; }
+    public boolean isAccountNonLocked() {
+        return false;
+    }
 
     @Override
-    public boolean isAccountNonLocked() { return true; }
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
 
     @Override
-    public boolean isCredentialsNonExpired() { return true; }
-
-    @Override
-    public boolean isEnabled() { return true; }
+    public boolean isEnabled() {
+        return false;
+    }
 
     public Long getId() {
         return this.user.getId();

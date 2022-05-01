@@ -7,6 +7,7 @@ import com.example.attempt.payload.MessageResponse;
 import com.example.attempt.repository.RoleRepository;
 import com.example.attempt.repository.UserRepository;
 import com.example.attempt.security.JwtUtils;
+import com.example.attempt.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,9 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -62,7 +61,6 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
-        // Create new user's account
         User user = userDTO.toUser(roleRepository, encoder);
         userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

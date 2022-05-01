@@ -1,3 +1,4 @@
+{{ form.value | json }}
 <div class="col-md-12">
   <div class="card card-container">
     <img
@@ -8,73 +9,73 @@
     <div class="register-form">
       <form [formGroup]="form">
         <div class="form-group">
-          <label>Username</label>
+          <label>Имя пользователя</label>
           <input
             type="text"
             formControlName="username"
             class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"
+            [ngClass]="{ 'is-invalid': f['username'].errors }"
           />
-          <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
-            <div *ngIf="f['username'].errors['required']">Username is required</div>
+          <div *ngIf="f['username'].errors" class="invalid-feedback">
+            <div *ngIf="f['username'].errors['required']">Поле обязательно для заполнения</div>
             <div *ngIf="f['username'].errors['minlength']">
-              Username must be at least 6 characters
+              Имя пользователя должно содержать более 6 символов
             </div>
             <div *ngIf="f['username'].errors['maxlength']">
-              Username must not exceed 20 characters
+              Имя пользователя не должно превышать 20 символов
             </div>
           </div>
         </div>
         <div class="form-group">
-          <label>Password</label>
+          <label>Пароль</label>
           <input
             type="password"
             formControlName="password"
             class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+            [ngClass]="{ 'is-invalid': f['password'].errors}"
           />
-          <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-            <div *ngIf="f['password'].errors['required']">Password is required</div>
+          <div *ngIf="f['password'].errors" class="invalid-feedback">
+            <div *ngIf="f['password'].errors['required']">Поле обязательно для заполнения</div>
             <div *ngIf="f['password'].errors['minlength']">
-              Password must be at least 6 characters
+              Пароль должен содержать более 6 символов
             </div>
             <div *ngIf="f['password'].errors['maxlength']">
-              Username must not exceed 40 characters
+              Пароль не должен превышать 40 символов
             </div>
           </div>
         </div>
         <div class="form-group">
-          <label>Confirm Password</label>
+          <label>Подтверждение пароля</label>
           <input
             type="password"
             formControlName="confirmPassword"
             class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }"
+            [ngClass]="{ 'is-invalid': f['confirmPassword'].errors }"
           />
           <div
-            *ngIf="submitted && f['confirmPassword'].errors"
+            *ngIf="f['confirmPassword'].errors"
             class="invalid-feedback">
             <div *ngIf="f['confirmPassword'].errors['required']">
-              Confirm Password is required
+              Поле обязательно для заполнения
             </div>
             <div *ngIf="f['confirmPassword'].errors['matching']">
-              Confirm Password does not match
+              Пароли не совпадают
             </div>
           </div>
         </div>
         <div class="form-group">
           <label for="select">Роль</label>
-          <select id="select" [(ngModel)]="f['role']" formControlName="role"
+          <select id="select" formControlName="role"
                   class="form-control" [ngClass]="{ 'is-invalid': submitted && f['role'].errors}">
             <option type="radio" value="student">Студент</option>
             <option type="radio" value="company">Компания</option>
           </select>
           <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">
-            <div *ngIf="f['role'].errors['required']">Role is required</div>
+            <div *ngIf="f['role'].errors['required']">Необходимо выбрать роль пользователя</div>
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" (click)="onSubmit()" class="btn btn-primary">Register</button>
+          <button type="submit" (click)="onSubmit()" class="btn btn-primary">Регистрация</button>
         </div>
       </form>
     </div>
@@ -86,3 +87,4 @@
     </div>
   </div>
 </div>
+

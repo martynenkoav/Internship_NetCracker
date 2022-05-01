@@ -1,8 +1,8 @@
-package com.example.attempt.model;
+package com.example.attempt.DTO;
 
-import com.example.attempt.EmailValidator;
+import com.example.attempt.security.EmailValidator;
 
-public class CompanyBuilder {
+public class CompanyDTO {
     private Long user_id;
     private String name;
     private String description;
@@ -10,7 +10,7 @@ public class CompanyBuilder {
     private String address;
     private EmailValidator emailValidator;
 
-    CompanyBuilder(Long id, String name, String description, String email, String address) {
+    CompanyDTO(Long id, String name, String description, String email, String address) {
         this.user_id = id;
         this.name = name;
         this.description = description;
@@ -50,8 +50,8 @@ public class CompanyBuilder {
         this.email = email;
     }
 
-    public boolean emailValidationCheck() {
+  /*  public boolean emailValidationCheck() {
         return emailValidator.validate(this.email);
     }
-
+*/
 }

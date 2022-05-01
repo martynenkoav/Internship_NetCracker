@@ -9,9 +9,4 @@ public interface RoleService {
 
     Role getRoleFromBuilder(UserDTO userDTO);
 
-   /* Role findByRoleName(String name);*/
-
-   /* void save(Role role);
-
-    void delete(Long id);*/
 }

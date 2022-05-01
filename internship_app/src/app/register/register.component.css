@@ -1,5 +1,5 @@
 html{
-  background: linear-gradient(to bottom, #734b6d, #42275a);
+  background: linear-gradient(to bottom, #734b6d, #42275a) fixed;
 }
 
 
@@ -36,4 +36,6 @@ label {
   border-radius: 50%;
 }
 .btn-primary{background:#6B456A; color:#fff; border-radius:5px; border:none; font-size:16px;}
+
+
 

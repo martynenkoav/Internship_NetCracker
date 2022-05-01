@@ -1,5 +1,6 @@
 package com.example.attempt.rest;
 
+import com.example.attempt.security.EmailValidator;
 import com.example.attempt.model.Student;
 import com.example.attempt.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ public class StudentRestControllerV1 {
         HttpHeaders headers = new HttpHeaders();
 
         if(student == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (!EmailValidator.validate(student.getEmail(), EmailValidator.EMAIL_PATTERN)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         this.studentService.save(student);

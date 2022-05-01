@@ -1,7 +1,7 @@
 package com.example.attempt.service;
 
 import com.example.attempt.model.User;
-import com.example.attempt.model.UserDetailsImpl;
+import com.example.attempt.security.UserDetailsImpl;
 import com.example.attempt.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

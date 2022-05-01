@@ -49,16 +49,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-   /* @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService());
-    }*/
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 
    @Bean
@@ -89,9 +84,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/internship").permitAll()
                 .antMatchers("/api/v1/internship/3").permitAll()
                 .anyRequest().authenticated();
-               /* .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()*/
-                /*.and().logout().invalidateHttpSession(true).logoutUrl("/logout").permitAll()
-                .and().httpBasic();*/
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }

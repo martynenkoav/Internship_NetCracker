@@ -45,4 +45,5 @@ public class CompanyServiceImpl implements CompanyService{
         log.info("IN CompanyService getByUserId {}", id);
         return companyRepository.getByUserId(id);
     }
+
 }

@@ -7,10 +7,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { CompanyComponent } from './company/company.component';
 import { CompanyService } from './service/company.service';
-import { CompanyModel } from "./model/companyModel";
 import {HttpClientModule} from "@angular/common/http";
-import { RouterModule, Routes } from '@angular/router';
-import { UserComponent } from './user/user.component';
 import { InternshipComponent } from './internship/internship.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
@@ -18,10 +15,9 @@ import {RegisterService} from "./service/register.service";
 import { LoginComponent } from './login/login.component';
 import {MatSelectModule} from "@angular/material/select";
 import {authInterceptorProviders} from "./auth.interceptor";
-import { ProfileComponent } from './profile/profile.component';
 import { Internship_add } from './internship_add/internship_add';
 import { StudentComponent } from './student/student.component';
-//import {MatInputModule} from "@angular/material/input";
+
 
 
 
@@ -29,12 +25,10 @@ import { StudentComponent } from './student/student.component';
   declarations: [
     AppComponent,
     CompanyComponent,
-    UserComponent,
     InternshipComponent,
     NavComponent,
     RegisterComponent,
     LoginComponent,
-    ProfileComponent,
     Internship_add,
     StudentComponent
   ],
