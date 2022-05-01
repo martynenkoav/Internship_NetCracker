@@ -13,15 +13,6 @@ export class InternshipService {
 
   INTERNSHIP_URL: string = 'http://localhost:8081/api/v1/internship';
 
-  /*public getInternshipById(id: number):Observable<InternshipModel> {
-    return this.http.get<InternshipModel>(this.INTERNSHIP_URL + "/" + id).pipe(
-      map((resp)=>{
-        console.log(resp);
-        return resp;
-      })
-    )
-  }*/
-
   public getInternshipsByCompanyId(id: number): Observable<InternshipModel[]> {
     return this.http.get<InternshipModel[]>(this.INTERNSHIP_URL + "/" + id).pipe(
       map((resp) => {
@@ -41,11 +32,11 @@ export class InternshipService {
   }
 
   public postInternship(id: Number, internship: InternshipModel) {
-    return this.http.post(this.INTERNSHIP_URL+ "/" + id, internship);
+    return this.http.post(this.INTERNSHIP_URL + "/" + id, internship);
   }
 
   public patchInternship(id: Number, internship: InternshipModel) {
-    return this.http.patch(this.INTERNSHIP_URL+ "/" + id, internship)
+    return this.http.patch(this.INTERNSHIP_URL + "/" + id, internship)
   }
 
   public deleteInternship(id: number) {

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {StudentService} from "../service/student.service";
-import {TokenStorageService} from "../service/token-storage.service";
-import {StudentModel} from "../model/studentModel";
+import {StudentService} from "../../service/student.service";
+import {TokenStorageService} from "../../service/token-storage.service";
+import {StudentModel} from "../../model/studentModel";
 
 @Component({
   selector: 'app-student',

@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {InternshipModel} from "../model/internshipModel";
-import {InternshipService} from "../service/internship.service";
+import {InternshipModel} from "../../model/internshipModel";
+import {InternshipService} from "../../service/internship.service";
 import {NULL_AS_ANY} from "@angular/compiler-cli/src/ngtsc/typecheck/src/expression";
-import {CompanyModel} from "../model/companyModel";
+import {CompanyModel} from "../../model/companyModel";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {TokenStorageService} from "../service/token-storage.service";
-import {CompanyService} from "../service/company.service";
+import {TokenStorageService} from "../../service/token-storage.service";
+import {CompanyService} from "../../service/company.service";
 
 @Component({
   selector: 'app-internships-by-comp-id',

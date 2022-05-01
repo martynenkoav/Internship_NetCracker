@@ -61,6 +61,7 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
+        // Create new user's account
         User user = userDTO.toUser(roleRepository, encoder);
         userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

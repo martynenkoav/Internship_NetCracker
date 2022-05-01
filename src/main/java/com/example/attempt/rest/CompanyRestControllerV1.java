@@ -19,9 +19,8 @@ public class CompanyRestControllerV1 {
     @Autowired
     private CompanyService companyService;
 
-    // Не знаю как сделать правильно
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Company> getCompanyById(@RequestBody Long id) {
+    @RequestMapping(value = "/company_id/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Company> getCompanyById(@PathVariable("id")  Long id) {
 
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -63,17 +62,6 @@ public class CompanyRestControllerV1 {
         return new ResponseEntity<>(company, headers, HttpStatus.CREATED);
     }
 
-    /*@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Company> saveCompany(@RequestBody Company company) {
-        HttpHeaders headers = new HttpHeaders();
-
-        if (company == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        this.companyService.save(company);
-        return new ResponseEntity<>(company, headers, HttpStatus.CREATED);
-    }*/
-
     @RequestMapping(value = "", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Company> updateCompany(@RequestBody Company company, UriComponentsBuilder builder) {
         HttpHeaders headers = new HttpHeaders();
@@ -99,14 +87,4 @@ public class CompanyRestControllerV1 {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-    /*@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Company>> getAllCompanies() {
-        List<Company> companies = this.companyService.getAll();
-
-        if (companies.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(companies, HttpStatus.OK);
-    }*/
 }

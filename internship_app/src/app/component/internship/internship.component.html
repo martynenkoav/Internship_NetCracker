@@ -1,0 +1,41 @@
+<section class="row-section">
+  <br>
+  <div class="container">
+    <div class="col-md-10 offset-md-1 row-block">
+      <input class="form-control" id="myInput" type="text" placeholder="Search.." (change)="filterList($event)">
+      <br>
+      <ul id="sortable" *ngFor="let internship of internships">
+        <li>
+          <div class="media">
+            <div class="media-body">
+              <div class="d-flex w-100 justify-content-between">
+                <h4 class="mb-1">{{internship.name}}</h4>
+              </div>
+              <pre></pre>
+              <div class="d-flex w-100 justify-content-between" data-toggle="tooltip" title="Нажмите на компанию чтобы посмотреть информацию">
+                <h5 class="mb-1" (click)="goToCompany(internship.company.id)"
+                    *ngIf="hasAccess; else elseBlock">{{internship.company.name}}</h5>
+              </div>
+              <pre></pre>
+              <p class="mb-1">{{internship.description}}</p>
+            </div>
+            <pre></pre>
+            <div class="media-right align-self-center">
+              <button href="#" class="btn btn-default" (click)="goToTheLink(internship)"
+                      *ngIf="isStudent">Откликнуться
+              </button>
+              <ng-template #elseBlock>{{internship.company.name}}</ng-template>
+            </div>
+          </div>
+        </li>
+        <br>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  $('[data-toggle="tooltip"]').tooltip({
+    placement: 'right',
+  });
+</script>

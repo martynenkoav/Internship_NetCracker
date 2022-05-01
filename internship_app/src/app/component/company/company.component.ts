@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {CompanyModel} from "../model/companyModel";
+import {CompanyModel} from "../../model/companyModel";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {CompanyService} from "../service/company.service";
-import {TokenStorageService} from "../service/token-storage.service";
+import {CompanyService} from "../../service/company.service";
+import {TokenStorageService} from "../../service/token-storage.service";
 import {Router} from "@angular/router";
 
 

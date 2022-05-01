@@ -41,11 +41,11 @@ public class InternshipRestControllerV1 {
     }*/
 
     @PreAuthorize("#id == authentication.principal.id")
-    @RequestMapping(value="{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Internship> saveInternship(@PathVariable("id") Long id, @RequestBody InternshipDTO internshipDTO){
+    @RequestMapping(value = "{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Internship> saveInternship(@PathVariable("id") Long id, @RequestBody InternshipDTO internshipDTO) {
         HttpHeaders headers = new HttpHeaders();
         Internship internship = internshipDTO.toInternship();
-        if(internship == null){
+        if (internship == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         this.internshipService.save(internship);
@@ -53,16 +53,16 @@ public class InternshipRestControllerV1 {
     }
 
 
-    //@PreAuthorize("#id == authentication.principal.id")
-    @RequestMapping(value="{id}",method=RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Internship> updateInternship(@PathVariable Long id, @RequestBody InternshipDTO internshipDTO){
+    @PreAuthorize("#id == authentication.principal.id")
+    @RequestMapping(value = "{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Internship> updateInternship(@PathVariable Long id, @RequestBody InternshipDTO internshipDTO) {
         HttpHeaders headers = new HttpHeaders();
 
-        Internship internship = this.internshipService.getById(id);
+        Internship internship = this.internshipService.getById(internshipDTO.getId());
 
         internship.setResponses(internshipDTO.getResponses());
 
-        if (internship == null){
+        if (internship == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         this.internshipService.save(internship);
@@ -70,11 +70,11 @@ public class InternshipRestControllerV1 {
     }
 
     //@PreAuthorize("#id == authentication.principal.id")
-    @RequestMapping(value="{id}",method=RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Internship> deleteInternship (@PathVariable("id") Long id){
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Internship> deleteInternship(@PathVariable("id") Long id) {
         Internship internship = this.internshipService.getById(id);
 
-        if(internship == null){
+        if (internship == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -83,29 +83,29 @@ public class InternshipRestControllerV1 {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value="",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Internship>> getAllInternships(){
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Internship>> getAllInternships() {
         List<Internship> internships = this.internshipService.getAll();
 
-        if(internships.isEmpty()){
+        if (internships.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(internships, HttpStatus.OK);
     }
 
     //@PreAuthorize("#id == authentication.principal.id")
-    @RequestMapping(value="{id}",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Internship>> getAllInternshipsByCompanyId(@PathVariable("id") Long id){
+    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Internship>> getAllInternshipsByCompanyId(@PathVariable("id") Long id) {
 
         Long companyId = this.companyService.getByUserId(id).getId();
 
-        if(companyId == null){
+        if (companyId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         List<Internship> internships = this.internshipService.getAllByCompanyId(companyId);
 
-        if(internships.isEmpty()){
+        if (internships.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(internships, HttpStatus.OK);

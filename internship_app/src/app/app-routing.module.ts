@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {CompanyComponent} from "./company/company.component";
-import {InternshipComponent} from "./internship/internship.component";
-import {RegisterComponent} from "./register/register.component";
-import {LoginComponent} from "./login/login.component";
-import {Internship_add} from "./internship_add/internship_add";
-import {StudentComponent} from "./student/student.component";
-import {AppComponent} from "./app.component";
+import {CompanyComponent} from "./component/company/company.component";
+import {InternshipComponent} from "./component/internship/internship.component";
+import {RegisterComponent} from "./component/register/register.component";
+import {LoginComponent} from "./component/login/login.component";
+import {Internship_add} from "./component/internship_add/internship_add";
+import {StudentComponent} from "./component/student/student.component";
 
 const routes: Routes = [
   {path: '', component: InternshipComponent},

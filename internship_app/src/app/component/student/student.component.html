@@ -4,9 +4,8 @@
       <div class="col-md-3 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
                                                                                      width="150px"
-                                                                                     src="../../assets/images/studentProfile.jpg"><span
-          class="font-weight-bold">{{student.first_name}}</span><span
-          class="text-black-50">{{student.email}}</span><span> </span></div>
+                                                                                     src="../../../assets/images/studentProfile.jpg">
+        </div>
       </div>
       <div class="col-md-6 border-right">
         <div class="p-3 py-5">
@@ -30,7 +29,7 @@
               <input id="inputEmail" #email="ngModel" type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                      [(ngModel)]="student.email" class="form-control"
                      name="email">
-              <div *ngIf="email.errors &&(email.touched || email.dirty)" class ="alert alert-danger">
+              <div *ngIf="email.errors &&(email.touched || email.dirty)" class="alert alert-danger">
                 <div [hidden]="!email.errors?.['pattern']">
                   Неверный формат почты
                 </div>
