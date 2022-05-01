@@ -1,23 +1,23 @@
 package com.example.attempt.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "student")
-@Getter
-@Setter
-@ToString
-public class Student extends BaseEntity {
+@Data
+public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @Column(name = "first_name")
-    private String first_name;
+    private String firstName;
 
     @Column(name = "last_name")
-    private String last_name;
+    private String lastName;
 
     @Column(name = "patronymic")
     private String patronymic;
@@ -30,8 +30,4 @@ public class Student extends BaseEntity {
 
     @Column(name = "user_id")
     private Long userId;
-
-    /*@OneToMany()
-    @JoinColumn(name = "forms")
-    private Set<Form> formSet;*/
 }

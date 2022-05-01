@@ -6,8 +6,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-/* Base class with property ID.
-* */
 @MappedSuperclass
 @Getter
 @Setter

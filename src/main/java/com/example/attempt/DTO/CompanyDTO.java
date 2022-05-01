@@ -50,8 +50,4 @@ public class CompanyDTO {
         this.email = email;
     }
 
-  /*  public boolean emailValidationCheck() {
-        return emailValidator.validate(this.email);
-    }
-*/
 }

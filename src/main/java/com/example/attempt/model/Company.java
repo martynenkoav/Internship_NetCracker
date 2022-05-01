@@ -1,19 +1,17 @@
 package com.example.attempt.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "company")
-@Getter
-@Setter
-@ToString
-public class Company extends BaseEntity {
+@Data
+public class Company {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @Column(name = "name")
     private String name;
 
@@ -26,9 +24,6 @@ public class Company extends BaseEntity {
     @Column(name = "address")
     private String address;
 
-
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
-
-
 }

@@ -59,7 +59,7 @@ export class InternshipComponent implements OnInit {
 
   goToTheLink(internship: InternshipModel) {
 
-    internship.responses = internship.responses + 1;
+    internship.responses++;
 
     this.internshipService.patchInternship(this.token.getUser().id, internship).subscribe(
       () => console.log('Getting correctly'),
