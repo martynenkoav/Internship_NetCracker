@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface InternshipRepository extends JpaRepository<Internship,Long> {
+public interface InternshipRepository extends JpaRepository<Internship, Long> {
 
     @Query(value = "select * from internship "
                  + "where company_id = :id",
-                    nativeQuery = true)
-    public List<Internship> getAllByCompanyId(Long id);
+            nativeQuery = true)
+    List<Internship> getAllByCompanyId(Long id);
 }

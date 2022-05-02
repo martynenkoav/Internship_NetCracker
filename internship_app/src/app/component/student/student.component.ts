@@ -12,7 +12,7 @@ export class StudentComponent implements OnInit {
 
   public student: StudentModel;
 
-  constructor(private studentService: StudentService, private token: TokenStorageService) {
+  constructor(private studentService: StudentService, private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
@@ -20,7 +20,7 @@ export class StudentComponent implements OnInit {
   }
 
   getStudent() {
-    this.studentService.getStudentById(this.token.getUser().id).subscribe(
+    this.studentService.getStudentById(this.tokenStorageService.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
         this.student = response;

@@ -1,6 +1,5 @@
 package com.example.attempt.service;
 
-import com.example.attempt.model.Company;
 import com.example.attempt.model.Student;
 
 import java.util.List;

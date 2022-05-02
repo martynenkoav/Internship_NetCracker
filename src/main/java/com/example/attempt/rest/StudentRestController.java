@@ -14,8 +14,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/student")
-public class StudentRestControllerV1 {
+@RequestMapping("/api/student")
+public class StudentRestController {
 
     @Autowired
     private StudentServiceImpl studentService;
@@ -28,41 +28,43 @@ public class StudentRestControllerV1 {
         }
         Student student = this.studentService.getById(studentId);
 
-        if (student == null){
+        if (student == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(student,HttpStatus.OK);
+        return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
-    @RequestMapping(value="", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Student> saveStudent(@RequestBody Student student){
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Student> saveStudent(@RequestBody Student student) {
         HttpHeaders headers = new HttpHeaders();
 
-        if(student == null){
+        if (student == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (!EmailValidator.validate(student.getEmail(), EmailValidator.EMAIL_PATTERN)){
+        if (!EmailValidator.validate(student.getEmail(), EmailValidator.EMAIL_PATTERN)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         this.studentService.save(student);
         return new ResponseEntity<>(student, headers, HttpStatus.CREATED);
     }
-    @RequestMapping(value="",method=RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student, UriComponentsBuilder builder){
+
+    @RequestMapping(value = "", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Student> updateStudent(@RequestBody Student student, UriComponentsBuilder builder) {
         HttpHeaders headers = new HttpHeaders();
 
-        if (student == null){
+        if (student == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         this.studentService.save(student);
 
         return new ResponseEntity<>(student, headers, HttpStatus.OK);
     }
-    @RequestMapping(value="{id}",method=RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Student> deleteStudent (@PathVariable("id") Long id){
+
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Student> deleteStudent(@PathVariable("id") Long id) {
         Student student = this.studentService.getById(id);
 
-        if(student == null){
+        if (student == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -70,11 +72,12 @@ public class StudentRestControllerV1 {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @RequestMapping(value="",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Student>> getAllStudents(){
+
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Student>> getAllStudents() {
         List<Student> students = this.studentService.getAll();
 
-        if(students.isEmpty()){
+        if (students.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(students, HttpStatus.OK);

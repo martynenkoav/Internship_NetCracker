@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
 import {CompanyModel} from "../../model/companyModel";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CompanyService} from "../../service/company.service";
 import {TokenStorageService} from "../../service/token-storage.service";
-import {Router} from "@angular/router";
 
 
 @Component({
@@ -16,7 +13,7 @@ export class CompanyComponent implements OnInit {
 
   public company: CompanyModel;
 
-  constructor(private companyService: CompanyService, private router: Router, private token: TokenStorageService) {
+  constructor(private companyService: CompanyService, private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
@@ -24,7 +21,7 @@ export class CompanyComponent implements OnInit {
   }
 
   getCompany() {
-    this.companyService.getCompanyByUserId(this.token.getUser().id).subscribe(
+    this.companyService.getCompanyByUserId(this.tokenStorageService.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
         this.company = response;
@@ -34,13 +31,9 @@ export class CompanyComponent implements OnInit {
   }
 
   postCompany() {
-    this.companyService.postCompany(this.token.getUser().id, this.company).subscribe(
-      () => console.log('Getting correctly'),
+    this.companyService.postCompany(this.company).subscribe(
+      () => console.log('Patching correctly'),
       error => console.warn(error)
     )
-  }
-
-  public cleanButtonClicked() {
-    this.company = new CompanyModel();
   }
 }

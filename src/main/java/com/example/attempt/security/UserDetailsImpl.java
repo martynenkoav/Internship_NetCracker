@@ -1,3 +1,4 @@
+
 package com.example.attempt.security;
 
 import java.util.Collection;
@@ -5,36 +6,46 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.example.attempt.model.User;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
 public class UserDetailsImpl implements UserDetails {
     private User user;
 
-    private Boolean isActive;
 
-    private List<GrantedAuthority> grantedAuthorityList;
+    private Collection<? extends GrantedAuthority> grantedAuthorities;
 
-    public UserDetailsImpl(User user) {
+    public UserDetailsImpl(User user, Collection<? extends GrantedAuthority> grantedAuthorities) {
         this.user = user;
-        this.isActive = true;
-        grantedAuthorityList = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-                .collect(Collectors.toList());
+        this.grantedAuthorities = grantedAuthorities;
     }
 
+    public static UserDetailsImpl build(User user) {
+        List<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .collect(Collectors.toList());
+        return new UserDetailsImpl(
+                user,
+                authorities);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return grantedAuthorityList;
+        return grantedAuthorities;
+    }
+
+    public Long getId() {
+        return this.user.getId();
     }
 
     @Override
     public String getPassword() {
         return this.user.getPassword();
     }
-
 
     @Override
     public String getUsername() {
@@ -43,7 +54,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.isActive;
+        return true;
     }
 
     @Override
@@ -60,8 +71,6 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    public Long getId() {
-        return this.user.getId();
-    }
 }
+
+

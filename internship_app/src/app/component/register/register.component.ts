@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserModel} from "../../model/userModel";
 import {Router} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
@@ -27,7 +27,8 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
+  }
 
 
   ngOnInit(): void {
@@ -63,6 +64,7 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
   }
@@ -85,8 +87,7 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  public cleanButtonClicked()
-  {
+  public cleanButtonClicked() {
     this.user = new UserModel();
   }
 

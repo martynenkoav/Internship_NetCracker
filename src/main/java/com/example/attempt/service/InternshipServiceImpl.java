@@ -1,7 +1,6 @@
 package com.example.attempt.service;
 
 import com.example.attempt.model.Internship;
-import com.example.attempt.repository.CompanyRepository;
 import com.example.attempt.repository.InternshipRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Slf4j
 @Service
-public class InternshipServiceImpl implements InternshipService{
+public class InternshipServiceImpl implements InternshipService {
 
     @Autowired
     InternshipRepository internshipRepository;
-
 
     @Override
     public Internship getById(Long id) {
@@ -42,8 +39,7 @@ public class InternshipServiceImpl implements InternshipService{
         return internshipRepository.findAll();
     }
 
-
-    public List<Internship> getAllByCompanyId(Long id){
+    public List<Internship> getAllByCompanyId(Long id) {
         log.info("IN InternshipService getAll");
         return internshipRepository.getAllByCompanyId(id);
     }

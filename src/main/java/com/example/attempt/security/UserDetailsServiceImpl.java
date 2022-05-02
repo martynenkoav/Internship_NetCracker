@@ -1,4 +1,4 @@
-package com.example.attempt.service;
+package com.example.attempt.security;
 
 import com.example.attempt.model.User;
 import com.example.attempt.security.UserDetailsImpl;
@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User Not Found with username: " + username);
         } else {
             User user = userRepository.findByUsername(username);
-            return new UserDetailsImpl(user);
+            return UserDetailsImpl.build(user);
         }
     }
 }

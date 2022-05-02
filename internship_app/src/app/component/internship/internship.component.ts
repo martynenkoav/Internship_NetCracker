@@ -1,8 +1,6 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {InternshipModel} from "../../model/internshipModel";
 import {InternshipService} from "../../service/internship.service";
-import {NULL_AS_ANY} from "@angular/compiler-cli/src/ngtsc/typecheck/src/expression";
-import {FormBuilder, FormGroup} from "@angular/forms";
 import {CompanyModel} from "../../model/companyModel";
 import {CompanyService} from "../../service/company.service";
 import {TokenStorageService} from "../../service/token-storage.service";
@@ -21,15 +19,29 @@ export class InternshipComponent implements OnInit {
   roles: string[] = [];
   hasAccess: boolean;
   isStudent: boolean;
-
   currentUser: any;
 
-
   constructor(private internshipService: InternshipService, private companyService: CompanyService,
-              private token: TokenStorageService, private router: Router) {
+              private tokenStorageService: TokenStorageService, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.getInternships();
+    this.getAccess();
+  }
+
+  getAccess() {
+    this.roles = this.tokenStorageService.getUser().roles;
+    if (this.roles.includes("ROLE_STUDENT") || this.roles.includes("ROLE_COMPANY")) {
+      this.hasAccess = true;
+    }
+    if (this.roles.includes("ROLE_STUDENT")) {
+      this.isStudent = true;
+    }
+    this.currentUser = this.tokenStorageService.getUser();
+  }
+
+  getInternships() {
     this.internshipService.getInternships().subscribe(
       (response) => {
         console.log('Getting correctly');
@@ -38,14 +50,6 @@ export class InternshipComponent implements OnInit {
       },
       error => console.warn(error)
     )
-    this.roles = this.token.getUser().roles;
-    if (this.roles.includes("ROLE_STUDENT")||this.roles.includes("ROLE_COMPANY")) {
-      this.hasAccess = true;
-    }
-    if (this.roles.includes("ROLE_STUDENT")) {
-      this.isStudent = true;
-    }
-    this.currentUser = this.token.getUser();
   }
 
   filterList(event: any) {
@@ -61,8 +65,8 @@ export class InternshipComponent implements OnInit {
 
     internship.responses++;
 
-    this.internshipService.patchInternship(this.token.getUser().id, internship).subscribe(
-      () => console.log('Getting correctly'),
+    this.internshipService.patchInternship(this.tokenStorageService.getUser().id, internship).subscribe(
+      () => console.log('Patching correctly'),
       error => console.warn(error)
     )
     open(internship.url);

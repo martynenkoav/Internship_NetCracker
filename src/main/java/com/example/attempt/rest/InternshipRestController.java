@@ -9,17 +9,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("api/v1/internship")
-public class InternshipRestControllerV1 {
+@RequestMapping("api/internship")
+public class InternshipRestController {
 
     @Autowired
     private InternshipServiceImpl internshipService;
@@ -27,20 +23,7 @@ public class InternshipRestControllerV1 {
     @Autowired
     private CompanyServiceImpl companyService;
 
-    /*@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Internship> getInternship(@PathVariable("id") Long internshipId) {
-        if(internshipId == null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        Internship internship = this.internshipService.getById(internshipId);
-
-        if (internship == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(internship,HttpStatus.OK);
-    }*/
-
-    @PreAuthorize("#id == authentication.principal.id")
+    //@PreAuthorize("#id == authentication.principal.id")
     @RequestMapping(value = "{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Internship> saveInternship(@PathVariable("id") Long id, @RequestBody InternshipDTO internshipDTO) {
         HttpHeaders headers = new HttpHeaders();
@@ -53,7 +36,7 @@ public class InternshipRestControllerV1 {
     }
 
 
-    @PreAuthorize("#id == authentication.principal.id")
+    //@PreAuthorize("#id == authentication.principal.id")
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Internship> updateInternship(@PathVariable Long id, @RequestBody InternshipDTO internshipDTO) {
         HttpHeaders headers = new HttpHeaders();

@@ -2,13 +2,9 @@ package com.example.attempt.DTO;
 
 import com.example.attempt.model.Company;
 import com.example.attempt.model.Internship;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class InternshipDTO {
     private Long id;
     private String name;

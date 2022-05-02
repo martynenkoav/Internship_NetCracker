@@ -41,7 +41,6 @@ import { CompanyForCheckComponent } from './component/company-for-check/company-
     MatSelectModule
   ],
   providers: [
-    CompanyService,
     authInterceptorProviders
   ],
   bootstrap: [AppComponent]

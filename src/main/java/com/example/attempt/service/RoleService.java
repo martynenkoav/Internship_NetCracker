@@ -8,5 +8,4 @@ public interface RoleService {
     Role getById(Long id);
 
     Role getRoleFromBuilder(UserDTO userDTO);
-
 }

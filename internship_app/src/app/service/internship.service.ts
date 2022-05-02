@@ -8,10 +8,10 @@ import {TokenStorageService} from "./token-storage.service";
   providedIn: 'root'
 })
 export class InternshipService {
-  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) {
+  constructor(private http: HttpClient) {
   }
 
-  INTERNSHIP_URL: string = 'http://localhost:8081/api/v1/internship';
+  INTERNSHIP_URL: string = 'http://localhost:8081/api/internship';
 
   public getInternshipsByCompanyId(id: number): Observable<InternshipModel[]> {
     return this.http.get<InternshipModel[]>(this.INTERNSHIP_URL + "/" + id).pipe(
@@ -31,11 +31,11 @@ export class InternshipService {
     );
   }
 
-  public postInternship(id: Number, internship: InternshipModel) {
+  public postInternship(id: number, internship: InternshipModel) {
     return this.http.post(this.INTERNSHIP_URL + "/" + id, internship);
   }
 
-  public patchInternship(id: Number, internship: InternshipModel) {
+  public patchInternship(id: number, internship: InternshipModel) {
     return this.http.patch(this.INTERNSHIP_URL + "/" + id, internship)
   }
 

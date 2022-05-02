@@ -11,5 +11,5 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     @Query(value = "select * from company "
                  + "where user_id = :id",
             nativeQuery = true)
-    public Company getByUserId(Long id);
+    Company getByUserId(Long id);
 }

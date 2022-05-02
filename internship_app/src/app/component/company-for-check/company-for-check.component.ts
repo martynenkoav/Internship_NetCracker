@@ -3,10 +3,6 @@ import {CompanyModel} from "../../model/companyModel";
 import {CompanyService} from "../../service/company.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TokenStorageService} from "../../service/token-storage.service";
-import {InternshipModel} from "../../model/internshipModel";
-import {identifierOfNode} from "@angular/compiler-cli/src/ngtsc/util/src/typescript";
-import {root} from "rxjs/internal-compatibility";
-import {initializeStaticContext} from "@angular/core/src/render3/styling/class_and_style_bindings";
 
 @Component({
   selector: 'app-company-for-check',
@@ -19,7 +15,7 @@ export class CompanyForCheckComponent implements OnInit {
 
   companyId: number;
 
-  constructor(private companyService: CompanyService, private router: Router, private token: TokenStorageService,
+  constructor(private companyService: CompanyService, private tokenStorageService: TokenStorageService,
               private activatedRoute: ActivatedRoute) {
   }
 

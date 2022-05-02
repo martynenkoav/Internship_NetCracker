@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserModel} from "../../model/userModel";
-import {Observable} from "rxjs";
 import {Router} from "@angular/router";
-import {RoleModel} from "../../model/roleModel";
 import {AuthService} from "../../service/auth.service";
 import {TokenStorageService} from "../../service/token-storage.service";
 
@@ -18,13 +16,13 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService) {
+  constructor(private authService: AuthService, private router: Router, private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
+    if (this.tokenStorageService.getToken()) {
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
+      this.roles = this.tokenStorageService.getUser().roles;
     }
     this.user = {
       username: "",
@@ -36,11 +34,11 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.user)
       .subscribe(
         data => {
-          this.tokenStorage.saveToken(data.accessToken);
-          this.tokenStorage.saveUser(data);
+          this.tokenStorageService.saveToken(data.accessToken);
+          this.tokenStorageService.saveUser(data);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.roles = this.tokenStorage.getUser().roles;
+          this.roles = this.tokenStorageService.getUser().roles;
           if (this.roles.includes('ROLE_COMPANY')) {
             this.router.navigate(["/company"]).then(() => {
               this.reloadPage()
@@ -55,9 +53,6 @@ export class LoginComponent implements OnInit {
           this.errorMessage = err.error.message;
           this.isLoginFailed = true;
         });
-    /*let resp = this.loginService.login(this.user);
-    resp.subscribe(data => {
-        this.router.navigate(["/company"]) });*/
   }
 
   public cleanButtonClicked() {
@@ -67,5 +62,4 @@ export class LoginComponent implements OnInit {
   reloadPage(): void {
     window.location.reload();
   }
-
 }

@@ -10,7 +10,7 @@ export class StudentService {
   constructor(private http: HttpClient) {
   }
 
-  STUDENT_URL: string = 'http://localhost:8081/api/v1/student';
+  STUDENT_URL: string = 'http://localhost:8081/api/student';
 
   public getStudentById(id: number): Observable<StudentModel> {
     return this.http.get<StudentModel>(this.STUDENT_URL + "/" + id).pipe(
@@ -21,8 +21,8 @@ export class StudentService {
     )
   }
 
-  public postStudent(studentModel: StudentModel) {
-    return this.http.post(this.STUDENT_URL, studentModel);
+  public postStudent(student: StudentModel) {
+    return this.http.post(this.STUDENT_URL, student);
   }
 }
 

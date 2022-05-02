@@ -1,6 +1,5 @@
 package com.example.attempt.security;
 
-import com.example.attempt.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,14 +27,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     UserDetailsServiceImpl userDetailsService;
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
+
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
     }
+
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -67,17 +69,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/v1/login","/login").permitAll()
+                .authorizeRequests().antMatchers("/api/login","/login").permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .antMatchers("/api/v1/register").permitAll()
+                .antMatchers("/api/register").permitAll()
                 .antMatchers("/api/auth").permitAll()
                 .antMatchers("/api/auth/signin").permitAll()
-                .antMatchers("/api/v1/internship").permitAll()
-                .antMatchers("/api/v1/internship/3").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated();
-        /* .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()*/
-                /*.and().logout().invalidateHttpSession(true).logoutUrl("/logout").permitAll()
-                .and().httpBasic();*/
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

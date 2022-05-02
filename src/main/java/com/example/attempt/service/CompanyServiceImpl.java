@@ -8,14 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Slf4j
 @Service
-public class CompanyServiceImpl implements CompanyService{
+public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     CompanyRepository companyRepository;
-
 
     @Override
     public Company getById(Long id) {
@@ -41,9 +39,8 @@ public class CompanyServiceImpl implements CompanyService{
         return companyRepository.findAll();
     }
 
-    public Company getByUserId(Long id){
+    public Company getByUserId(Long id) {
         log.info("IN CompanyService getByUserId {}", id);
         return companyRepository.getByUserId(id);
     }
-
 }

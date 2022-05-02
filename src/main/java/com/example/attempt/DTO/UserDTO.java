@@ -4,22 +4,20 @@ import com.example.attempt.model.ERole;
 import com.example.attempt.model.Role;
 import com.example.attempt.model.User;
 import com.example.attempt.repository.RoleRepository;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Setter
-@Getter
+@Data
 public class UserDTO {
     private Long id;
     private String username;
     private String password;
     private String role;
 
-    UserDTO(Long id, String username, String password, String role){
+    UserDTO(Long id, String username, String password, String role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -27,8 +25,8 @@ public class UserDTO {
     }
 
     public User toUser(
-    RoleRepository roleRepository,
-    PasswordEncoder encoder){
+            RoleRepository roleRepository,
+            PasswordEncoder encoder) {
         User user = new User(this.username,
                 encoder.encode(this.password));
         String role = this.role;

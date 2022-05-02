@@ -26,7 +26,7 @@ export class Internship_add implements OnInit {
   currentUser: any;
 
   constructor(private internshipService: InternshipService, private companyService: CompanyService,
-              private formBuilder: FormBuilder, private token: TokenStorageService) {
+              private formBuilder: FormBuilder, private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
@@ -36,21 +36,23 @@ export class Internship_add implements OnInit {
       url: ['']
     })
 
+    this.getCompany();
+    this.loadInternships();
+  }
 
-    this.companyService.getCompanyByUserId(this.token.getUser().id).subscribe(
+  getCompany() {
+    this.companyService.getCompanyByUserId(this.tokenStorageService.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
         this.company = response;
       },
       error => console.warn(error)
     )
-
-    this.loadInternships();
   }
 
   loadInternships() {
 
-    this.internshipService.getInternshipsByCompanyId(this.token.getUser().id).subscribe(
+    this.internshipService.getInternshipsByCompanyId(this.tokenStorageService.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
         this.internships = response;
@@ -76,7 +78,7 @@ export class Internship_add implements OnInit {
   postInternship() {
     let newInternship = this.extractFormData();
 
-    this.internshipService.postInternship(this.token.getUser().id, newInternship).subscribe(
+    this.internshipService.postInternship(this.tokenStorageService.getUser().id, newInternship).subscribe(
       value => {
         console.log('Getting correctly');
         this.loadInternships();

@@ -2,25 +2,24 @@ package com.example.attempt.rest;
 
 import com.example.attempt.security.EmailValidator;
 import com.example.attempt.model.Company;
-import com.example.attempt.service.CompanyService;
+import com.example.attempt.service.CompanyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/api/v1/company")
-public class CompanyRestControllerV1 {
+@RequestMapping("/api/company")
+public class CompanyRestController {
 
     @Autowired
-    private CompanyService companyService;
+    private CompanyServiceImpl companyService;
 
     @RequestMapping(value = "/company_id/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Company> getCompanyById(@PathVariable("id")  Long id) {
+    public ResponseEntity<Company> getCompanyById(@PathVariable("id") Long id) {
 
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -47,15 +46,15 @@ public class CompanyRestControllerV1 {
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 
-    @PreAuthorize("#id == authentication.principal.id")
-    @RequestMapping(value = "{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Company> saveCompany(@PathVariable long id, @RequestBody Company company) {
+    /* @PreAuthorize("#id == authentication.principal.id")*/
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Company> saveCompany(@RequestBody Company company) {
         HttpHeaders headers = new HttpHeaders();
 
-        if (company == null)  {
+        if (company == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (!EmailValidator.validate(company.getEmail(), EmailValidator.EMAIL_PATTERN)){
+        if (!EmailValidator.validate(company.getEmail(), EmailValidator.EMAIL_PATTERN)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         this.companyService.save(company);
@@ -66,10 +65,9 @@ public class CompanyRestControllerV1 {
     public ResponseEntity<Company> updateCompany(@RequestBody Company company, UriComponentsBuilder builder) {
         HttpHeaders headers = new HttpHeaders();
 
-        if (company == null)  {
+        if (company == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
         this.companyService.save(company);
 
         return new ResponseEntity<>(company, headers, HttpStatus.OK);

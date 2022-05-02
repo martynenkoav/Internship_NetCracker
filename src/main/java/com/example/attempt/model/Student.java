@@ -5,10 +5,9 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "student")
 @Data
+@Table(name = "student")
 public class Student {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -28,6 +27,6 @@ public class Student {
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @OneToOne(fetch = FetchType.LAZY)
+    private User user;
 }
