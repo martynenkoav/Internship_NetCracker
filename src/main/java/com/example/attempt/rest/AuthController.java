@@ -1,6 +1,6 @@
 package com.example.attempt.rest;
 
-import com.example.attempt.DTO.UserDTO;
+import com.example.attempt.dto.UserDTO;
 import com.example.attempt.model.*;
 import com.example.attempt.payload.JwtResponse;
 import com.example.attempt.payload.MessageResponse;
@@ -8,6 +8,7 @@ import com.example.attempt.repository.RoleRepository;
 import com.example.attempt.repository.UserRepository;
 import com.example.attempt.security.JwtUtils;
 import com.example.attempt.security.UserDetailsImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,20 +22,21 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    @Autowired
-    AuthenticationManager authenticationManager;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    RoleRepository roleRepository;
-    @Autowired
-    PasswordEncoder encoder;
-    @Autowired
-    JwtUtils jwtUtils;
+
+    private final AuthenticationManager authenticationManager;
+
+    private final UserRepository userRepository;
+
+    private final RoleRepository roleRepository;
+
+    private final PasswordEncoder encoder;
+
+    private final JwtUtils jwtUtils;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserDTO userDTO) {

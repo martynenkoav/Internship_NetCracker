@@ -1,4 +1,4 @@
-package com.example.attempt.DTO;
+package com.example.attempt.dto;
 
 import com.example.attempt.model.ERole;
 import com.example.attempt.model.Role;
@@ -24,11 +24,8 @@ public class UserDTO {
         this.role = role;
     }
 
-    public User toUser(
-            RoleRepository roleRepository,
-            PasswordEncoder encoder) {
-        User user = new User(this.username,
-                encoder.encode(this.password));
+    public User toUser(RoleRepository roleRepository, PasswordEncoder encoder) {
+        User user = new User(this.username, encoder.encode(this.password));
         String role = this.role;
         Set<Role> roles = new HashSet<>();
         switch (role) {

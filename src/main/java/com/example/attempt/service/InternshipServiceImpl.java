@@ -2,18 +2,19 @@ package com.example.attempt.service;
 
 import com.example.attempt.model.Internship;
 import com.example.attempt.repository.InternshipRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Slf4j
 @Service
 public class InternshipServiceImpl implements InternshipService {
 
-    @Autowired
-    InternshipRepository internshipRepository;
+    private final InternshipRepository internshipRepository;
 
     @Override
     public Internship getById(Long id) {

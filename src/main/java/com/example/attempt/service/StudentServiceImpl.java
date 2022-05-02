@@ -2,18 +2,20 @@ package com.example.attempt.service;
 
 import com.example.attempt.model.Student;
 import com.example.attempt.repository.StudentRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Slf4j
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    @Autowired
-    StudentRepository studentRepository;
+
+    private final StudentRepository studentRepository;
 
     @Override
     public Student getById(Long id) {

@@ -1,9 +1,10 @@
 package com.example.attempt.rest;
 
-import com.example.attempt.DTO.InternshipDTO;
+import com.example.attempt.dto.InternshipDTO;
 import com.example.attempt.model.Internship;
 import com.example.attempt.service.CompanyServiceImpl;
 import com.example.attempt.service.InternshipServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,15 +14,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/internship")
 public class InternshipRestController {
 
-    @Autowired
-    private InternshipServiceImpl internshipService;
+    private final InternshipServiceImpl internshipService;
 
-    @Autowired
-    private CompanyServiceImpl companyService;
+    private final CompanyServiceImpl companyService;
 
     //@PreAuthorize("#id == authentication.principal.id")
     @RequestMapping(value = "{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

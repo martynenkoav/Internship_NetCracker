@@ -3,6 +3,7 @@ package com.example.attempt.rest;
 import com.example.attempt.security.EmailValidator;
 import com.example.attempt.model.Student;
 import com.example.attempt.service.StudentServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,12 +14,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/student")
 public class StudentRestController {
 
-    @Autowired
-    private StudentServiceImpl studentService;
+    private final StudentServiceImpl studentService;
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Student> getStudentByUserId(@PathVariable("id") Long userId) {

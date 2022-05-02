@@ -3,6 +3,7 @@ package com.example.attempt.rest;
 import com.example.attempt.security.EmailValidator;
 import com.example.attempt.model.Company;
 import com.example.attempt.service.CompanyServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,12 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/company")
 public class CompanyRestController {
 
-    @Autowired
-    private CompanyServiceImpl companyService;
+    private final CompanyServiceImpl companyService;
 
     @RequestMapping(value = "/company_id/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Company> getCompanyById(@PathVariable("id") Long id) {

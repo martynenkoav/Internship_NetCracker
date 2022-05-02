@@ -1,13 +1,14 @@
 package com.example.attempt.service;
 
-import com.example.attempt.DTO.UserDTO;
+import com.example.attempt.dto.UserDTO;
 import com.example.attempt.model.Role;
 import com.example.attempt.repository.RoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
-    @Autowired
-    RoleRepository roleRepository;
+
+    private final RoleRepository roleRepository;
 
     @Override
     public Role getById(Long id) {

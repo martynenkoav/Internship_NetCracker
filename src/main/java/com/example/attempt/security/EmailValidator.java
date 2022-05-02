@@ -1,6 +1,5 @@
 package com.example.attempt.security;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EmailValidator {

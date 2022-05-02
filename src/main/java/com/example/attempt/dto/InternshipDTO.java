@@ -1,4 +1,4 @@
-package com.example.attempt.DTO;
+package com.example.attempt.dto;
 
 import com.example.attempt.model.Company;
 import com.example.attempt.model.Internship;
