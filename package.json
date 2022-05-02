@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@angular/http": "^7.2.16",
-    "bcryptjs": "^2.4.3",
-    "rxjs-compat": "^6.6.7"
-  }
-}
