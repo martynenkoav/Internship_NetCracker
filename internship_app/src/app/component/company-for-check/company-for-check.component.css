@@ -1,0 +1,37 @@
+.row-section {
+  background: #734b6d;
+}
+
+.row-section h4 {
+  text-align: center;
+  width: 100%;
+  color: #42275a;
+  margin-bottom: 30px;
+  font-size: 20px;
+}
+
+.row-section .row-block {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 50px;
+}
+
+.btn-default {
+  background: #6B456A;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+}
+
+textarea {
+  resize: none;
+}
+
+.media {
+  border: 1px solid #d5dbdd;
+  padding: 5px 20px;
+  border-radius: 5px;
+  background: #fff;
+  word-wrap: break-word;
+}
