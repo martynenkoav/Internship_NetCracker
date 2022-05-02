@@ -12,7 +12,7 @@ export class StudentService {
 
   STUDENT_URL: string = 'http://localhost:8081/api/student';
 
-  public getStudentById(id: number): Observable<StudentModel> {
+  public getStudentByUserId(id: number): Observable<StudentModel> {
     return this.http.get<StudentModel>(this.STUDENT_URL + "/" + id).pipe(
       map((resp) => {
         console.log(resp);
