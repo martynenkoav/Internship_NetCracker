@@ -1,5 +1,5 @@
-html {
-  background: linear-gradient(to bottom, #734b6d, #42275a) fixed;
+body {
+  background-color: #734b6d;
 }
 
 label {
@@ -15,8 +15,7 @@ label {
 .card {
   background-color: #f7f7f7;
   padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
+  margin: 0 auto;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
@@ -28,7 +27,7 @@ label {
 .profile-img-card {
   width: 96px;
   height: 96px;
-  margin: 0 auto 10px;
+  margin: 0 auto;
   display: block;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;

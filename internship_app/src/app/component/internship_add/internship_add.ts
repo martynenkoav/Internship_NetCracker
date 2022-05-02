@@ -63,11 +63,10 @@ export class Internship_add implements OnInit {
   }
 
   deleteInternship(curInternship: InternshipModel) {
-
     this.internshipService.deleteInternship(curInternship.id).subscribe(
       value => {
         console.log('Deleting correctly');
-        this.loadInternships();
+        window.location.reload();
       },
       error => {
         console.warn(error);
@@ -81,7 +80,7 @@ export class Internship_add implements OnInit {
     this.internshipService.postInternship(this.tokenStorageService.getUser().id, newInternship).subscribe(
       value => {
         console.log('Getting correctly');
-        this.loadInternships();
+        window.location.reload();
       },
       error => console.warn(error)
     )

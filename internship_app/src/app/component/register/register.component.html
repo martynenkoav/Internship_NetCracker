@@ -1,6 +1,8 @@
+<body>
 {{ form.value | json }}
 {{ form.value | json }}
 {{ user | json }}
+<br>
 <div class="col-md-12">
   <div class="card card-container">
     <img
@@ -76,6 +78,7 @@
             <div *ngIf="f['role'].errors['required']">Необходимо выбрать роль пользователя</div>
           </div>
         </div>
+        <br>
         <div class="form-group">
           <button type="submit" (click)="onSubmit()" class="btn btn-primary">Регистрация</button>
         </div>
@@ -90,3 +93,4 @@
   </div>
 </div>
 
+</body>

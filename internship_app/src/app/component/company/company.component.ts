@@ -35,5 +35,6 @@ export class CompanyComponent implements OnInit {
       () => console.log('Patching correctly'),
       error => console.warn(error)
     )
+    window.location.reload();
   }
 }

@@ -34,5 +34,6 @@ export class StudentComponent implements OnInit {
       () => console.log('Getting correctly'),
       error => console.warn(error)
     )
+    window.location.reload();
   }
 }

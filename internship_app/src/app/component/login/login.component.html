@@ -1,4 +1,6 @@
+<body>
 {{ user | json }}
+<br>
 <div class="col-md-12">
   <div class="card card-container">
     <img
@@ -20,7 +22,6 @@
           class="form-control"
           name="username"
           [(ngModel)]="user.username"
-          required
           #username="ngModel"
         />
         <div
@@ -38,7 +39,6 @@
           class="form-control"
           name="password"
           [(ngModel)]="user.password"
-          required
           minlength="6"
           #password="ngModel"
         />
@@ -52,8 +52,9 @@
           </div>
         </div>
       </div>
+      <br>
       <div class="form-group">
-        <button class="btn btn-primary btn-block">
+        <button class="btn btn-primary">
           Войти
         </button>
       </div>
@@ -71,3 +72,4 @@
     </div>
   </div>
 </div>
+</body>
