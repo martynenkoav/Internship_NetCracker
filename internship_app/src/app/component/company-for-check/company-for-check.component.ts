@@ -3,6 +3,8 @@ import {CompanyModel} from "../../model/companyModel";
 import {CompanyService} from "../../service/company.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TokenStorageService} from "../../service/token-storage.service";
+import {InternshipModel} from "../../model/internshipModel";
+import {InternshipService} from "../../service/internship.service";
 
 @Component({
   selector: 'app-company-for-check',
@@ -11,12 +13,14 @@ import {TokenStorageService} from "../../service/token-storage.service";
 })
 export class CompanyForCheckComponent implements OnInit {
 
+  internships!: Array<InternshipModel>;
+  internshipsWithoutFilt!: Array<InternshipModel>;
   public company: CompanyModel;
 
   companyId: number;
 
   constructor(private companyService: CompanyService, private tokenStorageService: TokenStorageService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute, private internshipService: InternshipService) {
   }
 
   ngOnInit(): void {
@@ -25,7 +29,7 @@ export class CompanyForCheckComponent implements OnInit {
     });
 
     this.getCompany();
-
+    this.loadInternships();
   }
 
   getCompany() {
@@ -36,5 +40,22 @@ export class CompanyForCheckComponent implements OnInit {
       },
       error => console.warn(error)
     )
+  }
+
+  loadInternships() {
+
+    this.internshipService.getInternshipsByCompanyId(this.tokenStorageService.getUser().id).subscribe(
+      (response) => {
+        console.log('Getting correctly');
+        this.internships = response;
+        this.internshipsWithoutFilt = response;
+      },
+      error => console.warn(error)
+    )
+  }
+
+  filterList(event: any) {
+    console.log(event);
+    this.internships = this.internshipsWithoutFilt.filter(x => x.name.toLowerCase().includes(event.target.value.toLowerCase()));
   }
 }

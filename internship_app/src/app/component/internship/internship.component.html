@@ -13,9 +13,8 @@
               </div>
               <pre></pre>
               <div class="d-flex w-100 justify-content-between" data-toggle="tooltip"
-                   title="Нажмите на компанию чтобы посмотреть информацию">
-                <h5 class="mb-1" (click)="goToCompany(internship.company.id)"
-                    *ngIf="hasAccess; else elseBlock">{{internship.company.name}}</h5>
+                   title="Нажмите на компанию чтобы посмотреть информацию" *ngIf="hasAccess; else elseBlock">
+                <h5 class="mb-1" (click)="goToCompany(internship.company.id)">{{internship.company.name}}</h5>
               </div>
               <pre></pre>
               <p class="mb-1">{{internship.description}}</p>
@@ -25,7 +24,8 @@
               <button href="#" class="btn btn-default" (click)="goToTheLink(internship); addInternshipToStudent(internship.id)"
                       *ngIf="isStudent">Откликнуться
               </button>
-              <ng-template #elseBlock><h5 class="mb-1">{{internship.company.name}}</h5></ng-template>
+
+              <ng-template #elseBlock><h5 class="mb-1">{{internship.company.name}}<br><br></h5></ng-template>
             </div>
           </div>
         </li>
