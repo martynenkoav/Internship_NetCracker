@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {InternshipModel} from "../model/internshipModel";
-import {map, Observable, of} from 'rxjs';
+import {map, Observable} from "rxjs";
 import {TokenStorageService} from "./token-storage.service";
 
 @Injectable({
@@ -15,6 +15,15 @@ export class InternshipService {
 
   public getInternshipsByCompanyId(id: number): Observable<InternshipModel[]> {
     return this.http.get<InternshipModel[]>(this.INTERNSHIP_URL + "/" + id).pipe(
+      map((resp) => {
+        console.log(resp);
+        return resp;
+      })
+    )
+  }
+
+  public getInternshipsByStudentId(id: number): Observable<InternshipModel[]> {
+    return this.http.get<InternshipModel[]>(this.INTERNSHIP_URL + "/student/" + id).pipe(
       map((resp) => {
         console.log(resp);
         return resp;

@@ -1,7 +1,9 @@
 package com.example.attempt.rest;
 
+import com.example.attempt.dto.StudentDTO;
 import com.example.attempt.security.EmailValidator;
 import com.example.attempt.model.Student;
+import com.example.attempt.service.InternshipServiceImpl;
 import com.example.attempt.service.StudentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -21,19 +24,23 @@ public class StudentRestController {
 
     private final StudentServiceImpl studentService;
 
+    private final InternshipServiceImpl internshipService;
+
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Student> getStudentByUserId(@PathVariable("id") Long userId) {
+    public ResponseEntity<StudentDTO> getStudentByUserId(@PathVariable("id") Long userId) {
         Long studentId = this.studentService.getByUserId(userId).getId();
         if (userId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Student student = this.studentService.getById(studentId);
 
-        if (student == null) {
+        if (student == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(student, HttpStatus.OK);
+        StudentDTO studentDTO = new StudentDTO(student);
+        return new ResponseEntity<>(studentDTO,HttpStatus.OK);
     }
+
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Student> saveStudent(@RequestBody Student student) {
@@ -49,16 +56,18 @@ public class StudentRestController {
         return new ResponseEntity<>(student, headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student, UriComponentsBuilder builder) {
+    /*@PreAuthorize("#id == authentication.principal.id")*/
+    @RequestMapping(value="{id}",method=RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<StudentDTO> updateStudent(@PathVariable("id") Long id, @RequestBody StudentDTO studentDTO){
         HttpHeaders headers = new HttpHeaders();
 
-        if (student == null) {
+        if (studentDTO == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        Student student = studentDTO.toStudent(internshipService);
         this.studentService.save(student);
 
-        return new ResponseEntity<>(student, headers, HttpStatus.OK);
+        return new ResponseEntity<>(studentDTO, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

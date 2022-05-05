@@ -2,8 +2,10 @@ package com.example.attempt.rest;
 
 import com.example.attempt.dto.InternshipDTO;
 import com.example.attempt.model.Internship;
+import com.example.attempt.model.Student;
 import com.example.attempt.service.CompanyServiceImpl;
 import com.example.attempt.service.InternshipServiceImpl;
+import com.example.attempt.service.StudentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,6 +25,8 @@ public class InternshipRestController {
     private final InternshipServiceImpl internshipService;
 
     private final CompanyServiceImpl companyService;
+
+    private final StudentServiceImpl studentService;
 
     //@PreAuthorize("#id == authentication.principal.id")
     @RequestMapping(value = "{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -37,6 +42,21 @@ public class InternshipRestController {
 
 
     //@PreAuthorize("#id == authentication.principal.id")
+    /*@RequestMapping(value = "{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Internship> updateInternship(@PathVariable Long id, @RequestBody InternshipDTO internshipDTO) {
+        HttpHeaders headers = new HttpHeaders();
+
+        Internship internship = this.internshipService.getById(internshipDTO.getId());
+
+        internship.setResponses(internshipDTO.getResponses());
+
+        if (internship == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        this.internshipService.save(internship);
+        return new ResponseEntity<>(internship, headers, HttpStatus.OK);
+    }*/
+
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Internship> updateInternship(@PathVariable Long id, @RequestBody InternshipDTO internshipDTO) {
         HttpHeaders headers = new HttpHeaders();
@@ -87,6 +107,21 @@ public class InternshipRestController {
         }
 
         List<Internship> internships = this.internshipService.getAllByCompanyId(companyId);
+
+        if (internships.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(internships, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/student/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Set<Internship>> getAllInternshipsByStudentId(@PathVariable("id") Long id) {
+
+        Student student = this.studentService.getByUserId(id);
+        Set<Internship> internships = student.getInternships();
+        if (student == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         if (internships.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

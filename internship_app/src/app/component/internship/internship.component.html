@@ -22,7 +22,7 @@
             </div>
             <pre></pre>
             <div class="media-right align-self-center">
-              <button href="#" class="btn btn-default" (click)="goToTheLink(internship)"
+              <button href="#" class="btn btn-default" (click)="goToTheLink(internship); addInternshipToStudent(internship.id)"
                       *ngIf="isStudent">Откликнуться
               </button>
               <ng-template #elseBlock><h5 class="mb-1">{{internship.company.name}}</h5></ng-template>
@@ -31,6 +31,13 @@
         </li>
         <br>
       </ul>
+      <div class="col-2 m-5">
+        <div class="p-3 py-5">
+          <div class="d-flex justify-content-between align-items-center experience"><a class="btn btn-default"
+                                                                                       (click)="showStudentsInternships()">&nbsp;
+            Просмотр моих стажировок</a></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

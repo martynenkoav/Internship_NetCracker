@@ -58,6 +58,14 @@ CREATE TABLE IF NOT EXISTS internship
     FOREIGN KEY (company_id) REFERENCES company (id)
 );
 
+CREATE TABLE IF NOT EXISTS students_internships
+(
+    student_id INTEGER,
+    internship_id INTEGER,
+    FOREIGN KEY (student_id) REFERENCES student (id),
+    FOREIGN KEY (internship_id) REFERENCES internship (id)
+    );
+
 INSERT INTO roles
 VALUES (1, 'ROLE_ADMIN');
 INSERT INTO roles

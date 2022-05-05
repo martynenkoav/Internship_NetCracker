@@ -5,4 +5,5 @@ export class StudentModel {
   patronymic: string;
   email: string;
   phone: string;
+  internships?: number[];
 }

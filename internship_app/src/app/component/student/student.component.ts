@@ -20,7 +20,7 @@ export class StudentComponent implements OnInit {
   }
 
   getStudent() {
-    this.studentService.getStudentByUserId(this.tokenStorageService.getUser().id).subscribe(
+    this.studentService.getStudentById(this.tokenStorageService.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
         this.student = response;

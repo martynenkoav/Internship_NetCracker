@@ -5,6 +5,7 @@ import {CompanyModel} from "../../model/companyModel";
 import {CompanyService} from "../../service/company.service";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {Router} from "@angular/router";
+import {StudentService} from "../../service/student.service";
 
 @Component({
   selector: 'app-internship',
@@ -13,21 +14,23 @@ import {Router} from "@angular/router";
 })
 export class InternshipComponent implements OnInit {
 
-  internships!: Array<InternshipModel>;
-  internshipsWithoutFilt!: Array<InternshipModel>;
+  internships!: InternshipModel[];
+  internshipsWithoutFilt!: InternshipModel[];
   company: CompanyModel;
   roles: string[] = [];
   hasAccess: boolean;
   isStudent: boolean;
   currentUser: any;
+  currentStudent: any;
 
   constructor(private internshipService: InternshipService, private companyService: CompanyService,
-              private tokenStorageService: TokenStorageService, private router: Router) {
+              private studentService: StudentService, private tokenStorageService: TokenStorageService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.getInternships();
     this.getAccess();
+    this.getCurrentUser();
   }
 
   getAccess() {
@@ -39,6 +42,15 @@ export class InternshipComponent implements OnInit {
       this.isStudent = true;
     }
     this.currentUser = this.tokenStorageService.getUser();
+  }
+
+  getCurrentUser(){
+    this.currentStudent = this.studentService.getStudentById(this.tokenStorageService.getUser().id).subscribe(
+      (response) => {
+        console.log('Getting correctly');
+        this.currentStudent = response;
+      },
+      error => console.warn(error));
   }
 
   getInternships() {
@@ -70,5 +82,24 @@ export class InternshipComponent implements OnInit {
       error => console.warn(error)
     )
     open(internship.url);
+  }
+
+  addInternshipToStudent(id: number) {
+    this.currentStudent.internships.push(id);
+    this.studentService.updateStudent(this.currentStudent).subscribe(
+      () => console.log('Updated correctly'),
+      error => console.warn(error)
+    );
+  }
+
+  showStudentsInternships(){
+    this.internshipService.getInternshipsByStudentId(this.tokenStorageService.getUser().id).subscribe(
+      (response) => {
+        console.log('Getting correctly');
+        this.internships = response;
+        this.internshipsWithoutFilt = response;
+      },
+      error => console.warn(error)
+    )
   }
 }
