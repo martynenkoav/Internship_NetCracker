@@ -55,7 +55,7 @@ public class CompanyRestController {
         if (company == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (!EmailValidator.validate(company.getEmail(), EmailValidator.EMAIL_PATTERN)) {
+        if (!EmailValidator.validate(company.getEmail())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         this.companyService.save(company);

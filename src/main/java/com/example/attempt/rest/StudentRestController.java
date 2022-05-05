@@ -49,7 +49,7 @@ public class StudentRestController {
         if (student == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (!EmailValidator.validate(student.getEmail(), EmailValidator.EMAIL_PATTERN)) {
+        if (!EmailValidator.validate(student.getEmail())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         this.studentService.save(student);
