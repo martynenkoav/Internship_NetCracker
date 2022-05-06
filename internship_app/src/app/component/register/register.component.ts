@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserModel} from "../../model/userModel";
+import {User} from "../../model/user";
 import {Router} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
   });
 
   public roles: string[];
-  public user: UserModel;
+  public user: User;
   submitted = false;
   isSuccessful = false;
   isSignUpFailed = false;
@@ -88,7 +88,7 @@ export class RegisterComponent implements OnInit {
   }
 
   public cleanButtonClicked() {
-    this.user = new UserModel();
+    this.user = new User();
   }
 
 }

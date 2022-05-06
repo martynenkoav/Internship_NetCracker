@@ -1,11 +1,13 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {InternshipModel} from "../../model/internshipModel";
+import {Internship} from "../../model/internship";
 import {InternshipService} from "../../service/internship.service";
-import {CompanyModel} from "../../model/companyModel";
+import {Company} from "../../model/company";
 import {CompanyService} from "../../service/company.service";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {Router} from "@angular/router";
 import {StudentService} from "../../service/student.service";
+import 'bootstrap';
+
 
 @Component({
   selector: 'app-internship',
@@ -14,9 +16,9 @@ import {StudentService} from "../../service/student.service";
 })
 export class InternshipComponent implements OnInit {
 
-  internships!: InternshipModel[];
-  internshipsWithoutFilt!: InternshipModel[];
-  company: CompanyModel;
+  internships!: Internship[];
+  internshipsWithoutFilt!: Internship[];
+  company: Company;
   roles: string[] = [];
   hasAccess: boolean;
   isStudent: boolean;
@@ -73,7 +75,7 @@ export class InternshipComponent implements OnInit {
     this.router.navigate(['/company-for-check/', id]);
   }
 
-  goToTheLink(internship: InternshipModel) {
+  goToTheLink(internship: Internship) {
 
     internship.responses++;
 

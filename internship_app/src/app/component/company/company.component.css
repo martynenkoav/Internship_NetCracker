@@ -1,6 +1,8 @@
+
 .row-section {
   background: #734b6d;
 }
+
 
 .row-section h4 {
   text-align: center;
@@ -27,4 +29,15 @@
 textarea {
   resize: none;
   word-wrap: break-word;
+}
+
+.alert-message .alert-icon {
+  width: 3rem;
+}
+.alert-message .close{
+  font-size: 1rem;
+  color: #a6a6a6;
+}
+.alert-primary .alert-icon {
+  background-color: #b8daff;
 }

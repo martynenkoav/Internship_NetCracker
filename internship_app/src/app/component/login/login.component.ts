@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserModel} from "../../model/userModel";
+import {User} from "../../model/user";
 import {Router} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
 import {TokenStorageService} from "../../service/token-storage.service";
@@ -10,7 +10,7 @@ import {TokenStorageService} from "../../service/token-storage.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public user: UserModel;
+  public user: User;
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
   }
 
   public cleanButtonClicked() {
-    this.user = new UserModel();
+    this.user = new User();
   }
 
   reloadPage(): void {

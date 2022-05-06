@@ -19,7 +19,7 @@ public class CompanyRestController {
 
     private final CompanyServiceImpl companyService;
 
-    @RequestMapping(value = "/company_id/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/company/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Company> getCompanyById(@PathVariable("id") Long id) {
 
         if (id == null) {

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CompanyModel} from "../../model/companyModel";
+import {Company} from "../../model/company";
 import {CompanyService} from "../../service/company.service";
 import {TokenStorageService} from "../../service/token-storage.service";
 
@@ -11,7 +11,7 @@ import {TokenStorageService} from "../../service/token-storage.service";
 })
 export class CompanyComponent implements OnInit {
 
-  public company: CompanyModel;
+  public company: Company;
 
   constructor(private companyService: CompanyService, private tokenStorageService: TokenStorageService) {
   }

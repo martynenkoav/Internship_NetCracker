@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {CompanyModel} from "../../model/companyModel";
+import {Company} from "../../model/company";
 import {CompanyService} from "../../service/company.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TokenStorageService} from "../../service/token-storage.service";
-import {InternshipModel} from "../../model/internshipModel";
+import {Internship} from "../../model/internship";
 import {InternshipService} from "../../service/internship.service";
 
 @Component({
@@ -13,9 +13,9 @@ import {InternshipService} from "../../service/internship.service";
 })
 export class CompanyForCheckComponent implements OnInit {
 
-  internships!: Array<InternshipModel>;
-  internshipsWithoutFilt!: Array<InternshipModel>;
-  public company: CompanyModel;
+  internships: Internship[];
+  internshipsWithoutFilt: Internship[];
+  public company: Company;
 
   companyId: number;
 
