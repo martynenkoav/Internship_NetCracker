@@ -1,8 +1,9 @@
-package com.example.attempt.service;
+package com.example.attempt.serviceImplementation;
 
 import com.example.attempt.dto.UserDTO;
 import com.example.attempt.model.Role;
 import com.example.attempt.repository.RoleRepository;
+import com.example.attempt.service.RoleService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

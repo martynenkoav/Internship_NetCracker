@@ -1,7 +1,8 @@
-package com.example.attempt.service;
+package com.example.attempt.serviceImplementation;
 
 import com.example.attempt.model.Internship;
 import com.example.attempt.repository.InternshipRepository;
+import com.example.attempt.service.InternshipService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

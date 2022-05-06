@@ -2,9 +2,8 @@ package com.example.attempt.rest;
 
 import com.example.attempt.security.EmailValidator;
 import com.example.attempt.model.Company;
-import com.example.attempt.service.CompanyServiceImpl;
+import com.example.attempt.serviceImplementation.CompanyServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
