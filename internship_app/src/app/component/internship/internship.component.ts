@@ -22,7 +22,6 @@ export class InternshipComponent implements OnInit {
   roles: string[] = [];
   hasAccess: boolean;
   isStudent: boolean;
-  fromStudentList: boolean;
   currentUser: any;
   currentStudent: any;
 
@@ -47,7 +46,7 @@ export class InternshipComponent implements OnInit {
     this.currentUser = this.tokenStorageService.getUser();
   }
 
-  getCurrentUser(){
+  getCurrentUser() {
     this.currentStudent = this.studentService.getStudentById(this.tokenStorageService.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
@@ -95,7 +94,7 @@ export class InternshipComponent implements OnInit {
     );
   }
 
-  showStudentsInternships(){
+  showStudentsInternships() {
     this.internshipService.getInternshipsByStudentId(this.tokenStorageService.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');

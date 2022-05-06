@@ -1,6 +1,7 @@
 package com.example.attempt.rest;
 
 import com.example.attempt.dto.InternshipDTO;
+import com.example.attempt.model.Company;
 import com.example.attempt.model.Internship;
 import com.example.attempt.model.Student;
 import com.example.attempt.serviceImplementation.CompanyServiceImpl;

@@ -23,7 +23,7 @@
             <div class="media-body">
               <div class="d-flex w-100 justify-content-between">
                 <h3 class="mb-1">{{internship.name}}</h3>
-                <h4 *ngIf="isInStudentsList(internship.id)">Вы уже откликнулись</h4>
+                <h4 *ngIf="isStudent&&isInStudentsList(internship.id)">Вы уже откликнулись</h4>
               </div>
               <pre></pre>
               <div class="d-flex w-100 justify-content-between" data-toggle="tooltip"
@@ -54,15 +54,3 @@
     placement: 'right',
   });
 </script>
-
-<!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<!-- Popper -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-
-<!-- Bootstrap JS -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
-<script src="node_modules/bootstrap/dist/css/bootstrap.css"></script>

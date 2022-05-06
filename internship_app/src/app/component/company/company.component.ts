@@ -12,12 +12,16 @@ import {TokenStorageService} from "../../service/token-storage.service";
 export class CompanyComponent implements OnInit {
 
   public company: Company;
+  public isEmpty: boolean = false;
 
   constructor(private companyService: CompanyService, private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
     this.getCompany();
+    if (this.company.name == null || this.company.email == null || this.company.description == null) {
+      this.isEmpty = true;
+    }
   }
 
   getCompany() {
