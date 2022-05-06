@@ -45,7 +45,7 @@
   background: #fff;
 }
 
-.row-section .media .media-body h4 {
+.row-section .media .media-body h3 {
   color: #6b456a;
   font-size: 18px;
   font-weight: 600;
@@ -54,10 +54,49 @@
   margin-top: 12px;
 }
 
+.row-section .media .media-body h4{
+  font-size: 18px;
+  color: #42A948;
+}
+
+.p-3 py-5 btn-default:not(:last-child) {
+  border-right: none;
+}
+
 .btn-default {
   background: #6B456A;
   color: #fff;
   border-radius: 5px;
   border: none;
   font-size: 16px;
+}
+
+.btn-group a{
+  background-color: #6B456A; /* Green background */
+  border: 1px solid #3d273c; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+}
+
+/*.btn-default {
+  background: #6B456A;
+  color: #fff;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-size: 16px;
+  float: left;
+}*/
+
+.btn-group a:hover {
+  background-color: #4c314c;
+}
+
+.btn-default:active{
+  background-color: #4c314c;
+}
+
+.btn-group a:focus {
+  background-color: #4c314c;
 }

@@ -20,6 +20,7 @@ export class InternshipComponent implements OnInit {
   roles: string[] = [];
   hasAccess: boolean;
   isStudent: boolean;
+  fromStudentList: boolean;
   currentUser: any;
   currentStudent: any;
 
@@ -101,5 +102,14 @@ export class InternshipComponent implements OnInit {
       },
       error => console.warn(error)
     )
+  }
+
+  isInStudentsList(id: number): boolean {
+    if (this.currentStudent == null) {
+      return false;
+    } else {
+      console.log(this.currentStudent.internships.includes(id));
+      return this.currentStudent.internships.includes(id);
+    }
   }
 }

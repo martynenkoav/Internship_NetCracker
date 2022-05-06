@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -96,7 +97,7 @@ public class InternshipRestController {
         return new ResponseEntity<>(internships, HttpStatus.OK);
     }
 
-    //@PreAuthorize("#id == authentication.principal.id")
+    /*@PreAuthorize("#id == authentication.principal.id")*/
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Internship>> getAllInternshipsByCompanyId(@PathVariable("id") Long id) {
 
@@ -114,14 +115,15 @@ public class InternshipRestController {
         return new ResponseEntity<>(internships, HttpStatus.OK);
     }
 
+    @PreAuthorize("#id == authentication.principal.id")
     @RequestMapping(value = "/student/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Set<Internship>> getAllInternshipsByStudentId(@PathVariable("id") Long id) {
 
         Student student = this.studentService.getByUserId(id);
-        Set<Internship> internships = student.getInternships();
         if (student == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        Set<Internship> internships = student.getInternships();
 
         if (internships.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

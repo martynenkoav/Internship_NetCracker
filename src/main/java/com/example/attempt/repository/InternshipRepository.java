@@ -12,4 +12,6 @@ public interface InternshipRepository extends JpaRepository<Internship, Long> {
                  + "where company_id = :id",
             nativeQuery = true)
     List<Internship> getAllByCompanyId(Long id);
+/*
+    List<Internship> getAllByStudentId(Long id);*/
 }

@@ -41,8 +41,9 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAll();
     }
 
+    @Override
     public Student getByUserId(Long id) {
-        log.info("IN CompanyService getByUserId {}", id);
-        return studentRepository.getByUserId(id);
+        log.info("IN StudentService getByUserId {}", id);
+        return studentRepository.getStudentByUserId(id);
     }
 }
