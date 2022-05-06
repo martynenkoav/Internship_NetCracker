@@ -106,7 +106,6 @@ public class InternshipRestController {
         if (companyId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
         List<Internship> internships = this.internshipService.getAllByCompanyId(companyId);
 
         if (internships.isEmpty()) {

@@ -14,7 +14,7 @@ import { RegisterComponent } from './component/register/register.component';
 import { LoginComponent } from './component/login/login.component';
 import {MatSelectModule} from "@angular/material/select";
 import {authInterceptorProviders} from "./auth.interceptor";
-import { Internship_add } from './component/internship_add/internship_add';
+import { InternshipAdd } from './component/internship-add/internship-add';
 import { StudentComponent } from './component/student/student.component';
 import { CompanyForCheckComponent } from './component/company-for-check/company-for-check.component';
 
@@ -27,7 +27,7 @@ import { CompanyForCheckComponent } from './component/company-for-check/company-
     NavComponent,
     RegisterComponent,
     LoginComponent,
-    Internship_add,
+    InternshipAdd,
     StudentComponent,
     CompanyForCheckComponent
   ],

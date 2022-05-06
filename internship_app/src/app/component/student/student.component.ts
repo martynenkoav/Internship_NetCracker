@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {StudentService} from "../../service/student.service";
 import {TokenStorageService} from "../../service/token-storage.service";
-import {StudentModel} from "../../model/studentModel";
+import {Student} from "../../model/student";
 
 @Component({
   selector: 'app-student',
@@ -10,7 +10,7 @@ import {StudentModel} from "../../model/studentModel";
 })
 export class StudentComponent implements OnInit {
 
-  public student: StudentModel;
+  public student: Student;
 
   constructor(private studentService: StudentService, private tokenStorageService: TokenStorageService) {
   }
@@ -31,7 +31,7 @@ export class StudentComponent implements OnInit {
 
   postStudent() {
     this.studentService.postStudent(this.student).subscribe(
-      () => console.log('Getting correctly'),
+      () => console.log('Posting correctly'),
       error => console.warn(error)
     )
     window.location.reload();

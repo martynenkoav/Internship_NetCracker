@@ -8,9 +8,22 @@
   float: left;
   width: 100%;
   color: #42275a;
-  margin-left: 15px;
-  margin-top: 8px;
-  font-size: 16px;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.row-section h5 span {
+  font-family: 'Libre Baskerville', serif;
+  display: block;
+  font-size: 45px;
+  text-transform: none;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  font-weight: 700;
+}
+
+.row-section h5 a {
+  color: #d2abce;
 }
 
 .row-section .row-block {
@@ -45,7 +58,16 @@
   background: #fff;
 }
 
-.row-section .media .media-body h3 {
+.row-section .media .media-left img {
+  width: 75px;
+}
+
+.row-section .media .media-body p {
+  padding: 0 15px;
+  font-size: 14px;
+}
+
+.row-section .media .media-body h4 {
   color: #6b456a;
   font-size: 18px;
   font-weight: 600;
@@ -54,16 +76,6 @@
   margin-top: 12px;
 }
 
-.row-section .media .media-body h4{
-  font-size: 18px;
-  color: #42A948;
-}
-
-.p-3 py-5 btn-default:not(:last-child) {
-  border-right: none;
-}
-
-
 .btn-default {
   background: #6B456A;
   color: #fff;
@@ -71,10 +83,12 @@
   border: none;
   font-size: 16px;
 }
+
 textarea {
+  height: 520%;
+  font-size: 14px;
   resize: none;
 }
-
 .media {
   border: 1px solid #d5dbdd;
   padding: 5px 20px;
@@ -83,32 +97,4 @@ textarea {
   word-wrap: break-word;
 }
 
-.btn-group a{
-  background-color: #6B456A; /* Green background */
-  border: 1px solid #3d273c; /* Green border */
-  color: white; /* White text */
-  padding: 10px 24px; /* Some padding */
-  cursor: pointer; /* Pointer/hand icon */
-  float: left; /* Float the buttons side by side */
-}
 
-/*.btn-default {
-  background: #6B456A;
-  color: #fff;
-  border-radius: 5px;
-  border: 1px solid black;
-  font-size: 16px;
-  float: left;
-}*/
-
-.btn-group a:hover {
-  background-color: #4c314c;
-}
-
-.btn-default:active{
-  background-color: #4c314c;
-}
-
-.btn-group a:focus {
-  background-color: #4c314c;
-}

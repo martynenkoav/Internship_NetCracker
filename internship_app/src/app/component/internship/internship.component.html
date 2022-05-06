@@ -1,6 +1,15 @@
 <section class="row-section">
+  <br>
   <div class="container">
     <div class="col-md-10 offset-md-1 row-block">
+
+      <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="!hasAccess">
+        Пожалуйста, зарегистрируйтесь и войдите в аккаунт, чтобы видеть информацию о компаниях.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
       <input class="form-control" id="myInput" type="text" placeholder="Search.." (change)="filterList($event)">
         <div class="p-3 py-5">
           <div class="btn-group">
@@ -18,24 +27,33 @@
               </div>
               <pre></pre>
               <div class="d-flex w-100 justify-content-between" data-toggle="tooltip"
-                   title="Нажмите на компанию чтобы посмотреть информацию">
-                <h5 class="mb-1" (click)="goToCompany(internship.company.id)"
-                    *ngIf="hasAccess; else elseBlock">{{internship.company.name}}</h5>
+                   title="Нажмите на компанию чтобы посмотреть информацию" *ngIf="hasAccess; else elseBlock">
+                <h5 class="mb-1" (click)="goToCompany(internship.company.id)">{{internship.company.name}}</h5>
               </div>
               <pre></pre>
               <p class="mb-1">{{internship.description}}</p>
             </div>
             <pre></pre>
             <div class="media-right align-self-center">
-              <button href="#" class="btn btn-default" (click)="goToTheLink(internship); addInternshipToStudent(internship.id)"
+              <button href="#" class="btn btn-default"
+                      (click)="goToTheLink(internship); addInternshipToStudent(internship.id)"
                       *ngIf="isStudent">Откликнуться
               </button>
-              <ng-template #elseBlock><h5 class="mb-1">{{internship.company.name}}</h5></ng-template>
+              <ng-template #elseBlock><h5 class="mb-1">{{internship.company.name}}<br><br></h5></ng-template>
             </div>
           </div>
         </li>
         <br>
       </ul>
+      <div class="col-2 m-5">
+        <div class="p-3 py-5">
+          <div class="d-flex justify-content-between align-items-center experience">
+            <a class="btn btn-default" *ngIf="isStudent" (click)="showStudentsInternships()">&nbsp;
+              Просмотр моих стажировок
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -45,3 +63,15 @@
     placement: 'right',
   });
 </script>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script src="node_modules/bootstrap/dist/css/bootstrap.css"></script>

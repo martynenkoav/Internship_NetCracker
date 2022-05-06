@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {UserModel} from "../model/userModel";
+import {User} from "../model/user";
 import {FormControl, FormGroup} from "@angular/forms";
+import {Const} from "../const/const";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -15,9 +16,9 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  AUTH_URL: string = 'http://localhost:8081/api/auth';
+  AUTH_URL: string = Const.LOCALHOST_URL + 'api/auth';
 
-  login(user: UserModel): Observable<any> {
+  login(user: User): Observable<any> {
     return this.http.post(this.AUTH_URL + '/signin', user, httpOptions);
   }
 

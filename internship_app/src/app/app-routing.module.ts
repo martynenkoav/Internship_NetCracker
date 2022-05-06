@@ -4,7 +4,7 @@ import {CompanyComponent} from "./component/company/company.component";
 import {InternshipComponent} from "./component/internship/internship.component";
 import {RegisterComponent} from "./component/register/register.component";
 import {LoginComponent} from "./component/login/login.component";
-import {Internship_add} from "./component/internship_add/internship_add";
+import {InternshipAdd} from "./component/internship-add/internship-add";
 import {StudentComponent} from "./component/student/student.component";
 import {CompanyForCheckComponent} from "./component/company-for-check/company-for-check.component";
 
@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'internship', component: InternshipComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'internship_add', component: Internship_add},
+  {path: 'internship-add', component: InternshipAdd},
   {path: 'student', component: StudentComponent},
   {path: 'company-for-check/:id', component: CompanyForCheckComponent}
 ];

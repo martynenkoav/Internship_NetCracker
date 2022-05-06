@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {InternshipModel} from "../model/internshipModel";
+import {Internship} from "../model/internship";
 import {map, Observable} from "rxjs";
-import {TokenStorageService} from "./token-storage.service";
+import {Const} from "../const/const";
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,10 @@ export class InternshipService {
   constructor(private http: HttpClient) {
   }
 
-  INTERNSHIP_URL: string = 'http://localhost:8081/api/internship';
+  INTERNSHIP_URL: string = Const.LOCALHOST_URL + 'api/internship';
 
-  public getInternshipsByCompanyId(id: number): Observable<InternshipModel[]> {
-    return this.http.get<InternshipModel[]>(this.INTERNSHIP_URL + "/" + id).pipe(
+  public getInternshipsByCompanyId(id: number): Observable<Internship[]> {
+    return this.http.get<Internship[]>(this.INTERNSHIP_URL + "/" + id).pipe(
       map((resp) => {
         console.log(resp);
         return resp;
@@ -22,8 +22,8 @@ export class InternshipService {
     )
   }
 
-  public getInternshipsByStudentId(id: number): Observable<InternshipModel[]> {
-    return this.http.get<InternshipModel[]>(this.INTERNSHIP_URL + "/student/" + id).pipe(
+  public getInternshipsByStudentId(id: number): Observable<Internship[]> {
+    return this.http.get<Internship[]>(this.INTERNSHIP_URL + "/student/" + id).pipe(
       map((resp) => {
         console.log(resp);
         return resp;
@@ -31,8 +31,8 @@ export class InternshipService {
     )
   }
 
-  public getInternships(): Observable<InternshipModel[]> {
-    return this.http.get<InternshipModel[]>(this.INTERNSHIP_URL).pipe(
+  public getInternships(): Observable<Internship[]> {
+    return this.http.get<Internship[]>(this.INTERNSHIP_URL).pipe(
       map((resp) => {
         console.log(resp);
         return resp;
@@ -40,11 +40,11 @@ export class InternshipService {
     );
   }
 
-  public postInternship(id: number, internship: InternshipModel) {
+  public postInternship(id: number, internship: Internship) {
     return this.http.post(this.INTERNSHIP_URL + "/" + id, internship);
   }
 
-  public patchInternship(id: number, internship: InternshipModel) {
+  public patchInternship(id: number, internship: Internship) {
     return this.http.patch(this.INTERNSHIP_URL + "/" + id, internship)
   }
 
