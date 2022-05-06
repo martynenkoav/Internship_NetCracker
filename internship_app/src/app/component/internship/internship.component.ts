@@ -7,6 +7,7 @@ import {TokenStorageService} from "../../service/token-storage.service";
 import {Router} from "@angular/router";
 import {StudentService} from "../../service/student.service";
 import 'bootstrap';
+import {forkJoin} from "rxjs";
 
 
 @Component({
@@ -30,9 +31,19 @@ export class InternshipComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getInternships();
+    /*this.getInternships();
+    this.getCurrentUser();*/
     this.getAccess();
-    this.getCurrentUser();
+
+    forkJoin(
+      this.internshipService.getInternships(),
+      this.studentService.getStudentById(this.tokenStorageService.getUser().id)
+    ).subscribe(([internships, student]) => {
+      console.log('Getting correctly');
+      this.currentStudent = student;
+      this.internships = internships;
+      this.internshipsWithoutFilt = internships;
+    })
   }
 
   getAccess() {

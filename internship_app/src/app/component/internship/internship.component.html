@@ -11,12 +11,13 @@
       </div>
 
       <input class="form-control" id="myInput" type="text" placeholder="Search.." (change)="filterList($event)">
-        <div class="p-3 py-5">
-          <div class="btn-group">
-            <a class="btn btn-default" *ngIf="isStudent" (click)="getInternships()">Просмотр всех стажировок</a>
-            <a class="btn btn-default" *ngIf="isStudent" (click)="showStudentsInternships()">Просмотр моих стажировок</a>
-          </div>
+      <div class="p-3 py-5" *ngIf="isStudent">
+        <div class="btn-group">
+          <a class="btn btn-default" (click)="getInternships()">Просмотр всех стажировок</a>
+          <a class="btn btn-default" (click)="showStudentsInternships()">Просмотр моих стажировок</a>
+        </div>
       </div>
+      <br>
       <ul id="sortable" *ngFor="let internship of internships">
         <li>
           <div class="media">
