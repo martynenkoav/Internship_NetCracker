@@ -7,7 +7,8 @@ import {TokenStorageService} from "../../service/token-storage.service";
 import {Router} from "@angular/router";
 import {StudentService} from "../../service/student.service";
 import 'bootstrap';
-import {forkJoin} from "rxjs";
+import {catchError, forkJoin, isEmpty, never, throwError} from "rxjs";
+import {HttpHandler, HttpRequest} from "@angular/common/http";
 
 
 @Component({
@@ -17,7 +18,7 @@ import {forkJoin} from "rxjs";
 })
 export class InternshipComponent implements OnInit {
 
-  internships!: Internship[];
+  internships: Internship[] = [];
   internshipsWithoutFilt!: Internship[];
   company: Company;
   roles: string[] = [];
@@ -27,15 +28,17 @@ export class InternshipComponent implements OnInit {
   currentStudent: any;
 
   constructor(private internshipService: InternshipService, private companyService: CompanyService,
-              private studentService: StudentService, private tokenStorageService: TokenStorageService, private router: Router) {
+              private studentService: StudentService, private tokenStorageService: TokenStorageService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
-    /*this.getInternships();
-    this.getCurrentUser();*/
+
+    this.getInternships();
+    this.getCurrentUser();
     this.getAccess();
 
-    forkJoin(
+    /*forkJoin(
       this.internshipService.getInternships(),
       this.studentService.getStudentById(this.tokenStorageService.getUser().id)
     ).subscribe(([internships, student]) => {
@@ -43,7 +46,7 @@ export class InternshipComponent implements OnInit {
       this.currentStudent = student;
       this.internships = internships;
       this.internshipsWithoutFilt = internships;
-    })
+    })*/
   }
 
   getAccess() {
@@ -58,12 +61,14 @@ export class InternshipComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.currentStudent = this.studentService.getStudentById(this.tokenStorageService.getUser().id).subscribe(
-      (response) => {
-        console.log('Getting correctly');
-        this.currentStudent = response;
-      },
-      error => console.warn(error));
+    if (this.roles.includes("ROLE_STUDENT")) {
+      this.currentStudent = this.studentService.getStudentById(this.tokenStorageService.getUser().id).subscribe(
+        (response) => {
+          console.log('Getting correctly');
+          this.currentStudent = response;
+        },
+        error => console.warn(error));
+    }
   }
 
   getInternships() {
@@ -73,8 +78,7 @@ export class InternshipComponent implements OnInit {
         this.internships = response;
         this.internshipsWithoutFilt = response;
       },
-      error => console.warn(error)
-    )
+      error => console.warn(error));
   }
 
   filterList(event: any) {
@@ -116,7 +120,8 @@ export class InternshipComponent implements OnInit {
     )
   }
 
-  isInStudentsList(id: number): boolean {
+  isInStudentsList(id: number):
+    boolean {
     if (this.currentStudent == null) {
       return false;
     } else {

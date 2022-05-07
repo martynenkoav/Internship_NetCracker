@@ -99,13 +99,30 @@ public class InternshipRestController {
 
     /*@PreAuthorize("#id == authentication.principal.id")*/
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Internship>> getAllInternshipsByCompanyId(@PathVariable("id") Long id) {
+    public ResponseEntity<List<Internship>> getAllInternshipsByUserId(@PathVariable("id") Long id) {
 
         Long companyId = this.companyService.getByUserId(id).getId();
 
         if (companyId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        List<Internship> internships = this.internshipService.getAllByCompanyId(companyId);
+
+        if (internships.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(internships, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/company/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Internship>> getAllInternshipsByCompanyId(@PathVariable("id") Long id) {
+
+        Long companyId = id;
+
+        if (companyId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         List<Internship> internships = this.internshipService.getAllByCompanyId(companyId);
 
         if (internships.isEmpty()) {

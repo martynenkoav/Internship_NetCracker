@@ -51,7 +51,7 @@ export class InternshipAdd implements OnInit {
 
   loadInternships() {
 
-    this.internshipService.getInternshipsByCompanyId(this.tokenStorageService.getUser().id).subscribe(
+    this.internshipService.getInternshipsByUserId(this.tokenStorageService.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
         this.internships = response;

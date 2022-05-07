@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Internship} from "../model/internship";
-import {map, Observable} from "rxjs";
+import {catchError, map, Observable} from "rxjs";
 import {Const} from "../const/const";
 
 @Injectable({
@@ -13,8 +13,17 @@ export class InternshipService {
 
   INTERNSHIP_URL: string = Const.LOCALHOST_URL + 'api/internship';
 
-  public getInternshipsByCompanyId(id: number): Observable<Internship[]> {
+  public getInternshipsByUserId(id: number): Observable<Internship[]> {
     return this.http.get<Internship[]>(this.INTERNSHIP_URL + "/" + id).pipe(
+      map((resp) => {
+        console.log(resp);
+        return resp;
+      })
+    )
+  }
+
+  public getInternshipsByCompanyId(id: number): Observable<Internship[]> {
+    return this.http.get<Internship[]>(this.INTERNSHIP_URL + "/company/" + id).pipe(
       map((resp) => {
         console.log(resp);
         return resp;
@@ -37,7 +46,7 @@ export class InternshipService {
         console.log(resp);
         return resp;
       })
-    );
+    )
   }
 
   public postInternship(id: number, internship: Internship) {
