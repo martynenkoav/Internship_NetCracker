@@ -7,6 +7,7 @@ import {LoginComponent} from "./component/login/login.component";
 import {InternshipAdd} from "./component/internship-add/internship-add";
 import {StudentComponent} from "./component/student/student.component";
 import {CompanyForCheckComponent} from "./component/company-for-check/company-for-check.component";
+import {ErrorPageComponent} from "./component/error-page/error-page.component";
 
 const routes: Routes = [
   {path: '', component: InternshipComponent},
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'internship-add', component: InternshipAdd},
   {path: 'student', component: StudentComponent},
-  {path: 'company-for-check/:id', component: CompanyForCheckComponent}
+  {path: 'company-for-check/:id', component: CompanyForCheckComponent},
+  {path: 'error', component: ErrorPageComponent}
 ];
 
 @NgModule({

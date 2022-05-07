@@ -17,6 +17,7 @@ import {authInterceptorProviders} from "./auth.interceptor";
 import { InternshipAdd } from './component/internship-add/internship-add';
 import { StudentComponent } from './component/student/student.component';
 import { CompanyForCheckComponent } from './component/company-for-check/company-for-check.component';
+import { ErrorPageComponent } from './component/error-page/error-page.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { CompanyForCheckComponent } from './component/company-for-check/company-
     LoginComponent,
     InternshipAdd,
     StudentComponent,
-    CompanyForCheckComponent
+    CompanyForCheckComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
