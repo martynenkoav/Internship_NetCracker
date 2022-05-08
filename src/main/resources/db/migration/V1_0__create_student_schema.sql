@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS internship
     description VARCHAR,
     url         VARCHAR,
     responses   INTEGER,
+    tag         VARCHAR,
     FOREIGN KEY (company_id) REFERENCES company (id)
 );
 
@@ -98,4 +99,3 @@ EXECUTE PROCEDURE user_student();
 
 INSERT INTO users_roles
 VALUES (1, 1);
-

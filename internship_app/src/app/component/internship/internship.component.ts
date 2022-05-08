@@ -19,7 +19,7 @@ import {HttpHandler, HttpRequest} from "@angular/common/http";
 export class InternshipComponent implements OnInit {
 
   internships: Internship[] = [];
-  internshipsWithoutFilt!: Internship[];
+  internshipsWithoutFilt: Internship[] = [];
   company: Company;
   roles: string[] = [];
   hasAccess: boolean;
