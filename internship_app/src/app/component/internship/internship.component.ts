@@ -86,6 +86,11 @@ export class InternshipComponent implements OnInit {
     this.internships = this.internshipsWithoutFilt.filter(x => x.name.toLowerCase().includes(event.target.value.toLowerCase()));
   }
 
+  filterTag(event: any) {
+    console.log(event);
+    this.internships = this.internshipsWithoutFilt.filter(x => x.tag.toLowerCase().includes(event.target.value.toLowerCase()));
+  }
+
   goToCompany(id: number) {
     this.router.navigate(['/company-for-check/', id]);
   }

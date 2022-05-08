@@ -37,7 +37,8 @@
       </div>
     </div>
     <div class="col-md-10 offset-md-1 row-block">
-      <input class="form-control" id="myInput" type="text" placeholder="Поиск..." (change)="filterList($event)">
+      <input class="form-control" id="myInput" type="text" placeholder="Поиск..." *ngIf="internshipsWithoutFilt.length != 0"
+             (change)="filterList($event)">
       <br>
       <ul id="sortable" *ngFor="let internship of internships">
         <li>
