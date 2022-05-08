@@ -91,9 +91,6 @@ public class InternshipRestController {
     public ResponseEntity<List<Internship>> getAllInternships() {
         List<Internship> internships = this.internshipService.getAll();
 
-        if (internships.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(internships, HttpStatus.OK);
     }
 
@@ -108,9 +105,6 @@ public class InternshipRestController {
         }
         List<Internship> internships = this.internshipService.getAllByCompanyId(companyId);
 
-        if (internships.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(internships, HttpStatus.OK);
     }
 
@@ -125,9 +119,6 @@ public class InternshipRestController {
 
         List<Internship> internships = this.internshipService.getAllByCompanyId(companyId);
 
-        if (internships.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(internships, HttpStatus.OK);
     }
 
@@ -141,9 +132,6 @@ public class InternshipRestController {
         }
         Set<Internship> internships = student.getInternships();
 
-        if (internships.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(internships, HttpStatus.OK);
     }
 }

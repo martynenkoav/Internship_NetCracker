@@ -2,12 +2,14 @@
   <br>
   <div class="container">
     <div class="col-md-10 offset-md-1 row-block">
+
       <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="!hasAccess">
         Пожалуйста, зарегистрируйтесь и войдите в аккаунт, чтобы видеть информацию о компаниях.
         <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
           <span aria-hidden="true">×</span>
         </button>
       </div>
+
 
       <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="internships.length == 0">
         Извините, стажировок на данный момент нет.
@@ -16,7 +18,7 @@
         </button>
       </div>
 
-      <input class="form-control" id="myInput" type="text" placeholder="Search.." *ngIf="internships.length != 0"
+      <input class="form-control" id="myInput" type="text" placeholder="Поиск.." *ngIf="internships.length != 0"
              (change)="filterList($event)">
       <div class="p-3 py-5" *ngIf="isStudent">
         <div class="btn-group">

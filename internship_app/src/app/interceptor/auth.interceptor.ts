@@ -2,7 +2,7 @@ import {HTTP_INTERCEPTORS, HttpEvent} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
 import {catchError, Observable, throwError} from 'rxjs';
-import {TokenStorageService} from "./service/token-storage.service";
+import {TokenStorageService} from "../service/token-storage.service";
 import {Router} from "@angular/router";
 
 const TOKEN_HEADER_KEY = 'Authorization';
@@ -19,12 +19,9 @@ export class AuthInterceptor implements HttpInterceptor {
       authReq = req.clone({headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)});
     }
     return next.handle(authReq).pipe(catchError((err: any) => {
-      if (err.status !== 403 && err.status !== 404) {
+      if (err.status !== 403) {
         this.router.navigate(["/error"])
         console.log("error");
-      }
-      if (err.status !== 404) {
-        console.log("404");
       }
       return throwError(err);
     }));

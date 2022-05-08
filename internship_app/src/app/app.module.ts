@@ -13,7 +13,7 @@ import { NavComponent } from './component/nav/nav.component';
 import { RegisterComponent } from './component/register/register.component';
 import { LoginComponent } from './component/login/login.component';
 import {MatSelectModule} from "@angular/material/select";
-import {authInterceptorProviders} from "./auth.interceptor";
+import {authInterceptorProviders} from "./interceptor/auth.interceptor";
 import { InternshipAdd } from './component/internship-add/internship-add';
 import { StudentComponent } from './component/student/student.component';
 import { CompanyForCheckComponent } from './component/company-for-check/company-for-check.component';
