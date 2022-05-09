@@ -22,7 +22,9 @@
              *ngIf="internshipsWithoutFilt.length != 0"
              (change)="filterList($event)">
       <br>
-      <select id="select" formControlName="tag" class="form-control" name="tag" (change)="filterTag($event)">
+      <select id="select" formControlName="tag" class="form-control" name="tag"
+              *ngIf="internshipsWithoutFilt.length != 0"
+              (change)="filterTag($event)">
         <option type="radio" value="">Все</option>
         <option type="radio" value="AUTOMOTIVE_BUSINESS">Автомобильный бизнес</option>
         <option type="radio" value="ADMINISTRATIVE_STAFF">Административный персонал</option>
