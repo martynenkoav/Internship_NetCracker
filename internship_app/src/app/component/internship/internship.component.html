@@ -42,14 +42,15 @@
 
       <div class="p-3 py-5" *ngIf="isStudent">
         <div class="btn-group">
-          <a class="btn btn-default" (click)="getInternships()">Просмотр всех стажировок</a>
-          <a class="btn btn-default" (click)="showStudentsInternships()">Просмотр моих стажировок</a>
+          <a class="btn btn-default" (click)="getInternships()">Все стажировки</a>
+          <a class="btn btn-default" (click)="showStudentsInternships()">Мои стажировки</a>
+          <a class="btn btn-default" (click)="getRecommendationInternships()">Рекомендации</a>
         </div>
       </div>
       <br>
       <ul id="sortable" *ngFor="let internship of internships">
         <li>
-          <div class="media" data-category="ADVERTISING">
+          <div class="media">
             <div class="media-body">
               <div class="d-flex w-100 justify-content-between">
                 <h3 class="mb-1">{{internship.name}}</h3>

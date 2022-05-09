@@ -84,6 +84,7 @@ public class InternshipRestController {
 
         this.internshipService.delete(id);
 
+
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
