@@ -32,7 +32,8 @@ export class InternshipAdd implements OnInit {
     this.internshipForm = this.formBuilder.group({
       name: [''],
       description: [''],
-      url: ['']
+      url: [''],
+      tag: ['']
     })
 
     this.getCompany();
@@ -100,6 +101,7 @@ export class InternshipAdd implements OnInit {
     newInternship.company_id = this.company.id;
     newInternship.url = internshipData.url;
     newInternship.responses = 0;
+    newInternship.tag = internshipData.tag;
 
     console.log(newInternship);
 

@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS internship
     description VARCHAR,
     url         VARCHAR,
     responses   INTEGER,
+    tag         VARCHAR,
     FOREIGN KEY (company_id) REFERENCES company (id)
 );
 
@@ -63,8 +64,8 @@ CREATE TABLE IF NOT EXISTS students_internships
     student_id INTEGER,
     internship_id INTEGER,
     FOREIGN KEY (student_id) REFERENCES student (id),
-    FOREIGN KEY (internship_id) REFERENCES internship (id)
-    );
+    FOREIGN KEY (internship_id) REFERENCES internship (id) ON DELETE CASCADE
+);
 
 INSERT INTO roles
 VALUES (1, 'ROLE_ADMIN');
@@ -98,4 +99,3 @@ EXECUTE PROCEDURE user_student();
 
 INSERT INTO users_roles
 VALUES (1, 1);
-

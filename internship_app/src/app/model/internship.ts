@@ -8,4 +8,5 @@ export class Internship {
   company: Company;
   url: string;
   responses: number;
+  tag: string;
 }

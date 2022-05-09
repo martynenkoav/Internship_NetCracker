@@ -16,10 +16,11 @@ import {HttpHandler, HttpRequest} from "@angular/common/http";
   templateUrl: './internship.component.html',
   styleUrls: ['./internship.component.css']
 })
+
 export class InternshipComponent implements OnInit {
 
   internships: Internship[] = [];
-  internshipsWithoutFilt!: Internship[];
+  internshipsWithoutFilt: Internship[] = [];
   company: Company;
   roles: string[] = [];
   hasAccess: boolean;
@@ -37,6 +38,7 @@ export class InternshipComponent implements OnInit {
     this.getInternships();
     this.getAccess();
     this.getCurrentUser();
+
 
     /*forkJoin(
       this.internshipService.getInternships(),
@@ -66,10 +68,6 @@ export class InternshipComponent implements OnInit {
         (response) => {
           console.log('Getting correctly');
           this.currentStudent = response;
-          console.log(this.currentStudent);
-          if (this.currentUser.internships == undefined){
-            this.currentUser.internships = [];
-          }
         },
         error => console.warn(error));
     }
@@ -88,6 +86,11 @@ export class InternshipComponent implements OnInit {
   filterList(event: any) {
     console.log(event);
     this.internships = this.internshipsWithoutFilt.filter(x => x.name.toLowerCase().includes(event.target.value.toLowerCase()));
+  }
+
+  filterTag(event: any) {
+    console.log(event);
+    this.internships = this.internshipsWithoutFilt.filter(x => x.tag.toLowerCase().includes(event.target.value.toLowerCase()));
   }
 
   goToCompany(id: number) {
@@ -121,7 +124,7 @@ export class InternshipComponent implements OnInit {
         this.internshipsWithoutFilt = response;
       },
       error => console.warn(error)
-    )
+    );
   }
 
   isInStudentsList(id: number):
@@ -129,8 +132,32 @@ export class InternshipComponent implements OnInit {
     if (this.currentStudent == null) {
       return false;
     } else {
-      console.log(this.currentStudent.internships.includes(id));
+      //console.log(this.currentStudent.internships.includes(id));
       return this.currentStudent.internships.includes(id);
     }
   }
+
+  getRecommendationInternships() {
+
+    this.internshipService.getInternshipsByStudentId(this.tokenStorageService.getUser().id).subscribe(
+      (response) => {
+        console.log('Getting correctly');
+        this.internships = response;
+        this.internshipsWithoutFilt = response;
+      },
+      error => console.warn(error)
+    );
+
+
+
+    //this.studentTags = this.internships.forEach(internship => internship.tag);
+
+   // this.internships = this.internshipsWithoutFilt.filter(x => x.tag.toLowerCase().includes(this.studentTags[0].toLowerCase()))
+
+    //this.internships = this.internshipsWithoutFilt.filter(x => x.tag.toLowerCase().includes(event.target.value.toLowerCase()));
+    /*this.internships.forEach(internship=>)*/
+    //this.internships = this.internshipsWithoutFilt.filter(x => x.tag.toLowerCase().includes(studentTags[0]));
+  }
+
 }
+
