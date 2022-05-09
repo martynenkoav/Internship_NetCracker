@@ -32,11 +32,6 @@ export class RegisterComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.user = {
-      username: "",
-      password: "",
-      role: ""
-    }
     this.submitted = true;
     this.form = this.formBuilder.group(
       {

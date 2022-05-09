@@ -1,7 +1,7 @@
 package com.example.attempt.rest;
 
 import com.example.attempt.dto.StudentDTO;
-import com.example.attempt.security.EmailValidator;
+import com.example.attempt.security.util.EmailValidator;
 import com.example.attempt.model.Student;
 import com.example.attempt.serviceImplementation.InternshipServiceImpl;
 import com.example.attempt.serviceImplementation.StudentServiceImpl;

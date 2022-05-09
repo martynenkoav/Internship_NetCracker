@@ -1,6 +1,6 @@
 package com.example.attempt.dto;
 
-import com.example.attempt.security.EmailValidator;
+import com.example.attempt.security.util.EmailValidator;
 import lombok.Data;
 
 @Data

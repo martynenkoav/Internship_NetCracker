@@ -8,8 +8,8 @@ import com.example.attempt.repository.RoleRepository;
 import com.example.attempt.repository.UserRepository;
 import com.example.attempt.security.JwtUtils;
 import com.example.attempt.security.UserDetailsImpl;
+import com.example.attempt.service.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,9 +26,8 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController {
+public class AuthRestController {
 
-    private final AuthenticationManager authenticationManager;
 
     private final UserRepository userRepository;
 
@@ -36,25 +35,13 @@ public class AuthController {
 
     private final PasswordEncoder encoder;
 
-    private final JwtUtils jwtUtils;
+    private final AuthService authservice;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserDTO userDTO) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userDTO.getUsername(), userDTO.getPassword()));
+        JwtResponse jwtResponse = this.authservice.createJWTResponse(userDTO);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                roles));
+        return ResponseEntity.ok(jwtResponse);
     }
 
     @PostMapping("")

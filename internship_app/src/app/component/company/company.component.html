@@ -14,17 +14,36 @@
             <h4 class="text-center">Настройки профиля компании</h4>
           </div>
           <div class="row mt-2">
-            <div class="col-md-12"><label class="labels">Название</label>
+            <div class="col-md-12">
+              <label class="labels">Название</label>
               <input id="inputName" #name="ngModel" type="text" [(ngModel)]="company.name" class="form-control"
-                     name="name"></div>
+                     name="name" required>
+              <div *ngIf="name.invalid"
+                   class="alert-warning">
+                <div *ngIf="name.errors?.['required']">
+                  Поле имя обязательно для заполнения
+                </div>
+              </div>
+            </div>
             <div class="col-md-12"><br><label class="labels">Описание</label>
               <textarea id="inputDescription" #description="ngModel" type="text" [(ngModel)]="company.description"
-                        class="form-control" name="description"></textarea></div>
+                        class="form-control" name="description" required></textarea>
+              <div *ngIf="description.invalid && (description.dirty || description.touched) || (this.company.description == null)"
+                   class="alert-warning">
+                <div *ngIf="description.errors?.['required']">
+                  Поле описание обязательно для заполнения
+                </div>
+              </div>
+            </div>
             <div class="col-md-12"><br><br><label class="labels">Почта</label>
               <input id="inputEmail" #email="ngModel" type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                      [(ngModel)]="company.email" class="form-control"
-                     name="email">
-              <div *ngIf="email.errors &&(email.touched || email.dirty)" class="alert alert-danger">
+                     name="email" required>
+              <div *ngIf="email.invalid && (email.dirty || email.touched) || (this.company.email == null)"
+                   class="alert-warning">
+                <div *ngIf="name.errors?.['required']">
+                  Поле имя обязательно для заполнения
+                </div>
                 <div [hidden]="!email.errors?.['pattern']">
                   Неверный формат почты
                 </div>
@@ -32,7 +51,107 @@
             </div>
             <div class="col-md-12"><br><label class="labels">Адрес</label>
               <textarea id="inputAddress" #address="ngModel" type="text" [(ngModel)]="company.address"
-                        class="form-control" name="address"></textarea></div>
+                        class="form-control" name="address" required></textarea>
+              <div *ngIf="address.invalid && (address.dirty || address.touched) || (this.company.address == null)"
+                   class="alert-warning">
+                <div *ngIf="description.errors?.['required']">
+                  Поле адрес обязательно для заполнения
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="mt-5 text-center"><a class="btn btn-default" (click)="postCompany()"> Сохранить изменения </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 m-5">
+        <div class="p-3 py-5">
+          <div class="d-flex justify-content-between align-items-center experience">
+            <button class="btn btn-default" type="submit" routerLink="/internship-add" *ngIf="!address.errors && !description.errors && !name.errors && !email.errors">
+              Добавить/Удалить стажировку
+            </button>
+          </div>
+          <br>
+          <a class="btn btn-default" routerLink="/internship"> Просмотр всех стажировок </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--
+{{ this.form.value }}
+<section class="row-section">
+  <div class="container rounded bg-white">
+    <div class="row">
+      <div class="col-md-3 border-right">
+        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+          <img class="rounded-circle mt-5"
+               src="../../../assets/images/companyProfile.jpg"
+               width="150px">
+        </div>
+      </div>
+      <div class="col-md-6 border-right">
+        <div class="p-3 py-5">
+          <div class="d-flex justify-content-between align-items-center mb-6">
+            <h4 class="text-center">Настройки профиля компании</h4>
+          </div>
+          <div class="company-form">
+            <form [formGroup]="form">
+              <div class="form-group">
+                <label>Название</label>
+                <input
+                  type="text"
+                  formControlName="name"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': f['name'].errors }"
+                />
+                <div *ngIf="f['name'].errors" class="invalid-feedback">
+                  <div *ngIf="f['name'].errors['required']">Поле обязательно для заполнения</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Описание</label>
+                <input
+                  type="text"
+                  formControlName="description"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': f['description'].errors}"
+                />
+                <div *ngIf="f['description'].errors" class="invalid-feedback">
+                  <div *ngIf="f['description'].errors['required']">Поле обязательно для заполнения</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Почта</label>
+                <input
+                  type="text"
+                  formControlName="email"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': f['email'].errors }"
+                />
+                <div
+                  *ngIf="f['email'].errors"
+                  class="invalid-feedback">
+                  <div *ngIf="f['email'].errors['required']">
+                    Поле обязательно для заполнения
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Адрес</label>
+                <input
+                  type="text"
+                  formControlName="address"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid':submitted && f['address'].errors}"
+                />
+                <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
+                  <div *ngIf="f['address'].errors['required'] && f['address'] == null">Поле обязательно для заполнения</div>
+                </div>
+              </div>
+              <br>
+            </form>
           </div>
           <br>
           <div class="mt-5 text-center"><a class="btn btn-default" (click)="postCompany()"> Сохранить изменения </a>
@@ -53,4 +172,6 @@
     </div>
   </div>
 </section>
+-->
+
 

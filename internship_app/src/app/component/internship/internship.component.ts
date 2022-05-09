@@ -35,8 +35,8 @@ export class InternshipComponent implements OnInit {
   ngOnInit(): void {
 
     this.getInternships();
-    this.getCurrentUser();
     this.getAccess();
+    this.getCurrentUser();
 
     /*forkJoin(
       this.internshipService.getInternships(),
@@ -66,6 +66,10 @@ export class InternshipComponent implements OnInit {
         (response) => {
           console.log('Getting correctly');
           this.currentStudent = response;
+          console.log(this.currentStudent);
+          if (this.currentUser.internships == undefined){
+            this.currentUser.internships = [];
+          }
         },
         error => console.warn(error));
     }

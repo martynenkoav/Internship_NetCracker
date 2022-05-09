@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Company} from "../../model/company";
 import {CompanyService} from "../../service/company.service";
 import {TokenStorageService} from "../../service/token-storage.service";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -10,27 +12,39 @@ import {TokenStorageService} from "../../service/token-storage.service";
   styleUrls: ['./company.component.css']
 })
 export class CompanyComponent implements OnInit {
-
-  public company: Company;
+  form: FormGroup = new FormGroup({
+    name: new FormControl(''),
+    description: new FormControl(''),
+    email: new FormControl(''),
+    address: new FormControl(''),
+  });
+  public company: Company = new Company();
   public isEmpty: boolean = false;
+  submitted = false;
 
-  constructor(private companyService: CompanyService, private tokenStorageService: TokenStorageService) {
+  constructor(private formBuilder: FormBuilder, private companyService: CompanyService, private tokenStorageService: TokenStorageService) {
+
   }
 
   ngOnInit(): void {
+    /*this.submitted = true;*/
     this.getCompany();
-    if (this.company.name == null || this.company.email == null || this.company.description == null) {
-      this.isEmpty = true;
-    }
   }
 
-  getCompany() {
+  /*get f(): { [key: string]: AbstractControl } {
+    return this.form.controls;
+  }*/
+
+  getCompany(){
     this.companyService.getCompanyByUserId(this.tokenStorageService.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
+        /*this.form = response;*/
         this.company = response;
+        console.log(response);
       },
-      error => console.warn(error)
+      error => {
+        console.warn(error)}
     )
   }
 

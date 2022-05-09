@@ -15,8 +15,8 @@ export class CompanyService {
 
   private COMPANY_URL: string = Const.LOCALHOST_URL + 'api/company';
 
-  public getCompanyByUserId(id: number): Observable<Company> {
-    return this.http.get<Company>(this.COMPANY_URL + "/" + id).pipe(
+  public getCompanyByUserId(id: number): Observable<any> {
+    return this.http.get<any>(this.COMPANY_URL + "/" + id).pipe(
       map((resp) => {
         console.log(resp);
         return resp;
