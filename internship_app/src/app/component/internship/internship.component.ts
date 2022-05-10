@@ -19,14 +19,17 @@ import {HttpHandler, HttpRequest} from "@angular/common/http";
 
 export class InternshipComponent implements OnInit {
 
+  viewInternships: Internship[] = [];
   internships: Internship[] = [];
-  internshipsWithoutFilt: Internship[] = [];
+  myInternships: Internship[] = [];
   company: Company;
   roles: string[] = [];
   hasAccess: boolean;
   isStudent: boolean;
   currentUser: any;
   currentStudent: any;
+  studentTags: any[] = [];
+  filters: Map<string, string> = new Map<string, string>();
 
   constructor(private internshipService: InternshipService, private companyService: CompanyService,
               private studentService: StudentService, private tokenStorageService: TokenStorageService,
@@ -35,20 +38,25 @@ export class InternshipComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getInternships();
-    this.getAccess();
-    this.getCurrentUser();
+    this.filters.set("name", "");
+    this.filters.set("tag", "");
 
+    if (this.roles.includes("ROLE_STUDENT")) {
+      forkJoin(
+        this.internshipService.getInternships(),
+        this.internshipService.getInternshipsByStudentId(this.tokenStorageService.getUser().id)
+      ).subscribe(([internships, myInternships]) => {
+        this.internships = internships;
+        this.myInternships = myInternships;
+        this.viewInternships = internships;
+        this.getAccess();
+        this.getCurrentUser();
+      })
+    } else {
+      this.getInternships();
+      this.getAccess();
+    }
 
-    /*forkJoin(
-      this.internshipService.getInternships(),
-      this.studentService.getStudentById(this.tokenStorageService.getUser().id)
-    ).subscribe(([internships, student]) => {
-      console.log('Getting correctly');
-      this.currentStudent = student;
-      this.internships = internships;
-      this.internshipsWithoutFilt = internships;
-    })*/
   }
 
   getAccess() {
@@ -77,20 +85,20 @@ export class InternshipComponent implements OnInit {
     this.internshipService.getInternships().subscribe(
       (response) => {
         console.log('Getting correctly');
+        this.viewInternships = response;
         this.internships = response;
-        this.internshipsWithoutFilt = response;
       },
       error => console.warn(error));
   }
 
-  filterList(event: any) {
-    console.log(event);
-    this.internships = this.internshipsWithoutFilt.filter(x => x.name.toLowerCase().includes(event.target.value.toLowerCase()));
-  }
-
-  filterTag(event: any) {
-    console.log(event);
-    this.internships = this.internshipsWithoutFilt.filter(x => x.tag.toLowerCase().includes(event.target.value.toLowerCase()));
+  filterList(event: any, filterName: string) {
+    this.filters.set(filterName, event.target.value.toLowerCase());
+    this.viewInternships = this.internships;
+    this.filters.forEach((value, key) => {
+      if (value !== "") {
+        this.viewInternships = this.viewInternships.filter(x => x[key].toLowerCase().includes(value));
+      }
+    })
   }
 
   goToCompany(id: number) {
@@ -120,8 +128,8 @@ export class InternshipComponent implements OnInit {
     this.internshipService.getInternshipsByStudentId(this.tokenStorageService.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
-        this.internships = response;
-        this.internshipsWithoutFilt = response;
+        this.viewInternships = response;
+        this.myInternships = response;
       },
       error => console.warn(error)
     );
@@ -132,32 +140,29 @@ export class InternshipComponent implements OnInit {
     if (this.currentStudent == null) {
       return false;
     } else {
-      //console.log(this.currentStudent.internships.includes(id));
       return this.currentStudent.internships.includes(id);
     }
   }
 
   getRecommendationInternships() {
 
-    this.internshipService.getInternshipsByStudentId(this.tokenStorageService.getUser().id).subscribe(
-      (response) => {
-        console.log('Getting correctly');
-        this.internships = response;
-        this.internshipsWithoutFilt = response;
-      },
-      error => console.warn(error)
-    );
+    let allInternships = this.internships;
 
+    let studentInternships = this.myInternships;
+    studentInternships.forEach(internship => this.studentTags.push(internship?.tag));
 
+    let studentInternshipsIds = studentInternships.map(studentInternship => studentInternship.id);
 
-    //this.studentTags = this.internships.forEach(internship => internship.tag);
+    let result = allInternships.filter(internship => {
+      return !studentInternshipsIds.includes(internship.id)
+    });
 
-   // this.internships = this.internshipsWithoutFilt.filter(x => x.tag.toLowerCase().includes(this.studentTags[0].toLowerCase()))
-
-    //this.internships = this.internshipsWithoutFilt.filter(x => x.tag.toLowerCase().includes(event.target.value.toLowerCase()));
-    /*this.internships.forEach(internship=>)*/
-    //this.internships = this.internshipsWithoutFilt.filter(x => x.tag.toLowerCase().includes(studentTags[0]));
+    this.viewInternships = result.filter(x => {
+      return this.studentTags.some(st => {
+          return st === x.tag;
+        }
+      )
+    });
   }
-
 }
 

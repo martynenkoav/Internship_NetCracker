@@ -2,16 +2,14 @@
   <br>
   <div class="container">
     <div class="col-md-10 offset-md-1 row-block">
-
       <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="!hasAccess">
         Пожалуйста, зарегистрируйтесь и войдите в аккаунт, чтобы видеть информацию о компаниях.
         <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
           <span aria-hidden="true">×</span>
         </button>
       </div>
-
-
-      <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="internshipsWithoutFilt.length == 0">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert"
+           *ngIf="internships.length == 0">
         Извините, стажировок на данный момент нет.
         <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
           <span aria-hidden="true">×</span>
@@ -19,21 +17,22 @@
       </div>
 
       <input class="form-control" id="myInput" type="text" placeholder="Поиск.."
-             *ngIf="internshipsWithoutFilt.length != 0"
-             (change)="filterList($event)">
+             *ngIf="internships.length != 0"
+             (change)="filterList($event, 'name')">
       <br>
       <select id="select" formControlName="tag" class="form-control" name="tag"
-              *ngIf="internshipsWithoutFilt.length != 0"
-              (change)="filterTag($event)">
+              *ngIf="internships.length != 0"
+              (change)="filterList($event,'tag')">
+
         <option type="radio" value="">Все</option>
         <option type="radio" value="AUTOMOTIVE_BUSINESS">Автомобильный бизнес</option>
         <option type="radio" value="ADMINISTRATIVE_STAFF">Административный персонал</option>
-        <option type="radio" value="SAFETY">Безопасность </option>
-        <option type="radio" value="TOP_MANAGEMENT">Высший менеджмент </option>
+        <option type="radio" value="SAFETY">Безопасность</option>
+        <option type="radio" value="TOP_MANAGEMENT">Высший менеджмент</option>
         <option type="radio" value="PURCHASES">Закупки</option>
         <option type="radio" value="INFORMATION_TECHNOLOGY">Информационные технологии</option>
         <option type="radio" value="ART">Искусство</option>
-        <option type="radio" value="ADVERTISING">Реклама </option>
+        <option type="radio" value="ADVERTISING">Реклама</option>
         <option type="radio" value="MEDICINE">Медицина</option>
         <option type="radio" value="SALES">Продажи</option>
         <option type="radio" value="TOURISM">Туризм</option>
@@ -50,7 +49,7 @@
         </div>
       </div>
       <br>
-      <ul id="sortable" *ngFor="let internship of internships">
+      <ul id="sortable" *ngFor="let internship of viewInternships">
         <li>
           <div class="media">
             <div class="media-body">
@@ -69,6 +68,7 @@
             </div>
             <pre></pre>
             <div class="media-right align-self-center">
+              <pre></pre>
               <button href="#" class="btn btn-default"
                       (click)="goToTheLink(internship); addInternshipToStudent(internship.id)"
                       *ngIf="isStudent">Откликнуться
