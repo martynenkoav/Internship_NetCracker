@@ -1,4 +1,4 @@
-<section class="row-section">
+<!--<section class="row-section">
   <div class="container rounded bg-white">
     <div class="row">
       <div class="col-md-3 border-right">
@@ -68,7 +68,7 @@
       <div class="col-2 m-5">
         <div class="p-3 py-5">
           <div class="d-flex justify-content-between align-items-center experience">
-            <button class="btn btn-default" type="submit" routerLink="/internship-add" *ngIf="!address.errors && !description.errors && !name.errors && !email.errors">
+            <button class="btn btn-default" type="submit" routerLink="/internship-add" *ngIf="!address.errors && !description.errors && !name.errors && !email.errors" [disabled]="false">
               Добавить/Удалить стажировку
             </button>
           </div>
@@ -78,9 +78,7 @@
       </div>
     </div>
   </div>
-</section>
-<!--
-{{ this.form.value }}
+</section>-->
 <section class="row-section">
   <div class="container rounded bg-white">
     <div class="row">
@@ -172,6 +170,5 @@
     </div>
   </div>
 </section>
--->
 
 

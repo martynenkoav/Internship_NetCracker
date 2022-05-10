@@ -11,6 +11,7 @@ import {catchError, forkJoin, isEmpty, never, throwError} from "rxjs";
 import {HttpHandler, HttpRequest} from "@angular/common/http";
 
 
+
 @Component({
   selector: 'app-internship',
   templateUrl: './internship.component.html',
@@ -18,7 +19,69 @@ import {HttpHandler, HttpRequest} from "@angular/common/http";
 })
 
 export class InternshipComponent implements OnInit {
-
+  tags = [
+    {
+      value: '',
+      name: 'Все'
+    },
+    {
+    value: 'AUTOMOTIVE_BUSINESS',
+    name: 'Автомобильный бизнес'
+    },
+    {
+      value: 'ADMINISTRATIVE_STAFF',
+      name: 'Административный персонал'
+    },
+    {
+      value: 'SAFETY',
+      name: 'Безопасность'
+    },
+    {
+      value: 'TOP_MANAGEMENT',
+      name: 'Высший менеджмент'
+    },
+    {
+      value: 'PURCHASES',
+      name: 'Закупки'
+    },
+    {
+      value: 'INFORMATION_TECHNOLOGY',
+      name: 'Информационные технологии'
+    },
+    {
+      value: 'ART',
+      name: 'Искусство'
+    },
+    {
+      value: 'ADVERTISING',
+      name: 'Реклама'
+    },
+    {
+      value: 'MEDICINE',
+      name: 'Медицина'
+    },
+    {
+      value: 'SALES',
+      name: 'Продажи'
+    },
+    {
+      value: 'TOURISM',
+      name: 'Туризм'
+    },
+    {
+      value: 'PERSONNEL_MANAGEMENT',
+      name: 'Управление персоналом'
+    },
+    {
+      value: 'LAWYERS',
+      name: 'Юристы'
+    },
+    {
+      value: 'OTHER',
+      name: 'Другое'
+    }
+  ];
+  /*TAGS;*/
   internships: Internship[] = [];
   internshipsWithoutFilt: Internship[] = [];
   company: Company;
@@ -52,7 +115,7 @@ export class InternshipComponent implements OnInit {
   }
 
   getAccess() {
-    this.roles = this.tokenStorageService.getUser().roles;
+    this.roles = this.tokenStorageService.getUser().roles || [];
     if (this.roles.includes("ROLE_STUDENT") || this.roles.includes("ROLE_COMPANY")) {
       this.hasAccess = true;
     }

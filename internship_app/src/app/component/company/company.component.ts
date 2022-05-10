@@ -4,6 +4,7 @@ import {CompanyService} from "../../service/company.service";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
+import Validation from "../register/validation";
 
 
 @Component({
@@ -29,19 +30,35 @@ export class CompanyComponent implements OnInit {
   ngOnInit(): void {
     /*this.submitted = true;*/
     this.getCompany();
+
   }
 
-  /*get f(): { [key: string]: AbstractControl } {
+  get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
-  }*/
+  }
 
   getCompany(){
     this.companyService.getCompanyByUserId(this.tokenStorageService.getUser().id).subscribe(
-      (response) => {
+      (company) => {
         console.log('Getting correctly');
         /*this.form = response;*/
-        this.company = response;
-        console.log(response);
+        this.form = this.formBuilder.group(
+          {
+            name: [
+              company.name,
+              [
+                Validators.required,
+              ]
+            ],
+            description: [
+              company.description,
+              [
+                Validators.required,
+              ]
+            ],
+            email: [ company.email, Validators.required],
+            address: [company.address, Validators.required]
+          })
       },
       error => {
         console.warn(error)}

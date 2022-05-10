@@ -28,7 +28,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "../internship_app/node_modules/bootstrap/dist/css/bootstrap.css"
+              "../internship_app/node_modules/bootstrap/dist/css/bootstrap.css",
+              "../internship_app/node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": []
           },

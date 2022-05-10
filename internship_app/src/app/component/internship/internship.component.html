@@ -11,34 +11,27 @@
       </div>
 
 
-      <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="internshipsWithoutFilt.length == 0">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert"
+           *ngIf="internshipsWithoutFilt.length == 0">
         Извините, стажировок на данный момент нет.
         <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
           <span aria-hidden="true">×</span>
         </button>
       </div>
 
+
       <input class="form-control" id="myInput" type="text" placeholder="Поиск.."
              *ngIf="internshipsWithoutFilt.length != 0"
              (change)="filterList($event)">
       <br>
-      <select id="select" formControlName="tag" class="form-control" name="tag" (change)="filterTag($event)">
-        <option type="radio" value="">Все</option>
-        <option type="radio" value="AUTOMOTIVE_BUSINESS">Автомобильный бизнес</option>
-        <option type="radio" value="ADMINISTRATIVE_STAFF">Административный персонал</option>
-        <option type="radio" value="SAFETY">Безопасность </option>
-        <option type="radio" value="TOP_MANAGEMENT">Высший менеджмент </option>
-        <option type="radio" value="PURCHASES">Закупки</option>
-        <option type="radio" value="INFORMATION_TECHNOLOGY">Информационные технологии</option>
-        <option type="radio" value="ART">Искусство</option>
-        <option type="radio" value="ADVERTISING">Реклама </option>
-        <option type="radio" value="MEDICINE">Медицина</option>
-        <option type="radio" value="SALES">Продажи</option>
-        <option type="radio" value="TOURISM">Туризм</option>
-        <option type="radio" value="PERSONNEL_MANAGEMENT">Управление персоналом</option>
-        <option type="radio" value="LAWYERS">Юристы</option>
-        <option type="radio" value="OTHER">Другое</option>
-      </select>
+
+
+      <!--<mat-label>Выберите тэг</mat-label>-->
+      <mat-select id="select" class="form-control" *ngIf="internshipsWithoutFilt.length != 0"
+                  (change)="filterTag($event)" [multiple]="true">
+        <mat-option value="{{ tag.value }}" *ngFor="let tag of tags">{{tag.name}}</mat-option>
+      </mat-select>
+      <br>
 
       <div class="p-3 py-5" *ngIf="isStudent">
         <div class="btn-group">
