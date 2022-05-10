@@ -9,7 +9,12 @@ import {StudentService} from "../../service/student.service";
 import 'bootstrap';
 import {catchError, forkJoin, isEmpty, never, throwError} from "rxjs";
 import {HttpHandler, HttpRequest} from "@angular/common/http";
+import {FormControl} from "@angular/forms";
 
+export interface Tag {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-internship',
@@ -20,66 +25,51 @@ import {HttpHandler, HttpRequest} from "@angular/common/http";
 export class InternshipComponent implements OnInit {
 
   viewInternships: Internship[] = [];
-  tags = [
+  tags: Tag[] = [
     {
-      value: '',
-      name: 'Все'
+      value: '', viewValue: 'Все'
     },
     {
-    value: 'AUTOMOTIVE_BUSINESS',
-    name: 'Автомобильный бизнес'
+      value: 'AUTOMOTIVE_BUSINESS', viewValue: 'Автомобильный бизнес'
     },
     {
-      value: 'ADMINISTRATIVE_STAFF',
-      name: 'Административный персонал'
+      value: 'ADMINISTRATIVE_STAFF', viewValue: 'Административный персонал'
     },
     {
-      value: 'SAFETY',
-      name: 'Безопасность'
+      value: 'SAFETY', viewValue: 'Безопасность'
     },
     {
-      value: 'TOP_MANAGEMENT',
-      name: 'Высший менеджмент'
+      value: 'TOP_MANAGEMENT', viewValue: 'Высший менеджмент'
     },
     {
-      value: 'PURCHASES',
-      name: 'Закупки'
+      value: 'PURCHASES', viewValue: 'Закупки'
     },
     {
-      value: 'INFORMATION_TECHNOLOGY',
-      name: 'Информационные технологии'
+      value: 'INFORMATION_TECHNOLOGY', viewValue: 'Информационные технологии'
     },
     {
-      value: 'ART',
-      name: 'Искусство'
+      value: 'ART', viewValue: 'Искусство'
     },
     {
-      value: 'ADVERTISING',
-      name: 'Реклама'
+      value: 'ADVERTISING', viewValue: 'Реклама'
     },
     {
-      value: 'MEDICINE',
-      name: 'Медицина'
+      value: 'MEDICINE', viewValue: 'Медицина'
     },
     {
-      value: 'SALES',
-      name: 'Продажи'
+      value: 'SALES', viewValue: 'Продажи'
     },
     {
-      value: 'TOURISM',
-      name: 'Туризм'
+      value: 'TOURISM', viewValue: 'Туризм'
     },
     {
-      value: 'PERSONNEL_MANAGEMENT',
-      name: 'Управление персоналом'
+      value: 'PERSONNEL_MANAGEMENT', viewValue: 'Управление персоналом'
     },
     {
-      value: 'LAWYERS',
-      name: 'Юристы'
+      value: 'LAWYERS', viewValue: 'Юристы'
     },
     {
-      value: 'OTHER',
-      name: 'Другое'
+      value: 'OTHER', viewValue: 'Другое'
     }
   ];
   /*TAGS;*/
@@ -87,7 +77,7 @@ export class InternshipComponent implements OnInit {
   myInternships: Internship[] = [];
   company: Company;
   roles: string[] = [];
-  hasAccess: boolean;
+  hasAccess: boolean = false;
   isStudent: boolean;
   currentUser: any;
   currentStudent: any;
@@ -103,6 +93,7 @@ export class InternshipComponent implements OnInit {
 
     this.filters.set("name", "");
     this.filters.set("tag", "");
+    this.getAccess();
 
     if (this.roles.includes("ROLE_STUDENT")) {
       forkJoin(
@@ -112,12 +103,10 @@ export class InternshipComponent implements OnInit {
         this.internships = internships;
         this.myInternships = myInternships;
         this.viewInternships = internships;
-        this.getAccess();
         this.getCurrentUser();
       })
     } else {
       this.getInternships();
-      this.getAccess();
     }
 
   }
@@ -137,8 +126,8 @@ export class InternshipComponent implements OnInit {
     if (this.roles.includes("ROLE_STUDENT")) {
       this.currentStudent = this.studentService.getStudentById(this.tokenStorageService.getUser().id).subscribe(
         (response) => {
-          console.log('Getting correctly');
           this.currentStudent = response;
+          console.log('Getting student correctly', this.currentStudent);
         },
         error => console.warn(error));
     }
@@ -155,6 +144,7 @@ export class InternshipComponent implements OnInit {
   }
 
   filterList(event: any, filterName: string) {
+    console.log('Проверка фильтра', event.target);
     this.filters.set(filterName, event.target.value.toLowerCase());
     this.viewInternships = this.internships;
     this.filters.forEach((value, key) => {
@@ -227,5 +217,6 @@ export class InternshipComponent implements OnInit {
       )
     });
   }
+
 }
 

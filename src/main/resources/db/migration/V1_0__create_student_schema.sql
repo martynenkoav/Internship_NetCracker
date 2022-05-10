@@ -55,16 +55,30 @@ CREATE TABLE IF NOT EXISTS internship
     description VARCHAR,
     url         VARCHAR,
     responses   INTEGER,
-    tag         VARCHAR,
     FOREIGN KEY (company_id) REFERENCES company (id)
 );
 
 CREATE TABLE IF NOT EXISTS students_internships
 (
-    student_id INTEGER,
+    student_id    INTEGER,
     internship_id INTEGER,
     FOREIGN KEY (student_id) REFERENCES student (id),
     FOREIGN KEY (internship_id) REFERENCES internship (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tag
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS internships_tags
+(
+    internship_id INTEGER,
+    tag_id        INTEGER,
+    FOREIGN KEY (internship_id) REFERENCES internship (id),
+    FOREIGN KEY (tag_id) REFERENCES tag (id) ON DELETE CASCADE
 );
 
 INSERT INTO roles
@@ -99,3 +113,37 @@ EXECUTE PROCEDURE user_student();
 
 INSERT INTO users_roles
 VALUES (1, 1);
+
+INSERT INTO tag
+VALUES (1, 'ALL');
+INSERT INTO tag
+VALUES (2, 'AUTOMOTIVE_BUSINESS');
+INSERT INTO tag
+VALUES (3, 'ADMINISTRATIVE_STAFF');
+INSERT INTO tag
+VALUES (4, 'SAFETY');
+INSERT INTO tag
+VALUES (5, 'TOP_MANAGEMENT');
+INSERT INTO tag
+VALUES (6, 'PURCHASES');
+INSERT INTO tag
+VALUES (7, 'INFORMATION_TECHNOLOGY');
+INSERT INTO tag
+VALUES (8, 'ART');
+INSERT INTO tag
+VALUES (9, 'ADVERTISING');
+INSERT INTO tag
+VALUES (10, 'MEDICINE');
+INSERT INTO tag
+VALUES (11, 'SALES');
+INSERT INTO tag
+VALUES (12, 'TOURISM');
+INSERT INTO tag
+VALUES (13, 'PERSONNEL_MANAGEMENT');
+INSERT INTO tag
+VALUES (14, 'LAWYERS');
+INSERT INTO tag
+VALUES (15, 'OTHER');
+
+
+

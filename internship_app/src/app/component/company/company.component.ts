@@ -20,6 +20,7 @@ export class CompanyComponent implements OnInit {
     address: new FormControl(''),
   });
   public company: Company = new Company();
+  id: Number;
   public isEmpty: boolean = false;
   submitted = false;
 
@@ -37,36 +38,29 @@ export class CompanyComponent implements OnInit {
     return this.form.controls;
   }
 
-  getCompany(){
+  getCompany() {
     this.companyService.getCompanyByUserId(this.tokenStorageService.getUser().id).subscribe(
       (company) => {
         console.log('Getting correctly');
         /*this.form = response;*/
+        this.id = this.company.id;
         this.form = this.formBuilder.group(
           {
-            name: [
-              company.name,
-              [
-                Validators.required,
-              ]
-            ],
-            description: [
-              company.description,
-              [
-                Validators.required,
-              ]
-            ],
-            email: [ company.email, Validators.required],
+            name: [company.name, Validators.required],
+            description: [company.description, Validators.required],
+            email: [company.email, [Validators.required, Validators.email]],
             address: [company.address, Validators.required]
           })
       },
       error => {
-        console.warn(error)}
+        console.warn(error)
+      }
     )
   }
 
   postCompany() {
-    this.companyService.postCompany(this.company).subscribe(
+
+    this.companyService.postCompany(this.tokenStorageService.getUser().id, this.form.value).subscribe(
       () => console.log('Patching correctly'),
       error => console.warn(error)
     )

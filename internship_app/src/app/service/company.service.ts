@@ -5,6 +5,7 @@ import 'rxjs';
 import {map, Observable, throwError} from 'rxjs';
 import {TokenStorageService} from "./token-storage.service";
 import {Const} from "../const/const";
+import {FormGroup} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class CompanyService {
     )
   }
 
-  public postCompany(company: Company) {
-    return this.http.post(this.COMPANY_URL, company);
+  public postCompany(id: number, company: FormGroup) {
+    return this.http.post(this.COMPANY_URL + '/' + id, company);
   }
 }

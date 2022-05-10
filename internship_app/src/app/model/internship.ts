@@ -1,4 +1,5 @@
 import {Company} from "./company";
+import {Tag} from "../component/internship/internship.component";
 
 export class Internship {
   id: number;

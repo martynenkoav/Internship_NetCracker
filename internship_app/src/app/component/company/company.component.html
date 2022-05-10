@@ -128,11 +128,12 @@
                   class="form-control"
                   [ngClass]="{ 'is-invalid': f['email'].errors }"
                 />
-                <div
-                  *ngIf="f['email'].errors"
-                  class="invalid-feedback">
+                <div *ngIf="f['email'].errors" class="invalid-feedback">
                   <div *ngIf="f['email'].errors['required']">
                     Поле обязательно для заполнения
+                  </div>
+                  <div *ngIf="f['email'].errors['email']">
+                    Неверный формат почты
                   </div>
                 </div>
               </div>
@@ -142,10 +143,10 @@
                   type="text"
                   formControlName="address"
                   class="form-control"
-                  [ngClass]="{ 'is-invalid':submitted && f['address'].errors}"
+                  [ngClass]="{ 'is-invalid': f['address'].errors}"
                 />
-                <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
-                  <div *ngIf="f['address'].errors['required'] && f['address'] == null">Поле обязательно для заполнения</div>
+                <div *ngIf="f['address'].errors" class="invalid-feedback">
+                  <div *ngIf="f['address'].errors['required']">Поле обязательно для заполнения</div>
                 </div>
               </div>
               <br>
@@ -159,9 +160,9 @@
       <div class="col-2 m-5">
         <div class="p-3 py-5">
           <div class="d-flex justify-content-between align-items-center experience">
-            <a class="btn btn-default" type="submit" routerLink="/internship-add">
+            <button class="btn btn-default" type="submit" routerLink="/internship-add" [disabled] ="!form.valid">
               Добавить/Удалить стажировку
-            </a>
+            </button>
           </div>
           <br>
           <a class="btn btn-default" routerLink="/internship"> Просмотр всех стажировок </a>

@@ -30,8 +30,7 @@ public class InternshipDTO {
                 this.getDescription(),
                 this.getName(),
                 this.getUrl(),
-                this.getResponses(),
-                this.getTag());
+                this.getResponses());
 
         Long company_id = this.getCompany_id();
 

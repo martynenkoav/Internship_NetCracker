@@ -34,15 +34,27 @@ public class Internship {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @Column(name = "tag")
-    private ETag tag;
 
-    public Internship(String description, String name, String url, Long responses, ETag tag) {
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "internships_tags",
+            joinColumns = @JoinColumn(name = "internship_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tag> tags = new HashSet<>();
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public Internship(String description, String name, String url, Long responses) {
         this.description = description;
         this.name = name;
         this.url = url;
         this.responses = responses;
-        this.tag = tag;
     }
 
     public Internship() {

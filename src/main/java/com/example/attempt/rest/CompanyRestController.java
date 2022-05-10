@@ -1,5 +1,6 @@
 package com.example.attempt.rest;
 
+import com.example.attempt.dto.CompanyDTO;
 import com.example.attempt.security.util.EmailValidator;
 import com.example.attempt.model.Company;
 import com.example.attempt.serviceImplementation.CompanyServiceImpl;
@@ -47,18 +48,20 @@ public class CompanyRestController {
     }
 
     /* @PreAuthorize("#id == authentication.principal.id")*/
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Company> saveCompany(@RequestBody Company company) {
+    @RequestMapping(value = "{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Company> saveCompany(@PathVariable("id") Long userId, @RequestBody CompanyDTO companyDTO) {
         HttpHeaders headers = new HttpHeaders();
 
-        if (company == null) {
+        Long companyId = this.companyService.getByUserId(userId).getId();
+        Company company = this.companyService.getById(companyId);
+        /*if (company == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }*/
+        if (!EmailValidator.validate(companyDTO.getEmail())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (!EmailValidator.validate(company.getEmail())) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        this.companyService.save(company);
-        return new ResponseEntity<>(company, headers, HttpStatus.CREATED);
+        this.companyService.save(companyDTO.toCompany(userId, company));
+        return new ResponseEntity<>(companyDTO.toCompany(userId, company), headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

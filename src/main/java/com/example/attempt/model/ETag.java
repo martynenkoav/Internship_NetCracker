@@ -1,6 +1,7 @@
 package com.example.attempt.model;
 
 public enum ETag {
+    ALL,
     AUTOMOTIVE_BUSINESS,
     ADMINISTRATIVE_STAFF,
     SAFETY,

@@ -26,9 +26,25 @@
               *ngIf="internships.length != 0"
               (change)="filterList($event,'tag')">-->
       <!--<mat-label>Выберите тэг</mat-label>-->
-      <mat-select id="select" class="form-control" *ngIf="internshipsWithoutFilt.length != 0"
-                  (change)="filterList($event, 'tag')" [multiple]="true">
-        <mat-option value="{{ tag.value }}" *ngFor="let tag of tags">{{tag.name}}</mat-option>
+      <mat-select id="select" class="form-control"
+                  *ngIf="internships.length != 0"
+                  (selectionChange)="filterList($event,'tag')">
+        <mat-option *ngFor="let tag of tags" [value]="tag.value">{{tag.viewValue}}</mat-option>
+        <!--<option type="radio" value="">Все</option>
+        <option type="radio" value="AUTOMOTIVE_BUSINESS">Автомобильный бизнес</option>
+        <option type="radio" value="ADMINISTRATIVE_STAFF">Административный персонал</option>
+        <option type="radio" value="SAFETY">Безопасность </option>
+        <option type="radio" value="TOP_MANAGEMENT">Высший менеджмент </option>
+        <option type="radio" value="SAFETY">Безопасность</option>
+        <option type="radio" value="TOP_MANAGEMENT">Высший менеджмент</option>
+        <option type="radio" value="PURCHASES">Закупки</option>
+        <option type="radio" value="INFORMATION_TECHNOLOGY">Информационные технологии</option>
+        <option type="radio" value="ART">Искусство</option>
+        <option type="radio" value="ADVERTISING">Реклама </option>
+        <option type="radio" value="ADVERTISING">Реклама</option>
+        <option type="radio" value="MEDICINE">Медицина</option>
+        <option type="radio" value="SALES">Продажи</option>
+        <option type="radio" value="TOURISM">Туризм</option>-->
       </mat-select>
       <br>
 
