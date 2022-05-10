@@ -30,22 +30,23 @@
         <div class="form-group row">
           <label for="select" class="col-sm-2 col-form-label">Тэг</label>
           <div class="col-sm-10">
-          <select id="select" formControlName="tag" class="form-control" name="tag">
-            <option type="radio" value="AUTOMOTIVE_BUSINESS">Автомобильный бизнес</option>
-            <option type="radio" value="ADMINISTRATIVE_STAFF">Административный персонал</option>
-            <option type="radio" value="SAFETY">Безопасность </option>
-            <option type="radio" value="TOP_MANAGEMENT">Высший менеджмент </option>
-            <option type="radio" value="PURCHASES">Закупки</option>
-            <option type="radio" value="INFORMATION_TECHNOLOGY">Информационные технологии</option>
-            <option type="radio" value="ART">Искусство</option>
-            <option type="radio" value="ADVERTISING">Реклама </option>
-            <option type="radio" value="MEDICINE">Медицина</option>
-            <option type="radio" value="SALES">Продажи</option>
-            <option type="radio" value="TOURISM">Туризм</option>
-            <option type="radio" value="PERSONNEL_MANAGEMENT">Управление персоналом</option>
-            <option type="radio" value="LAWYERS">Юристы</option>
-            <option type="radio" value="OTHER">Другое</option>
-          </select>
+
+            <select ng-models="selections" id="select" formControlName="tag" class="form-control" name="tag">
+              <option type="radio" value="AUTOMOTIVE_BUSINESS">Автомобильный бизнес</option>
+              <option type="radio" value="ADMINISTRATIVE_STAFF">Административный персонал</option>
+              <option type="radio" value="SAFETY">Безопасность</option>
+              <option type="radio" value="TOP_MANAGEMENT">Высший менеджмент</option>
+              <option type="radio" value="PURCHASES">Закупки</option>
+              <option type="radio" value="INFORMATION_TECHNOLOGY">Информационные технологии</option>
+              <option type="radio" value="ART">Искусство</option>
+              <option type="radio" value="ADVERTISING">Реклама</option>
+              <option type="radio" value="MEDICINE">Медицина</option>
+              <option type="radio" value="SALES">Продажи</option>
+              <option type="radio" value="TOURISM">Туризм</option>
+              <option type="radio" value="PERSONNEL_MANAGEMENT">Управление персоналом</option>
+              <option type="radio" value="LAWYERS">Юристы</option>
+              <option type="radio" value="OTHER">Другое</option>
+            </select>
           </div>
         </div>
         <br>
@@ -81,9 +82,27 @@
               <p class="mb-1">{{internship.description}}</p>
             </div>
             <pre></pre>
+            <div class="modal fade" id="deleteInternship" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Подтверждение</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Вы действительно хотите удалить данную стажировку?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-default" data-bs-dismiss="modal"
+                            (click)="deleteInternship(internship)">Удалить
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="media-right align-self-center">
-              <a class="btn btn-default" data-bs-toggle="modal" data-bs-target="#deleteInternship"
-                 (click)="deleteInternship(internship)"> Удалить </a>
+              <a class="btn btn-default" data-bs-toggle="modal" data-bs-target="#deleteInternship"> Удалить </a>
             </div>
           </div>
         </li>
@@ -93,4 +112,8 @@
   </div>
 </section>
 
-
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#example-getting-started').multiselect();
+  });
+</script>

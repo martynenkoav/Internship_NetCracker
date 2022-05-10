@@ -2,33 +2,32 @@
   <br>
   <div class="container">
     <div class="col-md-10 offset-md-1 row-block">
-
       <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="!hasAccess">
         Пожалуйста, зарегистрируйтесь и войдите в аккаунт, чтобы видеть информацию о компаниях.
         <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
           <span aria-hidden="true">×</span>
         </button>
       </div>
-
-
       <div class="alert alert-warning alert-dismissible fade show" role="alert"
-           *ngIf="internshipsWithoutFilt.length == 0">
+           *ngIf="internships.length == 0">
         Извините, стажировок на данный момент нет.
         <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
           <span aria-hidden="true">×</span>
         </button>
       </div>
 
-
       <input class="form-control" id="myInput" type="text" placeholder="Поиск.."
-             *ngIf="internshipsWithoutFilt.length != 0"
-             (change)="filterList($event)">
+             *ngIf="internships.length != 0"
+             (change)="filterList($event, 'name')">
       <br>
 
 
+      <!--<select id="select" formControlName="tag" class="form-control" name="tag"
+              *ngIf="internships.length != 0"
+              (change)="filterList($event,'tag')">-->
       <!--<mat-label>Выберите тэг</mat-label>-->
       <mat-select id="select" class="form-control" *ngIf="internshipsWithoutFilt.length != 0"
-                  (change)="filterTag($event)" [multiple]="true">
+                  (change)="filterList($event, 'tag')" [multiple]="true">
         <mat-option value="{{ tag.value }}" *ngFor="let tag of tags">{{tag.name}}</mat-option>
       </mat-select>
       <br>
@@ -41,7 +40,7 @@
         </div>
       </div>
       <br>
-      <ul id="sortable" *ngFor="let internship of internships">
+      <ul id="sortable" *ngFor="let internship of viewInternships">
         <li>
           <div class="media">
             <div class="media-body">
@@ -60,6 +59,7 @@
             </div>
             <pre></pre>
             <div class="media-right align-self-center">
+              <pre></pre>
               <button href="#" class="btn btn-default"
                       (click)="goToTheLink(internship); addInternshipToStudent(internship.id)"
                       *ngIf="isStudent">Откликнуться
