@@ -22,7 +22,7 @@ export class CompanyComponent implements OnInit {
   public company: Company = new Company();
   id: Number;
   public isEmpty: boolean = false;
-  submitted = false;
+  submitted: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private companyService: CompanyService, private tokenStorageService: TokenStorageService) {
 
@@ -51,6 +51,7 @@ export class CompanyComponent implements OnInit {
             email: [company.email, [Validators.required, Validators.email]],
             address: [company.address, Validators.required]
           })
+        this.submitted = this.form.valid;
       },
       error => {
         console.warn(error)
@@ -59,9 +60,10 @@ export class CompanyComponent implements OnInit {
   }
 
   postCompany() {
-
     this.companyService.postCompany(this.tokenStorageService.getUser().id, this.form.value).subscribe(
-      () => console.log('Patching correctly'),
+      () => {console.log('Patching correctly'),
+        this.submitted = true;
+      },
       error => console.warn(error)
     )
     window.location.reload();

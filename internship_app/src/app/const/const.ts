@@ -1,6 +1,6 @@
-const TAGS = [
+const TAGST = [
   {
-    value: '',
+    value: 'ALL',
     name: 'Все'
   },
   {

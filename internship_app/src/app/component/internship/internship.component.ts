@@ -103,6 +103,7 @@ export class InternshipComponent implements OnInit {
         this.internships = internships;
         this.myInternships = myInternships;
         this.viewInternships = internships;
+        console.log('view inter', this.viewInternships);
         this.getCurrentUser();
       })
     } else {

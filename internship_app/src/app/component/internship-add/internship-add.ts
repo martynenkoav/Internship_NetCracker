@@ -7,12 +7,32 @@ import {TokenStorageService} from "../../service/token-storage.service";
 import {CompanyService} from "../../service/company.service";
 import {Tag} from "../internship/internship.component";
 
+enum TAGS {
+  ALL="Все",
+  AUTOMOTIVE_BUSINESS="Автомобильный бизнес",
+  ADMINISTRATIVE_STAFF="Административный персонал",
+  SAFETY="Безопасность",
+  TOP_MANAGEMENT="Высший менеджмент",
+  PURCHASES="Закупки",
+  INFORMATION_TECHNOLOGY="Информационные технологии",
+  ART="Искусство",
+  ADVERTISING="Реклама",
+  MEDICINE="Медицина",
+  SALES="Продажи",
+  TOURISM="Туризм",
+  PERSONNEL_MANAGEMENT="Управление персоналом",
+  LAWYERS="Юристы",
+  OTHER="Другое"
+}
+
 @Component({
   selector: 'app-internships-by-comp-id',
   templateUrl: './internship-add.html',
   styleUrls: ['./internship-add.css']
 })
+
 export class InternshipAdd implements OnInit {
+
   tagsAll: Tag[] = [
     {
       value: '', viewValue: 'Все'
@@ -64,7 +84,7 @@ export class InternshipAdd implements OnInit {
   internships: Internship[];
   internshipsWithoutFilt: Internship[];
 
-  internship: Internship;
+ /* internship: Internship;*/
 
   company: Company;
 
@@ -75,6 +95,7 @@ export class InternshipAdd implements OnInit {
     /*tags: this.formBuilder.array([]),*/
   })
   tags: String [] = [];
+  tagsView: String [] = [];
 
   currentUser: any;
 
@@ -104,16 +125,16 @@ export class InternshipAdd implements OnInit {
       (response) => {
         console.log('Getting correctly');
         this.internships = response;
-        console.log( this.internships);
+        console.log(this.internships);
         this.internshipsWithoutFilt = response;
       },
       error => console.warn(error)
     )
   }
 
-  deleteInternship(curInternship: Internship) {
-    console.log(curInternship);
-    this.internshipService.deleteInternship(curInternship.id).subscribe(
+  deleteInternship(id: number) {
+    console.log(id);
+    this.internshipService.deleteInternship(id).subscribe(
       value => {
         console.log('Deleting correctly');
         /*window.location.reload();*/
@@ -157,8 +178,15 @@ export class InternshipAdd implements OnInit {
     return newInternship;
   }
 
-  addTag(eventValue: any){
-      this.tags.push(eventValue);
-      console.log(this.tags);
-    }
+  addTag(eventValue: any) {
+    this.tags.push(eventValue);
+    console.log(this.tags);
+  }
+
+  /*viewTags(internship: Internship): String[]{
+    this.tagsView = internship.tags;
+    this.tagsView = this.tagsView.forEach(tag => );
+    return this.tagsView;
+  }*/
+
 }

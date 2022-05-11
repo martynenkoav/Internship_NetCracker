@@ -67,8 +67,12 @@
               <p class="mb-1">{{internship.tags}}</p>
               <p class="mb-1">{{internship.description}}</p>
             </div>
-            <pre></pre>
-            <div class="modal fade" id="deleteInternship" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <div class="media-right align-self-center">
+              <a class="btn btn-default" data-bs-toggle="modal" data-bs-target="#deleteInternship"
+                 (click)="deleteInternship(internship.id)"> Удалить </a>
+            </div>
+            <!--<pre></pre>-->
+            <!--<div class="modal fade" id="deleteInternship" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -81,7 +85,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="submit" class="btn btn-default" data-bs-dismiss="modal"
-                            (click)="deleteInternship(internship)">Удалить
+                            (click)="deleteInternship(internship.id)">Удалить
                     </button>
                   </div>
                 </div>
@@ -90,6 +94,7 @@
             <div class="media-right align-self-center">
               <a class="btn btn-default" data-bs-toggle="modal" data-bs-target="#deleteInternship"> Удалить </a>
             </div>
+          </div>-->
           </div>
         </li>
         <br>

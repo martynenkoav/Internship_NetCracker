@@ -90,10 +90,13 @@ public class InternshipRestController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Internship>> getAllInternships() {
+    public ResponseEntity<List<InternshipDTO>> getAllInternships() {
         List<Internship> internships = this.internshipService.getAll();
-
-        return new ResponseEntity<>(internships, HttpStatus.OK);
+        List<InternshipDTO> internshipsDTO = new ArrayList<>();
+        for (Internship internship: internships){
+            internshipsDTO.add(new InternshipDTO(internship));
+        }
+        return new ResponseEntity<>(internshipsDTO, HttpStatus.OK);
     }
 
     /*@PreAuthorize("#id == authentication.principal.id")*/
