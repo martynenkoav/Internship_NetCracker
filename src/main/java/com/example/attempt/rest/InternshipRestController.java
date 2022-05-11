@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -97,7 +98,7 @@ public class InternshipRestController {
 
     /*@PreAuthorize("#id == authentication.principal.id")*/
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Internship>> getAllInternshipsByUserId(@PathVariable("id") Long id) {
+    public ResponseEntity<List<InternshipDTO>> getAllInternshipsByUserId(@PathVariable("id") Long id) {
 
         Long companyId = this.companyService.getByUserId(id).getId();
 
@@ -105,8 +106,12 @@ public class InternshipRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         List<Internship> internships = this.internshipService.getAllByCompanyId(companyId);
+        List<InternshipDTO> internshipsDTO = new ArrayList<>();
+        for (Internship internship: internships){
+            internshipsDTO.add(new InternshipDTO(internship));
+        }
 
-        return new ResponseEntity<>(internships, HttpStatus.OK);
+        return new ResponseEntity<>(internshipsDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/company/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

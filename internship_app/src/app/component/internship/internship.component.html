@@ -28,7 +28,7 @@
       <!--<mat-label>Выберите тэг</mat-label>-->
       <mat-select id="select" class="form-control"
                   *ngIf="internships.length != 0"
-                  (selectionChange)="filterList($event,'tag')">
+                  (selectionChange)="filterList($event,'tag')" multiple="true">
         <mat-option *ngFor="let tag of tags" [value]="tag.value">{{tag.viewValue}}</mat-option>
         <!--<option type="radio" value="">Все</option>
         <option type="radio" value="AUTOMOTIVE_BUSINESS">Автомобильный бизнес</option>
@@ -70,7 +70,7 @@
                 <h5 class="mb-1" (click)="goToCompany(internship.company.id)">{{internship.company.name}}</h5>
               </div>
               <pre></pre>
-              <p class="mb-1">{{internship.tag}}</p>
+              <p class="mb-1">{{internship.tags}}</p>
               <p class="mb-1">{{internship.description}}</p>
             </div>
             <pre></pre>

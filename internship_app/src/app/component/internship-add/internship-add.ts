@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Internship} from "../../model/internship";
 import {InternshipService} from "../../service/internship.service";
 import {Company} from "../../model/company";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {CompanyService} from "../../service/company.service";
+import {Tag} from "../internship/internship.component";
 
 @Component({
   selector: 'app-internships-by-comp-id',
@@ -12,6 +13,53 @@ import {CompanyService} from "../../service/company.service";
   styleUrls: ['./internship-add.css']
 })
 export class InternshipAdd implements OnInit {
+  tagsAll: Tag[] = [
+    {
+      value: '', viewValue: 'Все'
+    },
+    {
+      value: 'AUTOMOTIVE_BUSINESS', viewValue: 'Автомобильный бизнес'
+    },
+    {
+      value: 'ADMINISTRATIVE_STAFF', viewValue: 'Административный персонал'
+    },
+    {
+      value: 'SAFETY', viewValue: 'Безопасность'
+    },
+    {
+      value: 'TOP_MANAGEMENT', viewValue: 'Высший менеджмент'
+    },
+    {
+      value: 'PURCHASES', viewValue: 'Закупки'
+    },
+    {
+      value: 'INFORMATION_TECHNOLOGY', viewValue: 'Информационные технологии'
+    },
+    {
+      value: 'ART', viewValue: 'Искусство'
+    },
+    {
+      value: 'ADVERTISING', viewValue: 'Реклама'
+    },
+    {
+      value: 'MEDICINE', viewValue: 'Медицина'
+    },
+    {
+      value: 'SALES', viewValue: 'Продажи'
+    },
+    {
+      value: 'TOURISM', viewValue: 'Туризм'
+    },
+    {
+      value: 'PERSONNEL_MANAGEMENT', viewValue: 'Управление персоналом'
+    },
+    {
+      value: 'LAWYERS', viewValue: 'Юристы'
+    },
+    {
+      value: 'OTHER', viewValue: 'Другое'
+    }
+  ];
 
   internships: Internship[];
   internshipsWithoutFilt: Internship[];
@@ -20,7 +68,13 @@ export class InternshipAdd implements OnInit {
 
   company: Company;
 
-  internshipForm!: FormGroup;
+  internshipForm: FormGroup = this.formBuilder.group({
+    name: [''],
+    description: [''],
+    url: [''],
+    /*tags: this.formBuilder.array([]),*/
+  })
+  tags: String [] = [];
 
   currentUser: any;
 
@@ -29,12 +83,6 @@ export class InternshipAdd implements OnInit {
   }
 
   ngOnInit(): void {
-    this.internshipForm = this.formBuilder.group({
-      name: [''],
-      description: [''],
-      url: [''],
-      tag: ['']
-    })
 
     this.getCompany();
     this.loadInternships();
@@ -56,6 +104,7 @@ export class InternshipAdd implements OnInit {
       (response) => {
         console.log('Getting correctly');
         this.internships = response;
+        console.log( this.internships);
         this.internshipsWithoutFilt = response;
       },
       error => console.warn(error)
@@ -63,10 +112,11 @@ export class InternshipAdd implements OnInit {
   }
 
   deleteInternship(curInternship: Internship) {
+    console.log(curInternship);
     this.internshipService.deleteInternship(curInternship.id).subscribe(
       value => {
         console.log('Deleting correctly');
-        window.location.reload();
+        /*window.location.reload();*/
       },
       error => {
         console.warn(error);
@@ -101,10 +151,14 @@ export class InternshipAdd implements OnInit {
     newInternship.company_id = this.company.id;
     newInternship.url = internshipData.url;
     newInternship.responses = 0;
-    newInternship.tag = internshipData.tag;
-
+    newInternship.tags = this.tags;
     console.log(newInternship);
 
     return newInternship;
   }
+
+  addTag(eventValue: any){
+      this.tags.push(eventValue);
+      console.log(this.tags);
+    }
 }

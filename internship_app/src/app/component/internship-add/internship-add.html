@@ -30,23 +30,9 @@
         <div class="form-group row">
           <label for="select" class="col-sm-2 col-form-label">Тэг</label>
           <div class="col-sm-10">
-
-            <select ng-models="selections" id="select" formControlName="tag" class="form-control" name="tag">
-              <option type="radio" value="AUTOMOTIVE_BUSINESS">Автомобильный бизнес</option>
-              <option type="radio" value="ADMINISTRATIVE_STAFF">Административный персонал</option>
-              <option type="radio" value="SAFETY">Безопасность</option>
-              <option type="radio" value="TOP_MANAGEMENT">Высший менеджмент</option>
-              <option type="radio" value="PURCHASES">Закупки</option>
-              <option type="radio" value="INFORMATION_TECHNOLOGY">Информационные технологии</option>
-              <option type="radio" value="ART">Искусство</option>
-              <option type="radio" value="ADVERTISING">Реклама</option>
-              <option type="radio" value="MEDICINE">Медицина</option>
-              <option type="radio" value="SALES">Продажи</option>
-              <option type="radio" value="TOURISM">Туризм</option>
-              <option type="radio" value="PERSONNEL_MANAGEMENT">Управление персоналом</option>
-              <option type="radio" value="LAWYERS">Юристы</option>
-              <option type="radio" value="OTHER">Другое</option>
-            </select>
+            <mat-select id="select" class="form-control" multiple="true">
+              <mat-option *ngFor="let tag of tagsAll" [value]="tag.value" (click)="addTag(tag.value)">{{tag.viewValue}}</mat-option>
+            </mat-select>
           </div>
         </div>
         <br>
@@ -78,7 +64,7 @@
                 <h5 class="mb-1">{{company.name}}</h5>
               </div>
               <pre></pre>
-              <p class="mb-1">{{internship.tag}}</p>
+              <p class="mb-1">{{internship.tags}}</p>
               <p class="mb-1">{{internship.description}}</p>
             </div>
             <pre></pre>

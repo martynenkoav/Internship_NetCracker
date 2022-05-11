@@ -202,7 +202,7 @@ export class InternshipComponent implements OnInit {
     let allInternships = this.internships;
 
     let studentInternships = this.myInternships;
-    studentInternships.forEach(internship => this.studentTags.push(internship?.tag));
+    studentInternships.forEach(internship => this.studentTags.push(internship?.tags));
 
     let studentInternshipsIds = studentInternships.map(studentInternship => studentInternship.id);
 
@@ -212,7 +212,7 @@ export class InternshipComponent implements OnInit {
 
     this.viewInternships = result.filter(x => {
       return this.studentTags.some(st => {
-          return st === x.tag;
+          return st === x.tags;
         }
       )
     });
