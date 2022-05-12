@@ -101,7 +101,21 @@ export class InternshipComponent implements OnInit {
         this.internshipService.getInternshipsByStudentId(this.tokenStorageService.getUser().id)
       ).subscribe(([internships, myInternships]) => {
         this.internships = internships;
+        this.internships.forEach(internship => this.companyService.getCompanyById(internship.company_id).subscribe(
+          (response) => {
+            console.log('Getting correctly');
+            internship.company = response;
+          },
+          error => console.warn(error)
+        ));
         this.myInternships = myInternships;
+        this.myInternships.forEach(myInternship => this.companyService.getCompanyById(myInternship.company_id).subscribe(
+          (response) => {
+            console.log('Getting correctly');
+            myInternship.company = response;
+          },
+          error => console.warn(error)
+        ));
         this.viewInternships = internships;
         console.log('view inter', this.viewInternships);
         this.getCurrentUser();
@@ -138,8 +152,16 @@ export class InternshipComponent implements OnInit {
     this.internshipService.getInternships().subscribe(
       (response) => {
         console.log('Getting correctly');
-        this.viewInternships = response;
         this.internships = response;
+        this.internships.forEach(internship => this.companyService.getCompanyById(internship.company_id).subscribe(
+          (response) => {
+            console.log('Getting correctly');
+            internship.company = response;
+          },
+          error => console.warn(error)
+        ));
+        console.log(this.internships);
+        this.viewInternships = response;
       },
       error => console.warn(error));
   }
@@ -154,6 +176,22 @@ export class InternshipComponent implements OnInit {
       }
     })
   }
+
+  /*filterTag(event: any, filterName: string) {
+    console.log(event.value.toString());
+    this.filters.set(filterName, event.value.toString());
+    this.viewInternships = this.internships;
+    console.log(this.filters);
+    this.filters.forEach((value, key) => {
+      if (value !== "") {
+        this.viewInternships = this.viewInternships.filter(x => {
+          console.log(x);
+
+          return x.tags.includes(value);
+        });
+      }
+    })
+  }*/
 
   goToCompany(id: number) {
     this.router.navigate(['/company-for-check/', id]);
@@ -182,8 +220,16 @@ export class InternshipComponent implements OnInit {
     this.internshipService.getInternshipsByStudentId(this.tokenStorageService.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
-        this.viewInternships = response;
         this.myInternships = response;
+        this.myInternships.forEach(internship => this.companyService.getCompanyById(internship.company_id).subscribe(
+          (response) => {
+            console.log('Getting correctly');
+            internship.company = response;
+          },
+          error => console.warn(error)
+        ));
+        this.viewInternships = this.myInternships;
+
       },
       error => console.warn(error)
     );

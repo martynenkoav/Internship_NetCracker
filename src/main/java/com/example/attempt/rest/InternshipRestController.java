@@ -16,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -133,14 +134,18 @@ public class InternshipRestController {
 
     @PreAuthorize("#id == authentication.principal.id")
     @RequestMapping(value = "/student/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Set<Internship>> getAllInternshipsByStudentId(@PathVariable("id") Long id) {
+    public ResponseEntity<Set<InternshipDTO>> getAllInternshipsByStudentId(@PathVariable("id") Long id) {
 
         Student student = this.studentService.getByUserId(id);
         if (student == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Set<Internship> internships = student.getInternships();
+        Set<InternshipDTO> internshipsDTO = new HashSet<>();
+        for (Internship internship: internships){
+            internshipsDTO.add(new InternshipDTO(internship));
+        }
 
-        return new ResponseEntity<>(internships, HttpStatus.OK);
+        return new ResponseEntity<>(internshipsDTO, HttpStatus.OK);
     }
 }

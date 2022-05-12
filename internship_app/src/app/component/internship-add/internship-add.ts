@@ -2,27 +2,27 @@ import {Component, OnInit} from '@angular/core';
 import {Internship} from "../../model/internship";
 import {InternshipService} from "../../service/internship.service";
 import {Company} from "../../model/company";
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {CompanyService} from "../../service/company.service";
 import {Tag} from "../internship/internship.component";
 
 enum TAGS {
-  ALL="Все",
-  AUTOMOTIVE_BUSINESS="Автомобильный бизнес",
-  ADMINISTRATIVE_STAFF="Административный персонал",
-  SAFETY="Безопасность",
-  TOP_MANAGEMENT="Высший менеджмент",
-  PURCHASES="Закупки",
-  INFORMATION_TECHNOLOGY="Информационные технологии",
-  ART="Искусство",
-  ADVERTISING="Реклама",
-  MEDICINE="Медицина",
-  SALES="Продажи",
-  TOURISM="Туризм",
-  PERSONNEL_MANAGEMENT="Управление персоналом",
-  LAWYERS="Юристы",
-  OTHER="Другое"
+  ALL = "Все",
+  AUTOMOTIVE_BUSINESS = "Автомобильный бизнес",
+  ADMINISTRATIVE_STAFF = "Административный персонал",
+  SAFETY = "Безопасность",
+  TOP_MANAGEMENT = "Высший менеджмент",
+  PURCHASES = "Закупки",
+  INFORMATION_TECHNOLOGY = "Информационные технологии",
+  ART = "Искусство",
+  ADVERTISING = "Реклама",
+  MEDICINE = "Медицина",
+  SALES = "Продажи",
+  TOURISM = "Туризм",
+  PERSONNEL_MANAGEMENT = "Управление персоналом",
+  LAWYERS = "Юристы",
+  OTHER = "Другое"
 }
 
 @Component({
@@ -34,57 +34,27 @@ enum TAGS {
 export class InternshipAdd implements OnInit {
 
   tagsAll: Tag[] = [
-    {
-      value: '', viewValue: 'Все'
-    },
-    {
-      value: 'AUTOMOTIVE_BUSINESS', viewValue: 'Автомобильный бизнес'
-    },
-    {
-      value: 'ADMINISTRATIVE_STAFF', viewValue: 'Административный персонал'
-    },
-    {
-      value: 'SAFETY', viewValue: 'Безопасность'
-    },
-    {
-      value: 'TOP_MANAGEMENT', viewValue: 'Высший менеджмент'
-    },
-    {
-      value: 'PURCHASES', viewValue: 'Закупки'
-    },
-    {
-      value: 'INFORMATION_TECHNOLOGY', viewValue: 'Информационные технологии'
-    },
-    {
-      value: 'ART', viewValue: 'Искусство'
-    },
-    {
-      value: 'ADVERTISING', viewValue: 'Реклама'
-    },
-    {
-      value: 'MEDICINE', viewValue: 'Медицина'
-    },
-    {
-      value: 'SALES', viewValue: 'Продажи'
-    },
-    {
-      value: 'TOURISM', viewValue: 'Туризм'
-    },
-    {
-      value: 'PERSONNEL_MANAGEMENT', viewValue: 'Управление персоналом'
-    },
-    {
-      value: 'LAWYERS', viewValue: 'Юристы'
-    },
-    {
-      value: 'OTHER', viewValue: 'Другое'
-    }
+    {value: 'ALL', viewValue: 'Все'},
+    {value: 'AUTOMOTIVE_BUSINESS', viewValue: 'Автомобильный бизнес'},
+    {value: 'ADMINISTRATIVE_STAFF', viewValue: 'Административный персонал'},
+    {value: 'SAFETY', viewValue: 'Безопасность'},
+    {value: 'TOP_MANAGEMENT', viewValue: 'Высший менеджмент'},
+    {value: 'PURCHASES', viewValue: 'Закупки'},
+    {value: 'INFORMATION_TECHNOLOGY', viewValue: 'Информационные технологии'},
+    {value: 'ART', viewValue: 'Искусство'},
+    {value: 'ADVERTISING', viewValue: 'Реклама'},
+    {value: 'MEDICINE', viewValue: 'Медицина'},
+    {value: 'SALES', viewValue: 'Продажи'},
+    {value: 'TOURISM', viewValue: 'Туризм'},
+    {value: 'PERSONNEL_MANAGEMENT', viewValue: 'Управление персоналом'},
+    {value: 'LAWYERS', viewValue: 'Юристы'},
+    {value: 'OTHER', viewValue: 'Другое'}
   ];
 
   internships: Internship[];
   internshipsWithoutFilt: Internship[];
 
- /* internship: Internship;*/
+  /* internship: Internship;*/
 
   company: Company;
 
@@ -94,9 +64,9 @@ export class InternshipAdd implements OnInit {
     url: [''],
     /*tags: this.formBuilder.array([]),*/
   })
-  tags: String [] = [];
+  /*tags: String [] = [];*/
   tagsView: String [] = [];
-
+  tags: FormControl = new FormControl('');
   currentUser: any;
 
   constructor(private internshipService: InternshipService, private companyService: CompanyService,
@@ -163,6 +133,7 @@ export class InternshipAdd implements OnInit {
   }
 
   extractFormData(): Internship {
+    console.log(this.tags.value);
 
     let internshipData = this.internshipForm.value;
 
@@ -172,16 +143,16 @@ export class InternshipAdd implements OnInit {
     newInternship.company_id = this.company.id;
     newInternship.url = internshipData.url;
     newInternship.responses = 0;
-    newInternship.tags = this.tags;
+    newInternship.tags = this.tags.value;
     console.log(newInternship);
 
     return newInternship;
   }
 
-  addTag(eventValue: any) {
+  /*addTag(eventValue: any) {
     this.tags.push(eventValue);
     console.log(this.tags);
-  }
+  }*/
 
   /*viewTags(internship: Internship): String[]{
     this.tagsView = internship.tags;

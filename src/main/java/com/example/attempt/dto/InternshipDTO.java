@@ -14,7 +14,7 @@ public class InternshipDTO {
     private Long id;
     private String name;
     private String description;
-    private Company company;
+    private Long company_id;
     private String url;
     private Long responses;
     /* private ETag tag;*/
@@ -29,11 +29,11 @@ public class InternshipDTO {
     }
 
 
-    InternshipDTO(Long id, String name, String description, Company company, String url, Long responses, Set<String> tag) {
+    InternshipDTO(Long id, String name, String description, Long company_id, String url, Long responses, Set<String> tag) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.company = company;
+        this.company_id = company_id;
         this.url = url;
         this.responses = responses;
         this.tags = tags;
@@ -53,7 +53,11 @@ public class InternshipDTO {
             tagsCur.add(tagCur);
         }
         internship.setTags(tagsCur);
-        internship.setCompany(this.getCompany());
+        Long company_id = this.getCompany_id();
+        Company company = new Company();
+        company.setId(company_id);
+
+        internship.setCompany(company);
         return internship;
     }
 
@@ -61,7 +65,7 @@ public class InternshipDTO {
         this.id = internship.getId();
         this.name = internship.getName();
         this.description = internship.getDescription();
-        this.company= internship.getCompany();
+        this.company_id = internship.getCompany().getId();
         this.url = internship.getUrl();
         this.responses = internship.getResponses();
         for (Tag tag: internship.getTags()){
