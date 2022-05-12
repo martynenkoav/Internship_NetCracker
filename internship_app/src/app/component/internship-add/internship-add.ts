@@ -53,19 +53,13 @@ export class InternshipAdd implements OnInit {
 
   internships: Internship[];
   internshipsWithoutFilt: Internship[];
-
-  /* internship: Internship;*/
-
   company: Company;
 
   internshipForm: FormGroup = this.formBuilder.group({
     name: [''],
     description: [''],
     url: [''],
-    /*tags: this.formBuilder.array([]),*/
   })
-  /*tags: String [] = [];*/
-  tagsView: String [] = [];
   tags: FormControl = new FormControl('');
   currentUser: any;
 
@@ -93,9 +87,10 @@ export class InternshipAdd implements OnInit {
 
     this.internshipService.getInternshipsByUserId(this.tokenStorageService.getUser().id).subscribe(
       (response) => {
-        console.log('Getting correctly');
         this.internships = response;
-        console.log(this.internships);
+        this.internships.forEach(internship => {
+          internship.tags = internship.tags.map(tag => TAGS[tag]);
+        });
         this.internshipsWithoutFilt = response;
       },
       error => console.warn(error)
@@ -103,11 +98,10 @@ export class InternshipAdd implements OnInit {
   }
 
   deleteInternship(id: number) {
-    console.log(id);
     this.internshipService.deleteInternship(id).subscribe(
       value => {
         console.log('Deleting correctly');
-        /*window.location.reload();*/
+        window.location.reload();
       },
       error => {
         console.warn(error);
@@ -117,7 +111,6 @@ export class InternshipAdd implements OnInit {
 
   postInternship() {
     let newInternship = this.extractFormData();
-
     this.internshipService.postInternship(this.tokenStorageService.getUser().id, newInternship).subscribe(
       value => {
         console.log('Posting correctly');
@@ -148,16 +141,5 @@ export class InternshipAdd implements OnInit {
 
     return newInternship;
   }
-
-  /*addTag(eventValue: any) {
-    this.tags.push(eventValue);
-    console.log(this.tags);
-  }*/
-
-  /*viewTags(internship: Internship): String[]{
-    this.tagsView = internship.tags;
-    this.tagsView = this.tagsView.forEach(tag => );
-    return this.tagsView;
-  }*/
 
 }

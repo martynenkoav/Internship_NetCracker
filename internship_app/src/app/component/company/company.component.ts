@@ -29,7 +29,6 @@ export class CompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*this.submitted = true;*/
     this.getCompany();
 
   }
@@ -41,8 +40,6 @@ export class CompanyComponent implements OnInit {
   getCompany() {
     this.companyService.getCompanyByUserId(this.tokenStorageService.getUser().id).subscribe(
       (company) => {
-        console.log('Getting correctly');
-        /*this.form = response;*/
         this.id = this.company.id;
         this.form = this.formBuilder.group(
           {

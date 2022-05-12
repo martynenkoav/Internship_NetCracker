@@ -21,19 +21,17 @@
              (change)="filterSearch($event)">
       <br>
 
-
-
       <mat-select id="select" class="form-control"
                   *ngIf="internships.length != 0"
                   [formControl]="tagsForSearch"
                   (selectionChange)="filterTags(tagsForSearch, $event)" multiple="true">
-        <mat-option *ngFor="let tag of tags" [value]="tag.value">{{tag.viewValue}}</mat-option>
+        <mat-option *ngFor="let tag of tags" [value]="tag.viewValue">{{tag.viewValue}}</mat-option>
       </mat-select>
       <br>
 
       <div class="p-3 py-5" *ngIf="isStudent">
         <div class="btn-group">
-          <a [class]="currentButton === 'all' ? 'btn btn-checked' : 'btn btn-default'" (click)="getInternships()">Все стажировки</a>
+          <a [class]="currentButton === 'all' ? 'btn btn-checked' : 'btn btn-default'" (click)="ngOnInit()">Все стажировки</a>
           <a [class]="currentButton === 'student' ? 'btn btn-checked' : 'btn btn-default'" (click)="showStudentsInternships()">Мои стажировки</a>
           <a [class]="currentButton === 'advice' ? 'btn btn-checked' : 'btn btn-default'" (click)="getRecommendationInternships()">Рекомендации</a>
         </div>
@@ -60,7 +58,7 @@
             <div class="media-right align-self-center">
               <pre></pre>
               <button href="#" class="btn btn-default"
-                      (click)="goToTheLink(internship); addInternshipToStudent(internship.id)"
+                      (click)="goToTheLink(internship); addInternshipToStudent(internship.id);"
                       *ngIf="isStudent">Откликнуться
               </button>
               <ng-template #elseBlock><h5 class="mb-1">{{internship.company_id}}<br><br></h5></ng-template>

@@ -30,7 +30,7 @@
         <div class="form-group row">
           <label for="select" class="col-sm-2 col-form-label">Тэг</label>
           <div class="col-sm-10">
-            <mat-select id="select" [formControl]="tags" multiple="true">
+            <mat-select id="select" class="form-control" [formControl]="tags" multiple="true">
               <mat-option *ngFor="let tag of tagsAll" [value]="tag.value">{{tag.viewValue}}</mat-option>
             </mat-select>
           </div>

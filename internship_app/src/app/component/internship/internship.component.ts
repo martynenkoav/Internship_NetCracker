@@ -8,7 +8,6 @@ import {Router} from "@angular/router";
 import {StudentService} from "../../service/student.service";
 import 'bootstrap';
 import {catchError, forkJoin, isEmpty, never, throwError} from "rxjs";
-import {HttpHandler, HttpRequest} from "@angular/common/http";
 import {FormControl} from "@angular/forms";
 
 export interface Tag {
@@ -43,23 +42,6 @@ enum TAGS {
 export class InternshipComponent implements OnInit {
 
   viewInternships: Internship[] = [];
-  /*tags: Map<string, string> = new Map<string, string>([
-    [ "",  "Все"],
-    ["AUTOMOTIVE_BUSINESS", "Автомобильный бизнес"],
-    ["ADMINISTRATIVE_STAFF", "Административный персонал"],
-    ["SAFETY", "Безопасность"],
-    ["TOP_MANAGEMENT", "Высший менеджмент"],
-    ["PURCHASES", "Закупки"],
-    ["INFORMATION_TECHNOLOGY", "Информационные тхенологии"],
-    ["ART", "Искусство"],
-    ["ADVERTISING", "Реклама"],
-    ["MEDICINE", "Медицина"],
-    ["SALES", "Продажи"],
-    ["TOURISM", "Туризм"],
-    ["PERSONNEL_MANAGEMENT", "Управление персоналом"],
-    ["LAWYERS", "Юристы"],
-    ["OTHER", "Другое"]
-  ]);*/
   tags: Tag[] = [
     {value: 'ALL', viewValue: 'Все'},
     {value: 'AUTOMOTIVE_BUSINESS', viewValue: 'Автомобильный бизнес'},
@@ -77,7 +59,6 @@ export class InternshipComponent implements OnInit {
     {value: 'LAWYERS', viewValue: 'Юристы'},
     {value: 'OTHER', viewValue: 'Другое'}
   ];
-  /*TAGS;*/
   internships: Internship[];
   myInternships: Internship[] = [];
   company: Company;
@@ -98,10 +79,10 @@ export class InternshipComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.filters.set("name", "");
     this.filters.set("tag", "");
     this.getAccess();
+    this.currentButton = "all";
 
     if (this.roles?.includes("ROLE_STUDENT")) {
       forkJoin(
@@ -116,23 +97,33 @@ export class InternshipComponent implements OnInit {
         this.internships.forEach(internship => {
           internship.tags = internship.tags.map(tag => TAGS[tag]);
         });
-        console.log("internships after tags", this.internships);
         this.internships.forEach(internship => {
           internship.company = this.companies.find(company => company.id === internship.company_id);
         });
         this.myInternships = myInternships;
-        this.myInternships.forEach(myInternship => this.companyService.getCompanyById(myInternship.company_id).subscribe(
-          (response) => {
-            console.log('Getting correctly');
-            myInternship.company = response;
-          },
-          error => console.warn(error)
-        ));
+        this.myInternships.forEach(internship => {
+          internship.tags = internship.tags.map(tag => TAGS[tag]);
+        });
+        this.myInternships.forEach(internship => {
+          internship.company = this.companies.find(company => company.id === internship.company_id);
+        });
         this.viewInternships = internships;
-        console.log('view inter', this.viewInternships);
       })
     } else {
-      this.getInternships();
+      forkJoin(
+        this.internshipService.getInternships(),
+        this.companyService.getCompanies(),
+      ).subscribe(([internships, companies]) => {
+        this.internships = internships;
+        this.companies = companies;
+        this.internships.forEach(internship => {
+          internship.tags = internship.tags.map(tag => TAGS[tag]);
+        });
+        this.internships.forEach(internship => {
+          internship.company = this.companies.find(company => company.id === internship.company_id);
+        });
+        this.viewInternships = internships;
+      })
     }
 
   }
@@ -148,55 +139,17 @@ export class InternshipComponent implements OnInit {
     this.currentUser = this.tokenStorageService.getUser();
   }
 
-  getCurrentUser() {
-    if (this.roles.includes("ROLE_STUDENT")) {
-      this.currentStudent = this.studentService.getStudentById(this.tokenStorageService.getUser().id).subscribe(
-        (response) => {
-          this.currentStudent = response;
-          console.log('Getting student correctly', this.currentStudent);
-        },
-        error => console.warn(error));
-    }
-  }
-
-  getInternships() {
-    this.currentButton = "all";
-    this.internshipService.getInternships().subscribe(
-      (response) => {
-        console.log('Getting correctly');
-        this.internships = response;
-        this.internships.forEach(internship => this.companyService.getCompanyById(internship.company_id).subscribe(
-          (response) => {
-            console.log('Getting correctly');
-            internship.company = response;
-          },
-          error => console.warn(error)
-        ));
-        console.log(this.internships);
-        this.viewInternships = response;
-      },
-      error => console.warn(error));
-  }
 
   filterSearch(event: any) {
-    console.log('Проверка фильтра', event.target);
     this.filters.set('name', event.target.value.toLowerCase());
     this.doFilter();
-    /*this.viewInternships = this.internships;
-    this.filters.forEach((value, key) => {
-      if (value !== "") {
-        this.viewInternships = this.viewInternships.filter(x => x[key].toLowerCase().includes(value));
-      }
-    })*/
   }
 
   filterTags(tags: FormControl, event: any) {
-    if (tags.value.includes('ALL') && !this.filters.get('tags')?.includes('ALL')) {
-      tags.setValue(['ALL']);
+    if (tags.value.includes('Все') && !this.filters.get('tags')?.includes('Все')) {
+      tags.setValue(['Все']);
     } else {
-      console.log("ura else")
-      const tagsCur = tags.value.filter(tag => tag !== "ALL");
-      console.log(tagsCur);
+      const tagsCur = tags.value.filter(tag => tag !== "Все");
       tags.setValue(tagsCur);
     }
     this.filters.set('tags', tags.value);
@@ -218,22 +171,6 @@ export class InternshipComponent implements OnInit {
     })
   }
 
-  /*filterTag(event: any, filterName: string) {
-    console.log(event.value.toString());
-    this.filters.set(filterName, event.value.toString());
-    this.viewInternships = this.internships;
-    console.log(this.filters);
-    this.filters.forEach((value, key) => {
-      if (value !== "") {
-        this.viewInternships = this.viewInternships.filter(x => {
-          console.log(x);
-
-          return x.tags.includes(value);
-        });
-      }
-    })
-  }*/
-
   goToCompany(id: number) {
     this.router.navigate(['/company-for-check/', id]);
   }
@@ -252,29 +189,17 @@ export class InternshipComponent implements OnInit {
   addInternshipToStudent(id: number) {
     this.currentStudent.internships.push(id);
     this.studentService.updateStudent(this.currentStudent).subscribe(
-      () => console.log('Updated correctly'),
+      () => {
+        window.location.reload();
+        console.log('Updated correctly')
+      },
       error => console.warn(error)
     );
   }
 
   showStudentsInternships() {
     this.currentButton = "student";
-    this.internshipService.getInternshipsByStudentId(this.tokenStorageService.getUser().id).subscribe(
-      (response) => {
-        console.log('Getting correctly');
-        this.myInternships = response;
-        this.myInternships.forEach(internship => this.companyService.getCompanyById(internship.company_id).subscribe(
-          (response) => {
-            console.log('Getting correctly');
-            internship.company = response;
-          },
-          error => console.warn(error)
-        ));
-        this.viewInternships = this.myInternships;
-
-      },
-      error => console.warn(error)
-    );
+    this.viewInternships = this.myInternships;
   }
 
   isInStudentsList(id: number):

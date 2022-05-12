@@ -23,30 +23,15 @@ export class InternshipService {
   }
 
   public getInternshipsByCompanyId(id: number): Observable<Internship[]> {
-    return this.http.get<Internship[]>(this.INTERNSHIP_URL + "/company/" + id).pipe(
-      map((resp) => {
-        console.log(resp);
-        return resp;
-      })
-    )
+    return this.http.get<Internship[]>(this.INTERNSHIP_URL + "/company/" + id);
   }
 
   public getInternshipsByStudentId(id: number): Observable<Internship[]> {
-    return this.http.get<Internship[]>(this.INTERNSHIP_URL + "/student/" + id).pipe(
-      map((resp) => {
-        console.log(resp);
-        return resp;
-      })
-    )
+    return this.http.get<Internship[]>(this.INTERNSHIP_URL + "/student/" + id);
   }
 
   public getInternships(): Observable<Internship[]> {
-    return this.http.get<Internship[]>(this.INTERNSHIP_URL).pipe(
-      map((resp) => {
-        console.log(resp);
-        return resp;
-      })
-    )
+    return this.http.get<Internship[]>(this.INTERNSHIP_URL);
   }
 
   public postInternship(id: number, internship: Internship) {

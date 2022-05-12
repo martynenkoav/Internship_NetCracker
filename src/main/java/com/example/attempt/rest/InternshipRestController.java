@@ -119,7 +119,7 @@ public class InternshipRestController {
     }
 
     @RequestMapping(value = "/company/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Internship>> getAllInternshipsByCompanyId(@PathVariable("id") Long id) {
+    public ResponseEntity<List<InternshipDTO>> getAllInternshipsByCompanyId(@PathVariable("id") Long id) {
 
         Long companyId = id;
 
@@ -128,8 +128,12 @@ public class InternshipRestController {
         }
 
         List<Internship> internships = this.internshipService.getAllByCompanyId(companyId);
+        List<InternshipDTO> internshipsDTO = new ArrayList<>();
+        for (Internship internship: internships){
+            internshipsDTO.add(new InternshipDTO(internship));
+        }
 
-        return new ResponseEntity<>(internships, HttpStatus.OK);
+        return new ResponseEntity<>(internshipsDTO, HttpStatus.OK);
     }
 
     @PreAuthorize("#id == authentication.principal.id")
