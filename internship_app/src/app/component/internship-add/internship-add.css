@@ -65,6 +65,8 @@
 .row-section .media .media-body p {
   padding: 0 15px;
   font-size: 14px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .row-section .media .media-body h4 {
@@ -88,6 +90,7 @@ textarea {
   height: 520%;
   font-size: 14px;
   resize: none;
+  white-space: pre;
 }
 
 .media {
@@ -96,6 +99,7 @@ textarea {
   border-radius: 5px;
   background: #fff;
   word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 
@@ -116,3 +120,21 @@ button.close {
   -webkit-appearance: none
 }
 
+.moreText{
+  display: none;
+}
+.read-more-btn {
+  background: #6B456A;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+}
+.text.show-more .moreText {
+  display: inline;
+}
+.text.show-more .dots {
+  display: none;
+}
+
+#more{display: none;}

@@ -98,6 +98,7 @@ export class InternshipAdd implements OnInit {
   }
 
   deleteInternship(id: number) {
+    console.log(id);
     this.internshipService.deleteInternship(id).subscribe(
       value => {
         console.log('Deleting correctly');

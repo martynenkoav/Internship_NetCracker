@@ -21,9 +21,9 @@ export class StudentComponent implements OnInit {
 
   getStudent() {
     this.studentService.getStudentById(this.tokenStorageService.getUser().id).subscribe(
-      (response) => {
+      (student) => {
         console.log('Getting correctly');
-        this.student = response;
+        this.student = student;
       },
       error => console.warn(error)
     )

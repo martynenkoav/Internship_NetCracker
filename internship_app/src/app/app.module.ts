@@ -18,7 +18,6 @@ import { InternshipAdd } from './component/internship-add/internship-add';
 import { StudentComponent } from './component/student/student.component';
 import { CompanyForCheckComponent } from './component/company-for-check/company-for-check.component';
 import { ErrorPageComponent } from './component/error-page/error-page.component';
-//import { NgxBootstrapMultiselectModule } from 'ngx-bootstrap-multiselect';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 

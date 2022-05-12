@@ -24,7 +24,8 @@ export class CompanyComponent implements OnInit {
   public isEmpty: boolean = false;
   submitted: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private companyService: CompanyService, private tokenStorageService: TokenStorageService) {
+  constructor(private formBuilder: FormBuilder, private companyService: CompanyService,
+              private tokenStorageService: TokenStorageService) {
 
   }
 

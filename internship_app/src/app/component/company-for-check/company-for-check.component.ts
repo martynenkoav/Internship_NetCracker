@@ -33,11 +33,11 @@ enum TAGS {
 
 export class CompanyForCheckComponent implements OnInit {
 
-  internships: Internship[];
-  internshipsWithoutFilt: Internship[];
+  public internships: Internship[];
+  public viewInternships: Internship[];
   public company: Company;
-
-  companyId: number;
+  private companyId: number;
+  private filters: Map<string, string> = new Map<string, string>();
 
   constructor(private companyService: CompanyService, private tokenStorageService: TokenStorageService,
               private activatedRoute: ActivatedRoute, private internshipService: InternshipService) {
@@ -48,27 +48,29 @@ export class CompanyForCheckComponent implements OnInit {
       this.companyId = params['id'];
     });
 
+    this.filters.set("name", "");
+    this.filters.set("tag", "");
+
     this.getCompany();
     this.loadInternships();
   }
 
   getCompany() {
     this.companyService.getCompanyById(this.companyId).subscribe(
-      (response) => {
+      (company) => {
         console.log('Getting correctly');
-        this.company = response;
+        this.company = company;
       },
       error => console.warn(error)
     )
   }
 
   loadInternships() {
-
     this.internshipService.getInternshipsByCompanyId(this.companyId).subscribe(
-      (response) => {
+      (internships) => {
         console.log('Getting correctly');
-        this.internships = response;
-        this.internshipsWithoutFilt = response;
+        this.internships = internships;
+        this.viewInternships = internships;
         this.internships.forEach(internship => {
           internship.tags = internship.tags.map(tag => TAGS[tag]);
         });
@@ -77,8 +79,13 @@ export class CompanyForCheckComponent implements OnInit {
     )
   }
 
-  filterList(event: any) {
-    console.log(event);
-    this.internships = this.internshipsWithoutFilt.filter(x => x.name.toLowerCase().includes(event.target.value.toLowerCase()));
+  filterList(event: any, filterName: string) {
+    this.filters.set(filterName, event.target.value.toLowerCase());
+    this.viewInternships = this.internships;
+    this.filters.forEach((value, key) => {
+      if (value !== "") {
+        this.viewInternships = this.viewInternships.filter(x => x[key].toLowerCase().includes(value));
+      }
+    })
   }
 }

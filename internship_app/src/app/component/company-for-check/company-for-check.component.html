@@ -37,10 +37,33 @@
       </div>
     </div>
     <div class="col-md-10 offset-md-1 row-block">
-      <input class="form-control" id="myInput" type="text" placeholder="Поиск..." *ngIf="internshipsWithoutFilt.length != 0"
-             (change)="filterList($event)">
+      <input class="form-control" id="myInput" type="text" placeholder="Поиск.."
+             *ngIf="internships.length != 0"
+             (change)="filterList($event, 'name')">
       <br>
-      <ul id="sortable" *ngFor="let internship of internships">
+      <select id="select" formControlName="tag" class="form-control" name="tag"
+              *ngIf="internships.length != 0"
+              (change)="filterList($event,'tag')">
+
+        <option type="radio" value="">Все</option>
+        <option type="radio" value="AUTOMOTIVE_BUSINESS">Автомобильный бизнес</option>
+        <option type="radio" value="ADMINISTRATIVE_STAFF">Административный персонал</option>
+        <option type="radio" value="SAFETY">Безопасность</option>
+        <option type="radio" value="TOP_MANAGEMENT">Высший менеджмент</option>
+        <option type="radio" value="PURCHASES">Закупки</option>
+        <option type="radio" value="INFORMATION_TECHNOLOGY">Информационные технологии</option>
+        <option type="radio" value="ART">Искусство</option>
+        <option type="radio" value="ADVERTISING">Реклама</option>
+        <option type="radio" value="MEDICINE">Медицина</option>
+        <option type="radio" value="SALES">Продажи</option>
+        <option type="radio" value="TOURISM">Туризм</option>
+        <option type="radio" value="PERSONNEL_MANAGEMENT">Управление персоналом</option>
+        <option type="radio" value="LAWYERS">Юристы</option>
+        <option type="radio" value="OTHER">Другое</option>
+      </select>
+
+      <br>
+      <ul id="sortable" *ngFor="let internship of viewInternships">
         <li>
           <div class="media">
             <div class="media-body">

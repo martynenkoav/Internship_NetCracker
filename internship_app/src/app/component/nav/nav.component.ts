@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from "../../service/token-storage.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-nav',
@@ -9,11 +8,11 @@ import {Router} from "@angular/router";
 })
 export class NavComponent implements OnInit {
 
-  private roles: string[] = [];
-  isLoggedIn = false;
-  username?: string;
+  public roles: string[] = [];
+  public isLoggedIn = false;
+  private username?: string;
 
-  constructor(private tokenStorageService: TokenStorageService,  private router: Router) {
+  constructor(private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
@@ -25,24 +24,8 @@ export class NavComponent implements OnInit {
     }
   }
 
-  goToProfile(){
-    if (this.roles.includes('ROLE_COMPANY')) {
-      this.router.navigate(["/company"]).then(() => {
-        this.reloadPage()
-      })
-    } else {
-      this.router.navigate(["/student"]).then(() => {
-        this.reloadPage()
-      })
-    }
-  }
-
   logout(): void {
     this.tokenStorageService.signOut();
-    this.reloadPage();
-  }
-
-  reloadPage(): void {
     window.location.reload();
   }
 }

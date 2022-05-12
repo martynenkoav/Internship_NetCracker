@@ -108,6 +108,7 @@ export class InternshipComponent implements OnInit {
           internship.company = this.companies.find(company => company.id === internship.company_id);
         });
         this.viewInternships = internships;
+        console.log('view inter', this.viewInternships);
       })
     } else {
       forkJoin(
