@@ -1,6 +1,7 @@
 package com.example.attempt.rest;
 
 import com.example.attempt.dto.CompanyDTO;
+import com.example.attempt.model.Student;
 import com.example.attempt.security.util.EmailValidator;
 import com.example.attempt.model.Company;
 import com.example.attempt.serviceImplementation.CompanyServiceImpl;
@@ -11,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -31,6 +34,13 @@ public class CompanyRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(company, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Company>> getAllStudents() {
+        List<Company> companies = this.companyService.getAll();
+
+        return new ResponseEntity<>(companies, HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

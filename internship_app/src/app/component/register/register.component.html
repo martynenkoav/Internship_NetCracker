@@ -64,8 +64,8 @@
           <label for="select">Роль</label>
           <select id="select" formControlName="role"
                   class="form-control" [ngClass]="{ 'is-invalid': submitted && f['role'].errors}">
-            <option type="radio" value="student">Студент</option>
-            <option type="radio" value="company">Компания</option>
+            <option type="radio" value="ROLE_STUDENT">Студент</option>
+            <option type="radio" value="ROLE_COMPANY">Компания</option>
           </select>
           <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">
             <div *ngIf="f['role'].errors['required']">Необходимо выбрать роль пользователя</div>

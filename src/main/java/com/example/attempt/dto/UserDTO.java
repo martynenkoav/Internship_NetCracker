@@ -27,19 +27,20 @@ public class UserDTO {
     public User toUser(RoleRepository roleRepository, PasswordEncoder encoder) {
         User user = new User(this.username, encoder.encode(this.password));
         String role = this.role;
+        ERole eRole = ERole.valueOf(role);
         Set<Role> roles = new HashSet<>();
-        switch (role) {
-            case "admin":
+        switch (eRole) {
+            case ROLE_ADMIN:
                 Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                 roles.add(adminRole);
                 break;
-            case "student":
+            case ROLE_STUDENT:
                 Role modRole = roleRepository.findByName(ERole.ROLE_STUDENT)
                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                 roles.add(modRole);
                 break;
-            case "company":
+            case ROLE_COMPANY:
                 Role userRole = roleRepository.findByName(ERole.ROLE_COMPANY)
                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                 roles.add(userRole);

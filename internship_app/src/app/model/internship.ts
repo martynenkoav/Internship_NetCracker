@@ -10,5 +10,6 @@ export class Internship {
   company: Company;
   url: string;
   responses: number;
-  tags: String[] = [];
+  tags: string[] = [];
+  tagsView: string[] = [];
 }

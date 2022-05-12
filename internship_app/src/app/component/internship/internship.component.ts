@@ -16,6 +16,24 @@ export interface Tag {
   viewValue: string;
 }
 
+enum TAGS {
+  ALL = "Все",
+  AUTOMOTIVE_BUSINESS = "Автомобильный бизнес",
+  ADMINISTRATIVE_STAFF = "Административный персонал",
+  SAFETY = "Безопасность",
+  TOP_MANAGEMENT = "Высший менеджмент",
+  PURCHASES = "Закупки",
+  INFORMATION_TECHNOLOGY = "Информационные технологии",
+  ART = "Искусство",
+  ADVERTISING = "Реклама",
+  MEDICINE = "Медицина",
+  SALES = "Продажи",
+  TOURISM = "Туризм",
+  PERSONNEL_MANAGEMENT = "Управление персоналом",
+  LAWYERS = "Юристы",
+  OTHER = "Другое"
+}
+
 @Component({
   selector: 'app-internship',
   templateUrl: './internship.component.html',
@@ -25,64 +43,54 @@ export interface Tag {
 export class InternshipComponent implements OnInit {
 
   viewInternships: Internship[] = [];
+  /*tags: Map<string, string> = new Map<string, string>([
+    [ "",  "Все"],
+    ["AUTOMOTIVE_BUSINESS", "Автомобильный бизнес"],
+    ["ADMINISTRATIVE_STAFF", "Административный персонал"],
+    ["SAFETY", "Безопасность"],
+    ["TOP_MANAGEMENT", "Высший менеджмент"],
+    ["PURCHASES", "Закупки"],
+    ["INFORMATION_TECHNOLOGY", "Информационные тхенологии"],
+    ["ART", "Искусство"],
+    ["ADVERTISING", "Реклама"],
+    ["MEDICINE", "Медицина"],
+    ["SALES", "Продажи"],
+    ["TOURISM", "Туризм"],
+    ["PERSONNEL_MANAGEMENT", "Управление персоналом"],
+    ["LAWYERS", "Юристы"],
+    ["OTHER", "Другое"]
+  ]);*/
   tags: Tag[] = [
-    {
-      value: '', viewValue: 'Все'
-    },
-    {
-      value: 'AUTOMOTIVE_BUSINESS', viewValue: 'Автомобильный бизнес'
-    },
-    {
-      value: 'ADMINISTRATIVE_STAFF', viewValue: 'Административный персонал'
-    },
-    {
-      value: 'SAFETY', viewValue: 'Безопасность'
-    },
-    {
-      value: 'TOP_MANAGEMENT', viewValue: 'Высший менеджмент'
-    },
-    {
-      value: 'PURCHASES', viewValue: 'Закупки'
-    },
-    {
-      value: 'INFORMATION_TECHNOLOGY', viewValue: 'Информационные технологии'
-    },
-    {
-      value: 'ART', viewValue: 'Искусство'
-    },
-    {
-      value: 'ADVERTISING', viewValue: 'Реклама'
-    },
-    {
-      value: 'MEDICINE', viewValue: 'Медицина'
-    },
-    {
-      value: 'SALES', viewValue: 'Продажи'
-    },
-    {
-      value: 'TOURISM', viewValue: 'Туризм'
-    },
-    {
-      value: 'PERSONNEL_MANAGEMENT', viewValue: 'Управление персоналом'
-    },
-    {
-      value: 'LAWYERS', viewValue: 'Юристы'
-    },
-    {
-      value: 'OTHER', viewValue: 'Другое'
-    }
+    {value: 'ALL', viewValue: 'Все'},
+    {value: 'AUTOMOTIVE_BUSINESS', viewValue: 'Автомобильный бизнес'},
+    {value: 'ADMINISTRATIVE_STAFF', viewValue: 'Административный персонал'},
+    {value: 'SAFETY', viewValue: 'Безопасность'},
+    {value: 'TOP_MANAGEMENT', viewValue: 'Высший менеджмент'},
+    {value: 'PURCHASES', viewValue: 'Закупки'},
+    {value: 'INFORMATION_TECHNOLOGY', viewValue: 'Информационные технологии'},
+    {value: 'ART', viewValue: 'Искусство'},
+    {value: 'ADVERTISING', viewValue: 'Реклама'},
+    {value: 'MEDICINE', viewValue: 'Медицина'},
+    {value: 'SALES', viewValue: 'Продажи'},
+    {value: 'TOURISM', viewValue: 'Туризм'},
+    {value: 'PERSONNEL_MANAGEMENT', viewValue: 'Управление персоналом'},
+    {value: 'LAWYERS', viewValue: 'Юристы'},
+    {value: 'OTHER', viewValue: 'Другое'}
   ];
   /*TAGS;*/
-  internships: Internship[] = [];
+  internships: Internship[];
   myInternships: Internship[] = [];
   company: Company;
+  companies: Company[] = [];
   roles: string[] = [];
   hasAccess: boolean = false;
   isStudent: boolean;
   currentUser: any;
   currentStudent: any;
   studentTags: any[] = [];
-  filters: Map<string, string> = new Map<string, string>();
+  filters: Map<string, string | string[]> = new Map<string, string | string[]>();
+  tagsForSearch: FormControl = new FormControl('');
+  currentButton: string = "all";
 
   constructor(private internshipService: InternshipService, private companyService: CompanyService,
               private studentService: StudentService, private tokenStorageService: TokenStorageService,
@@ -95,19 +103,23 @@ export class InternshipComponent implements OnInit {
     this.filters.set("tag", "");
     this.getAccess();
 
-    if (this.roles.includes("ROLE_STUDENT")) {
+    if (this.roles?.includes("ROLE_STUDENT")) {
       forkJoin(
+        this.currentStudent = this.studentService.getStudentById(this.tokenStorageService.getUser().id),
         this.internshipService.getInternships(),
-        this.internshipService.getInternshipsByStudentId(this.tokenStorageService.getUser().id)
-      ).subscribe(([internships, myInternships]) => {
+        this.internshipService.getInternshipsByStudentId(this.tokenStorageService.getUser().id),
+        this.companyService.getCompanies()
+      ).subscribe(([student, internships, myInternships, companies]) => {
+        this.currentStudent = student;
         this.internships = internships;
-        this.internships.forEach(internship => this.companyService.getCompanyById(internship.company_id).subscribe(
-          (response) => {
-            console.log('Getting correctly');
-            internship.company = response;
-          },
-          error => console.warn(error)
-        ));
+        this.companies = companies;
+        this.internships.forEach(internship => {
+          internship.tags = internship.tags.map(tag => TAGS[tag]);
+        });
+        console.log("internships after tags", this.internships);
+        this.internships.forEach(internship => {
+          internship.company = this.companies.find(company => company.id === internship.company_id);
+        });
         this.myInternships = myInternships;
         this.myInternships.forEach(myInternship => this.companyService.getCompanyById(myInternship.company_id).subscribe(
           (response) => {
@@ -118,7 +130,6 @@ export class InternshipComponent implements OnInit {
         ));
         this.viewInternships = internships;
         console.log('view inter', this.viewInternships);
-        this.getCurrentUser();
       })
     } else {
       this.getInternships();
@@ -128,10 +139,10 @@ export class InternshipComponent implements OnInit {
 
   getAccess() {
     this.roles = this.tokenStorageService.getUser().roles;
-    if (this.roles.includes("ROLE_STUDENT") || this.roles.includes("ROLE_COMPANY")) {
+    if (this.roles?.includes("ROLE_STUDENT") || this.roles?.includes("ROLE_COMPANY")) {
       this.hasAccess = true;
     }
-    if (this.roles.includes("ROLE_STUDENT")) {
+    if (this.roles?.includes("ROLE_STUDENT")) {
       this.isStudent = true;
     }
     this.currentUser = this.tokenStorageService.getUser();
@@ -149,6 +160,7 @@ export class InternshipComponent implements OnInit {
   }
 
   getInternships() {
+    this.currentButton = "all";
     this.internshipService.getInternships().subscribe(
       (response) => {
         console.log('Getting correctly');
@@ -166,13 +178,42 @@ export class InternshipComponent implements OnInit {
       error => console.warn(error));
   }
 
-  filterList(event: any, filterName: string) {
+  filterSearch(event: any) {
     console.log('Проверка фильтра', event.target);
-    this.filters.set(filterName, event.target.value.toLowerCase());
-    this.viewInternships = this.internships;
+    this.filters.set('name', event.target.value.toLowerCase());
+    this.doFilter();
+    /*this.viewInternships = this.internships;
     this.filters.forEach((value, key) => {
       if (value !== "") {
         this.viewInternships = this.viewInternships.filter(x => x[key].toLowerCase().includes(value));
+      }
+    })*/
+  }
+
+  filterTags(tags: FormControl, event: any) {
+    if (tags.value.includes('ALL') && !this.filters.get('tags')?.includes('ALL')) {
+      tags.setValue(['ALL']);
+    } else {
+      console.log("ura else")
+      const tagsCur = tags.value.filter(tag => tag !== "ALL");
+      console.log(tagsCur);
+      tags.setValue(tagsCur);
+    }
+    this.filters.set('tags', tags.value);
+    this.doFilter();
+  }
+
+  doFilter() {
+    console.log(this.filters);
+    this.viewInternships = this.internships;
+    this.filters.forEach((value, key) => {
+      if (typeof (value) === "string") {
+        if (value !== "") {
+          this.viewInternships = this.viewInternships.filter(x =>
+            x[key].toLowerCase().includes(value));
+        }
+      } else {
+        this.viewInternships = this.viewInternships.filter(x => x.tags.filter(tag => value.includes(tag)).length !== 0)
       }
     })
   }
@@ -217,6 +258,7 @@ export class InternshipComponent implements OnInit {
   }
 
   showStudentsInternships() {
+    this.currentButton = "student";
     this.internshipService.getInternshipsByStudentId(this.tokenStorageService.getUser().id).subscribe(
       (response) => {
         console.log('Getting correctly');
@@ -245,6 +287,7 @@ export class InternshipComponent implements OnInit {
   }
 
   getRecommendationInternships() {
+    this.currentButton = "advice";
 
     let allInternships = this.internships;
 

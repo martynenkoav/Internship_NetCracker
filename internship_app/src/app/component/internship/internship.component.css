@@ -72,6 +72,14 @@
   font-size: 16px;
 }
 
+.btn-checked {
+  background-color: #3d273c;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+}
+
 textarea {
   resize: none;
 }
@@ -85,12 +93,11 @@ textarea {
 }
 
 .btn-group a {
-  background-color: #6B456A; /* Green background */
-  border: 1px solid #3d273c; /* Green border */
-  color: white; /* White text */
-  padding: 10px 24px; /* Some padding */
-  cursor: pointer; /* Pointer/hand icon */
-  float: left; /* Float the buttons side by side */
+  border: 1px solid #3d273c;
+  color: white;
+  padding: 10px 24px;
+  cursor: pointer;
+  float: left;
 }
 
 .btn-group a:hover {

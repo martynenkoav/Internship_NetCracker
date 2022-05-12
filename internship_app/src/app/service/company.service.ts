@@ -16,22 +16,16 @@ export class CompanyService {
 
   private COMPANY_URL: string = Const.LOCALHOST_URL + 'api/company';
 
+  public getCompanies(): Observable<any> {
+    return this.http.get<any>(this.COMPANY_URL);
+  }
+
   public getCompanyByUserId(id: number): Observable<any> {
-    return this.http.get<any>(this.COMPANY_URL + "/" + id).pipe(
-      map((resp) => {
-        console.log(resp);
-        return resp;
-      })
-    )
+    return this.http.get<any>(this.COMPANY_URL + "/" + id);
   }
 
   getCompanyById(id: number): Observable<Company> {
-    return this.http.get<Company>(this.COMPANY_URL + "/company/" + id).pipe(
-      map((resp) => {
-        console.log(resp);
-        return resp;
-      })
-    )
+    return this.http.get<Company>(this.COMPANY_URL + "/company/" + id);
   }
 
   public postCompany(id: number, company: FormGroup) {
