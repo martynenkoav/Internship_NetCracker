@@ -218,16 +218,12 @@ export class InternshipComponent implements OnInit {
     let studentInternships = this.myInternships;
 
     studentInternships.forEach(internship => internship.tags.forEach(tag => this.studentTags.push(tag)));
+
     let studentInternshipsIds = studentInternships.map(studentInternship => studentInternship.id);
 
-    let result = allInternships.filter(internship => {
-      return !studentInternshipsIds.includes(internship.id)
-    });
-    this.viewInternships = result.filter(x => {
-      return x.tags.filter(tag => {
-        return this.studentTags.includes(tag);
-      }).length !== 0;
-    });
+    let result = allInternships.filter(internship => !studentInternshipsIds.includes(internship.id));
+
+    this.viewInternships = result.filter(x =>  x.tags.filter(tag => this.studentTags.includes(tag)).length !== 0);
   }
 }
 
