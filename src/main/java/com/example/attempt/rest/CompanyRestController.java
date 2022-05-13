@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -37,7 +38,7 @@ public class CompanyRestController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Company>> getAllStudents() {
+    public ResponseEntity<List<Company>> getAllCompanies() {
         List<Company> companies = this.companyService.getAll();
 
         return new ResponseEntity<>(companies, HttpStatus.OK);
@@ -57,21 +58,18 @@ public class CompanyRestController {
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 
-    /* @PreAuthorize("#id == authentication.principal.id")*/
+    @PreAuthorize("#id == authentication.principal.id")
     @RequestMapping(value = "{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Company> saveCompany(@PathVariable("id") Long userId, @RequestBody CompanyDTO companyDTO) {
+    public ResponseEntity<Company> saveCompany(@PathVariable("id") Long id, @RequestBody CompanyDTO companyDTO) {
         HttpHeaders headers = new HttpHeaders();
 
-        Long companyId = this.companyService.getByUserId(userId).getId();
+        Long companyId = this.companyService.getByUserId(id).getId();
         Company company = this.companyService.getById(companyId);
-        /*if (company == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }*/
         if (!EmailValidator.validate(companyDTO.getEmail())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        this.companyService.save(companyDTO.toCompany(userId, company));
-        return new ResponseEntity<>(companyDTO.toCompany(userId, company), headers, HttpStatus.CREATED);
+        this.companyService.save(companyDTO.toCompany(id, company));
+        return new ResponseEntity<>(companyDTO.toCompany(id, company), headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class StudentRestController {
         return new ResponseEntity<>(student, headers, HttpStatus.CREATED);
     }
 
-    /*@PreAuthorize("#id == authentication.principal.id")*/
+    @PreAuthorize("#id == authentication.principal.id")
     @RequestMapping(value="{id}",method=RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<StudentDTO> updateStudent(@PathVariable("id") Long id, @RequestBody StudentDTO studentDTO){
         HttpHeaders headers = new HttpHeaders();

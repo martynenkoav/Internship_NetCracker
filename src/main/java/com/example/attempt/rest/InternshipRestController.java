@@ -31,7 +31,7 @@ public class InternshipRestController {
 
     private final StudentServiceImpl studentService;
 
-    //@PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#id == authentication.principal.id")
     @RequestMapping(value = "{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Internship> saveInternship(@PathVariable("id") Long id, @RequestBody InternshipDTO internshipDTO) {
         HttpHeaders headers = new HttpHeaders();
@@ -59,7 +59,7 @@ public class InternshipRestController {
         return new ResponseEntity<>(internship, headers, HttpStatus.OK);
     }
 
-    //@PreAuthorize("#id == authentication.principal.id")
+
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Internship> deleteInternship(@PathVariable("id") Long id) {
         Internship internship = this.internshipService.getById(id);
@@ -84,7 +84,7 @@ public class InternshipRestController {
         return new ResponseEntity<>(internshipsDTO, HttpStatus.OK);
     }
 
-    /*@PreAuthorize("#id == authentication.principal.id")*/
+    @PreAuthorize("#id == authentication.principal.id")
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<InternshipDTO>> getAllInternshipsByUserId(@PathVariable("id") Long id) {
 
