@@ -7,6 +7,7 @@ import {Const} from "../const/const";
 @Injectable({
   providedIn: 'root'
 })
+
 export class InternshipService {
   constructor(private http: HttpClient) {
   }
@@ -14,12 +15,7 @@ export class InternshipService {
   INTERNSHIP_URL: string = Const.LOCALHOST_URL + 'api/internship';
 
   public getInternshipsByUserId(id: number): Observable<Internship[]> {
-    return this.http.get<Internship[]>(this.INTERNSHIP_URL + "/" + id).pipe(
-      map((resp) => {
-        console.log(resp);
-        return resp;
-      })
-    )
+    return this.http.get<Internship[]>(this.INTERNSHIP_URL + "/" + id);
   }
 
   public getInternshipsByCompanyId(id: number): Observable<Internship[]> {

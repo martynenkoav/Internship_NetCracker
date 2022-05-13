@@ -34,7 +34,10 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
 .btn-primary {
+  margin: 0 auto;
+  display: block;
   background: #6B456A;
   color: #fff;
   border-radius: 5px;

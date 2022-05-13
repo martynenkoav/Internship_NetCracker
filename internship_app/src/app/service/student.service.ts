@@ -8,6 +8,7 @@ import {Const} from "../const/const";
 @Injectable({
   providedIn: 'root'
 })
+
 export class StudentService {
   constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) {
   }
@@ -15,12 +16,7 @@ export class StudentService {
   STUDENT_URL: string = Const.LOCALHOST_URL + 'api/student';
 
   public getStudentById(id: number): Observable<Student> {
-    return this.http.get<Student>(this.STUDENT_URL + "/" + id).pipe(
-      map((resp) => {
-        console.log(resp);
-        return resp;
-      })
-    )
+    return this.http.get<Student>(this.STUDENT_URL + "/" + id);
   }
 
   public postStudent(student: Student) {

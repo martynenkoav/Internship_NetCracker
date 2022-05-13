@@ -75,7 +75,7 @@ public class CompanyRestController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Company> updateCompany(@RequestBody Company company, UriComponentsBuilder builder) {
+    public ResponseEntity<Company> updateCompany(@RequestBody Company company) {
         HttpHeaders headers = new HttpHeaders();
 
         if (company == null) {

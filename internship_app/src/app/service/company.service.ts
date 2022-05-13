@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Company} from "../model/company";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import 'rxjs';
-import {map, Observable, throwError} from 'rxjs';
-import {TokenStorageService} from "./token-storage.service";
+import {Observable} from 'rxjs';
 import {Const} from "../const/const";
 import {FormGroup} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class CompanyService {
   constructor(private http: HttpClient) {
   }

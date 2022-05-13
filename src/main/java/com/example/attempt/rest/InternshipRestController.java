@@ -44,22 +44,6 @@ public class InternshipRestController {
     }
 
 
-    //@PreAuthorize("#id == authentication.principal.id")
-    /*@RequestMapping(value = "{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Internship> updateInternship(@PathVariable Long id, @RequestBody InternshipDTO internshipDTO) {
-        HttpHeaders headers = new HttpHeaders();
-
-        Internship internship = this.internshipService.getById(internshipDTO.getId());
-
-        internship.setResponses(internshipDTO.getResponses());
-
-        if (internship == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        this.internshipService.save(internship);
-        return new ResponseEntity<>(internship, headers, HttpStatus.OK);
-    }*/
-
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Internship> updateInternship(@PathVariable Long id, @RequestBody InternshipDTO internshipDTO) {
         HttpHeaders headers = new HttpHeaders();

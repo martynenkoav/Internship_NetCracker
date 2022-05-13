@@ -3,14 +3,12 @@ package com.example.attempt.dto;
 import com.example.attempt.model.Internship;
 import com.example.attempt.model.Student;
 import com.example.attempt.service.InternshipService;
-import com.example.attempt.service.StudentService;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
 
 @Getter
 @Setter
@@ -20,25 +18,21 @@ public class StudentDTO {
     private String lastName;
     private String patronymic;
     private String email;
-
     private String phone;
-
     private Long userId;
-
     private Set<Long> internships = new HashSet<>();
-
-    /* private InternshipService internshipService;*/
 
 
     public Set<Long> getInternships() {
         return internships;
     }
+
     public void setInternships(Set<Long> internships) {
         this.internships = internships;
     }
 
-    public StudentDTO(Long id, String firstName, String lastName, String patronymic,  String email,
-                      String phone, Long userId, Set<Long> internships){
+    public StudentDTO(Long id, String firstName, String lastName, String patronymic, String email,
+                      String phone, Long userId, Set<Long> internships) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -48,7 +42,8 @@ public class StudentDTO {
         this.userId = userId;
         this.internships.addAll(internships);
     }
-    public StudentDTO(Student student){
+
+    public StudentDTO(Student student) {
         this.id = student.getId();
         this.firstName = student.getFirstName();
         this.lastName = student.getLastName();
@@ -56,7 +51,7 @@ public class StudentDTO {
         this.email = student.getEmail();
         this.phone = student.getPhone();
         this.userId = student.getUserId();
-        if (student.getInternships()==null){
+        if (student.getInternships() == null) {
             this.internships = null;
         } else {
             for (Internship internship : student.getInternships()) {
@@ -64,7 +59,8 @@ public class StudentDTO {
             }
         }
     }
-    public Student toStudent(InternshipService internshipService){
+
+    public Student toStudent(InternshipService internshipService) {
         Student student = new Student();
         student.setId(this.id);
         student.setFirstName(this.firstName);
@@ -73,18 +69,10 @@ public class StudentDTO {
         student.setEmail(this.email);
         student.setPhone(this.phone);
         student.setUserId(this.userId);
-        for (Long idInternship : this.getInternships()){
+        for (Long idInternship : this.getInternships()) {
             Internship internship = internshipService.getById(idInternship);
             student.getInternships().add(internship);
         }
         return student;
     }
-    /*public Student toStudent(){
-        Student student = this.studentService.getById(this.id);
-        for (Long idInternship : this.getInternships()){
-            Internship internship = internshipService.getById(idInternship);
-            student.getInternships().add(internship);
-        }
-        return student;
-    }*/
 }

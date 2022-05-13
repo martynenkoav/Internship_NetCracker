@@ -17,7 +17,7 @@ public class InternshipDTO {
     private Long company_id;
     private String url;
     private Long responses;
-    /* private ETag tag;*/
+
     private Set<String> tags = new HashSet<>();
 
     public Set<String> getTags() {
@@ -48,7 +48,7 @@ public class InternshipDTO {
         Set<Tag> tagsCur = new HashSet<>();
         for (String tag : this.tags) {
             Tag tagCur = new Tag();
-            tagCur.setId((long) ETag.valueOf(tag).ordinal());
+            tagCur.setId((long) ETag.valueOf(tag).ordinal() + 1);
             tagCur.setName(ETag.valueOf(tag));
             tagsCur.add(tagCur);
         }
@@ -61,14 +61,14 @@ public class InternshipDTO {
         return internship;
     }
 
-    public InternshipDTO(Internship internship){
+    public InternshipDTO(Internship internship) {
         this.id = internship.getId();
         this.name = internship.getName();
         this.description = internship.getDescription();
         this.company_id = internship.getCompany().getId();
         this.url = internship.getUrl();
         this.responses = internship.getResponses();
-        for (Tag tag: internship.getTags()){
+        for (Tag tag : internship.getTags()) {
             this.tags.add(tag.getName().toString());
         }
     }

@@ -30,8 +30,6 @@ public class Student {
     @Column(name = "phone")
     private String phone;
 
-    /*@OneToOne(fetch = FetchType.LAZY)
-    private User user;*/
     @Column(name = "user_id")
     private Long userId;
 

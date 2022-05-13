@@ -220,6 +220,7 @@ export class InternshipComponent implements OnInit {
     let studentInternships = this.myInternships;
     studentInternships.forEach(internship => this.studentTags.push(internship?.tags));
 
+
     let studentInternshipsIds = studentInternships.map(studentInternship => studentInternship.id);
 
     let result = allInternships.filter(internship => {

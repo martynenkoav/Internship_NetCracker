@@ -46,8 +46,4 @@ public class InternshipServiceImpl implements InternshipService {
         return internshipRepository.getAllByCompanyId(id);
     }
 
-   /* public List<Internship> getAllByStudentId(Long id) {
-        log.info("IN InternshipService getAll");
-        return internshipRepository.getAllByStudentId(id);
-    }*/
 }

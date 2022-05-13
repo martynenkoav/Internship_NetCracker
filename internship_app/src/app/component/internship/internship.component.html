@@ -31,9 +31,12 @@
 
       <div class="p-3 py-5" *ngIf="isStudent">
         <div class="btn-group">
-          <a [class]="currentButton === 'all' ? 'btn btn-checked' : 'btn btn-default'" (click)="ngOnInit()">Все стажировки</a>
-          <a [class]="currentButton === 'student' ? 'btn btn-checked' : 'btn btn-default'" (click)="showStudentsInternships()">Мои стажировки</a>
-          <a [class]="currentButton === 'advice' ? 'btn btn-checked' : 'btn btn-default'" (click)="getRecommendationInternships()">Рекомендации</a>
+          <a [class]="currentButton === 'all' ? 'btn btn-checked' : 'btn btn-default'" (click)="ngOnInit()">Все
+            стажировки</a>
+          <a [class]="currentButton === 'student' ? 'btn btn-checked' : 'btn btn-default'"
+             (click)="showStudentsInternships()">Мои стажировки</a>
+          <a [class]="currentButton === 'advice' ? 'btn btn-checked' : 'btn btn-default'"
+             (click)="getRecommendationInternships()">Рекомендации</a>
         </div>
       </div>
       <br>

@@ -68,13 +68,13 @@
 
               <p class="mb-1">{{internship.description.substring(0, internship.description.indexOf(' ', 100))}}
 
-                  {{internship.description.substring(internship.description.indexOf(' ', 50), internship.description.length)}}
+                {{internship.description.substring(internship.description.indexOf(' ', 50), internship.description.length)}}
 
               </p>
             </div>
             <div class="media-right align-self-center">
               <a class="btn btn-default" data-bs-toggle="modal" data-bs-target="#deleteInternship">
-                 <!--(click)="deleteInternship(internship.id)--> Удалить </a>
+                <!--(click)="deleteInternship(internship.id)--> Удалить </a>
             </div>
             <pre></pre>
             <div class="modal fade" id="deleteInternship" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -105,7 +105,7 @@
 </section>
 
 <script type="text/javascript">
-  $(document).ready(function() {
+  $(document).ready(function () {
     $('#example-getting-started').multiselect();
   });
 </script>

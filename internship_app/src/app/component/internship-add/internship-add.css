@@ -120,9 +120,10 @@ button.close {
   -webkit-appearance: none
 }
 
-.moreText{
+.moreText {
   display: none;
 }
+
 .read-more-btn {
   background: #6B456A;
   color: #fff;
@@ -130,11 +131,15 @@ button.close {
   border: none;
   font-size: 16px;
 }
+
 .text.show-more .moreText {
   display: inline;
 }
+
 .text.show-more .dots {
   display: none;
 }
 
-#more{display: none;}
+#more {
+  display: none;
+}

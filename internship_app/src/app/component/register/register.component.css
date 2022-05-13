@@ -35,6 +35,8 @@ label {
 }
 
 .btn-primary {
+  margin: 0 auto;
+  display: block;
   background: #6B456A;
   color: #fff;
   border-radius: 5px;

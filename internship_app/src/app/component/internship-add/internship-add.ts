@@ -34,7 +34,7 @@ enum TAGS {
 export class InternshipAdd implements OnInit {
 
   tagsAll: Tag[] = [
-    {value: 'ALL', viewValue: 'Все'},
+    {value: '', viewValue: 'Все'},
     {value: 'AUTOMOTIVE_BUSINESS', viewValue: 'Автомобильный бизнес'},
     {value: 'ADMINISTRATIVE_STAFF', viewValue: 'Административный персонал'},
     {value: 'SAFETY', viewValue: 'Безопасность'},

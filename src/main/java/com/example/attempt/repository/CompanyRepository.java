@@ -8,8 +8,5 @@ import java.util.List;
 
 public interface CompanyRepository extends JpaRepository<Company, Long> {
 
-    /*@Query(value = "select * from company "
-            + "where user_id = :id",
-            nativeQuery = true)*/
     Company getByUserId(Long id);
 }

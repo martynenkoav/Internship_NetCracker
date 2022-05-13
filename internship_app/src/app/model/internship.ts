@@ -11,5 +11,4 @@ export class Internship {
   url: string;
   responses: number;
   tags: string[] = [];
-  tagsView: string[] = [];
 }
