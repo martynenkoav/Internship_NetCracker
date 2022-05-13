@@ -11,7 +11,6 @@ import Validation from "./validation";
   styleUrls: ['./register.component.css']
 })
 
-
 export class RegisterComponent implements OnInit {
   form: FormGroup = new FormGroup({
     username: new FormControl(''),
@@ -29,7 +28,6 @@ export class RegisterComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
   }
-
 
   ngOnInit(): void {
     this.submitted = true;
@@ -71,7 +69,6 @@ export class RegisterComponent implements OnInit {
     }
     this.authService.register(this.form.value).subscribe(
       data => {
-        console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
         this.router.navigate(["/login"])
@@ -85,5 +82,4 @@ export class RegisterComponent implements OnInit {
   public cleanButtonClicked() {
     this.user = new User();
   }
-
 }

@@ -32,11 +32,11 @@ public class StudentRestController {
         }
         Student student = this.studentService.getById(studentId);
 
-        if (student == null){
+        if (student == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         StudentDTO studentDTO = new StudentDTO(student);
-        return new ResponseEntity<>(studentDTO,HttpStatus.OK);
+        return new ResponseEntity<>(studentDTO, HttpStatus.OK);
     }
 
 
@@ -55,11 +55,11 @@ public class StudentRestController {
     }
 
     @PreAuthorize("#id == authentication.principal.id")
-    @RequestMapping(value="{id}",method=RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<StudentDTO> updateStudent(@PathVariable("id") Long id, @RequestBody StudentDTO studentDTO){
+    @RequestMapping(value = "{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<StudentDTO> updateStudent(@PathVariable("id") Long id, @RequestBody StudentDTO studentDTO) {
         HttpHeaders headers = new HttpHeaders();
 
-        if (studentDTO == null){
+        if (studentDTO == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Student student = studentDTO.toStudent(internshipService);

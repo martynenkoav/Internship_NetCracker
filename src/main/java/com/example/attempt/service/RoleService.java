@@ -6,6 +6,4 @@ import com.example.attempt.model.Role;
 
 public interface RoleService {
     Role getById(Long id);
-
-    Role getRoleFromBuilder(UserDTO userDTO);
 }

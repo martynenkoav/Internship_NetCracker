@@ -1,7 +1,6 @@
 package com.example.attempt.rest;
 
 import com.example.attempt.dto.InternshipDTO;
-import com.example.attempt.model.Company;
 import com.example.attempt.model.Internship;
 import com.example.attempt.model.Student;
 import com.example.attempt.serviceImplementation.CompanyServiceImpl;
@@ -70,7 +69,6 @@ public class InternshipRestController {
 
         this.internshipService.delete(id);
 
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -78,7 +76,7 @@ public class InternshipRestController {
     public ResponseEntity<List<InternshipDTO>> getAllInternships() {
         List<Internship> internships = this.internshipService.getAll();
         List<InternshipDTO> internshipsDTO = new ArrayList<>();
-        for (Internship internship: internships){
+        for (Internship internship : internships) {
             internshipsDTO.add(new InternshipDTO(internship));
         }
         return new ResponseEntity<>(internshipsDTO, HttpStatus.OK);
@@ -95,7 +93,7 @@ public class InternshipRestController {
         }
         List<Internship> internships = this.internshipService.getAllByCompanyId(companyId);
         List<InternshipDTO> internshipsDTO = new ArrayList<>();
-        for (Internship internship: internships){
+        for (Internship internship : internships) {
             internshipsDTO.add(new InternshipDTO(internship));
         }
 
@@ -113,10 +111,9 @@ public class InternshipRestController {
 
         List<Internship> internships = this.internshipService.getAllByCompanyId(companyId);
         List<InternshipDTO> internshipsDTO = new ArrayList<>();
-        for (Internship internship: internships){
+        for (Internship internship : internships) {
             internshipsDTO.add(new InternshipDTO(internship));
         }
-
         return new ResponseEntity<>(internshipsDTO, HttpStatus.OK);
     }
 
@@ -130,10 +127,9 @@ public class InternshipRestController {
         }
         Set<Internship> internships = student.getInternships();
         Set<InternshipDTO> internshipsDTO = new HashSet<>();
-        for (Internship internship: internships){
+        for (Internship internship : internships) {
             internshipsDTO.add(new InternshipDTO(internship));
         }
-
         return new ResponseEntity<>(internshipsDTO, HttpStatus.OK);
     }
 }

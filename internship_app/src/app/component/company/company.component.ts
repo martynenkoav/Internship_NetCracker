@@ -3,9 +3,6 @@ import {Company} from "../../model/company";
 import {CompanyService} from "../../service/company.service";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Observable} from "rxjs";
-import Validation from "../register/validation";
-
 
 @Component({
   selector: 'app-company',
@@ -26,12 +23,10 @@ export class CompanyComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private companyService: CompanyService,
               private tokenStorageService: TokenStorageService) {
-
   }
 
   ngOnInit(): void {
     this.getCompany();
-
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -59,7 +54,7 @@ export class CompanyComponent implements OnInit {
 
   postCompany() {
     this.companyService.postCompany(this.tokenStorageService.getUser().id, this.form.value).subscribe(
-      () => {console.log('Patching correctly'),
+      () => {
         this.submitted = true;
       },
       error => console.warn(error)

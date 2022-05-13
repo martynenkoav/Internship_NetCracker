@@ -1,7 +1,6 @@
 package com.example.attempt.rest;
 
 import com.example.attempt.dto.CompanyDTO;
-import com.example.attempt.model.Student;
 import com.example.attempt.security.util.EmailValidator;
 import com.example.attempt.model.Company;
 import com.example.attempt.serviceImplementation.CompanyServiceImpl;
@@ -12,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -31,9 +29,6 @@ public class CompanyRestController {
         }
         Company company = this.companyService.getById(id);
 
-        if (company == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 
@@ -52,9 +47,6 @@ public class CompanyRestController {
         }
         Company company = this.companyService.getById(companyId);
 
-        if (company == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 
@@ -87,10 +79,6 @@ public class CompanyRestController {
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Company> deleteCompany(@PathVariable("id") Long id) {
         Company company = this.companyService.getById(id);
-
-        if (company == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
 
         this.companyService.delete(id);
 

@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.example.attempt.model.User;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

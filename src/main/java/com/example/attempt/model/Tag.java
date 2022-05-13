@@ -1,7 +1,6 @@
 package com.example.attempt.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity

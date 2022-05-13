@@ -30,13 +30,11 @@ enum TAGS {
   styleUrls: ['./company-for-check.component.css']
 })
 
-
 export class CompanyForCheckComponent implements OnInit {
 
+  viewInternships: Internship[];
   internships: Internship[];
-  internshipsWithoutFilt: Internship[];
   public company: Company;
-
   companyId: number;
 
   constructor(private companyService: CompanyService, private tokenStorageService: TokenStorageService,
@@ -54,9 +52,8 @@ export class CompanyForCheckComponent implements OnInit {
 
   getCompany() {
     this.companyService.getCompanyById(this.companyId).subscribe(
-      (response) => {
-        console.log('Getting correctly');
-        this.company = response;
+      (company) => {
+        this.company = company;
       },
       error => console.warn(error)
     )
@@ -65,11 +62,10 @@ export class CompanyForCheckComponent implements OnInit {
   loadInternships() {
 
     this.internshipService.getInternshipsByCompanyId(this.companyId).subscribe(
-      (response) => {
-        console.log('Getting correctly');
-        this.internships = response;
-        this.internshipsWithoutFilt = response;
-        this.internships.forEach(internship => {
+      (internships) => {
+        this.viewInternships = internships;
+        this.internships = internships;
+        this.viewInternships.forEach(internship => {
           internship.tags = internship.tags.map(tag => TAGS[tag]);
         });
       },
@@ -78,7 +74,6 @@ export class CompanyForCheckComponent implements OnInit {
   }
 
   filterList(event: any) {
-    console.log(event);
-    this.internships = this.internshipsWithoutFilt.filter(x => x.name.toLowerCase().includes(event.target.value.toLowerCase()));
+    this.viewInternships = this.internships.filter(x => x.name.toLowerCase().includes(event.target.value.toLowerCase()));
   }
 }

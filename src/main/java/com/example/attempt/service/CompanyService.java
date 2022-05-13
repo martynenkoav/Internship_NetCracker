@@ -1,7 +1,6 @@
 package com.example.attempt.service;
 
 import com.example.attempt.model.Company;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 

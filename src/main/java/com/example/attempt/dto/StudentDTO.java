@@ -3,15 +3,12 @@ package com.example.attempt.dto;
 import com.example.attempt.model.Internship;
 import com.example.attempt.model.Student;
 import com.example.attempt.service.InternshipService;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.HashSet;
 import java.util.Set;
 
-
-@Getter
-@Setter
+@Data
 public class StudentDTO {
     private Long id;
     private String firstName;
@@ -21,7 +18,6 @@ public class StudentDTO {
     private String phone;
     private Long userId;
     private Set<Long> internships = new HashSet<>();
-
 
     public Set<Long> getInternships() {
         return internships;

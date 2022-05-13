@@ -108,7 +108,6 @@ export class InternshipComponent implements OnInit {
           internship.company = this.companies.find(company => company.id === internship.company_id);
         });
         this.viewInternships = internships;
-        console.log('view inter', this.viewInternships);
       })
     } else {
       forkJoin(
@@ -126,7 +125,6 @@ export class InternshipComponent implements OnInit {
         this.viewInternships = internships;
       })
     }
-
   }
 
   getAccess() {
@@ -146,7 +144,7 @@ export class InternshipComponent implements OnInit {
     this.doFilter();
   }
 
-  filterTags(tags: FormControl, event: any) {
+  filterTags(tags: FormControl) {
     if (tags.value.includes('Все') && !this.filters.get('tags')?.includes('Все')) {
       tags.setValue(['Все']);
     } else {
@@ -158,7 +156,6 @@ export class InternshipComponent implements OnInit {
   }
 
   doFilter() {
-    console.log(this.filters);
     this.viewInternships = this.internships;
     this.filters.forEach((value, key) => {
       if (typeof (value) === "string") {
@@ -177,11 +174,8 @@ export class InternshipComponent implements OnInit {
   }
 
   goToTheLink(internship: Internship) {
-
     internship.responses++;
-
     this.internshipService.patchInternship(this.tokenStorageService.getUser().id, internship).subscribe(
-      () => console.log('Patching correctly'),
       error => console.warn(error)
     )
     open(internship.url);
@@ -192,7 +186,6 @@ export class InternshipComponent implements OnInit {
     this.studentService.updateStudent(this.currentStudent).subscribe(
       () => {
         window.location.reload();
-        console.log('Updated correctly')
       },
       error => console.warn(error)
     );
@@ -216,24 +209,35 @@ export class InternshipComponent implements OnInit {
     this.currentButton = "advice";
 
     let allInternships = this.internships;
+    console.log("allInternships", allInternships);
 
     let studentInternships = this.myInternships;
+    console.log("studentInternships", studentInternships);
+
     studentInternships.forEach(internship => this.studentTags.push(internship?.tags));
 
-
     let studentInternshipsIds = studentInternships.map(studentInternship => studentInternship.id);
+
+    console.log("studentInternshipsIds", studentInternshipsIds);
 
     let result = allInternships.filter(internship => {
       return !studentInternshipsIds.includes(internship.id)
     });
 
+    console.log("result", result);
+
+    console.log("studentTags", this.studentTags);
+
     this.viewInternships = result.filter(x => {
       return this.studentTags.some(st => {
+          console.log("st", st);
+          console.log("x.tags", x.tags);
+          console.log("st === x.tags", st === x.tags);
+
           return st === x.tags;
         }
       )
     });
   }
-
 }
 

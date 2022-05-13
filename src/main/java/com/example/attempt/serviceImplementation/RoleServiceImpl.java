@@ -15,9 +15,4 @@ public class RoleServiceImpl implements RoleService {
     public Role getById(Long id) {
         return roleRepository.findById(id).get();
     }
-
-    @Override
-    public Role getRoleFromBuilder(UserDTO userDTO) {
-        return getById(userDTO.getId());
-    }
 }

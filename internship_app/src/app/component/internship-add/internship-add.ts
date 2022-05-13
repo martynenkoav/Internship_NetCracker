@@ -75,9 +75,8 @@ export class InternshipAdd implements OnInit {
 
   getCompany() {
     this.companyService.getCompanyByUserId(this.tokenStorageService.getUser().id).subscribe(
-      (response) => {
-        console.log('Getting correctly');
-        this.company = response;
+      (company) => {
+        this.company = company;
       },
       error => console.warn(error)
     )
@@ -86,22 +85,20 @@ export class InternshipAdd implements OnInit {
   loadInternships() {
 
     this.internshipService.getInternshipsByUserId(this.tokenStorageService.getUser().id).subscribe(
-      (response) => {
-        this.internships = response;
+      (internships) => {
+        this.internships = internships;
         this.internships.forEach(internship => {
           internship.tags = internship.tags.map(tag => TAGS[tag]);
         });
-        this.internshipsWithoutFilt = response;
+        this.internshipsWithoutFilt = internships;
       },
       error => console.warn(error)
     )
   }
 
   deleteInternship(id: number) {
-    console.log(id);
     this.internshipService.deleteInternship(id).subscribe(
       value => {
-        console.log('Deleting correctly');
         window.location.reload();
       },
       error => {
@@ -114,7 +111,6 @@ export class InternshipAdd implements OnInit {
     let newInternship = this.extractFormData();
     this.internshipService.postInternship(this.tokenStorageService.getUser().id, newInternship).subscribe(
       value => {
-        console.log('Posting correctly');
         window.location.reload();
       },
       error => console.warn(error)
@@ -122,13 +118,10 @@ export class InternshipAdd implements OnInit {
   }
 
   filterList(event: any) {
-    console.log(event);
     this.internships = this.internshipsWithoutFilt.filter(x => x.name.toLowerCase().includes(event.target.value.toLowerCase()));
   }
 
   extractFormData(): Internship {
-    console.log(this.tags.value);
-
     let internshipData = this.internshipForm.value;
 
     let newInternship = new Internship();
@@ -138,9 +131,7 @@ export class InternshipAdd implements OnInit {
     newInternship.url = internshipData.url;
     newInternship.responses = 0;
     newInternship.tags = this.tags.value;
-    console.log(newInternship);
 
     return newInternship;
   }
-
 }
