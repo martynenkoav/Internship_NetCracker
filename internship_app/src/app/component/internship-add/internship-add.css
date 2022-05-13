@@ -78,6 +78,15 @@
   margin-top: 12px;
 }
 
+.row-section .media .media-body h6 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 0;
+  padding-left: 14px;
+  margin-top: 12px;
+  color: #400ca4;
+}
+
 .btn-default {
   background: #6B456A;
   color: #fff;

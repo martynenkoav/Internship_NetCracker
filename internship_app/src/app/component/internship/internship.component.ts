@@ -147,12 +147,17 @@ export class InternshipComponent implements OnInit {
   filterTags(tags: FormControl) {
     if (tags.value.includes('Все') && !this.filters.get('tags')?.includes('Все')) {
       tags.setValue(['Все']);
+      this.viewInternships = this.internships;
     } else {
       const tagsCur = tags.value.filter(tag => tag !== "Все");
       tags.setValue(tagsCur);
     }
     this.filters.set('tags', tags.value);
-    this.doFilter();
+    if (this.filters.get('tags')?.includes('Все')) {
+      this.viewInternships = this.internships;
+    } else {
+      this.doFilter();
+    }
   }
 
   doFilter() {
@@ -209,34 +214,19 @@ export class InternshipComponent implements OnInit {
     this.currentButton = "advice";
 
     let allInternships = this.internships;
-    console.log("allInternships", allInternships);
 
     let studentInternships = this.myInternships;
-    console.log("studentInternships", studentInternships);
 
-    studentInternships.forEach(internship => this.studentTags.push(internship?.tags));
-
+    studentInternships.forEach(internship => internship.tags.forEach(tag => this.studentTags.push(tag)));
     let studentInternshipsIds = studentInternships.map(studentInternship => studentInternship.id);
-
-    console.log("studentInternshipsIds", studentInternshipsIds);
 
     let result = allInternships.filter(internship => {
       return !studentInternshipsIds.includes(internship.id)
     });
-
-    console.log("result", result);
-
-    console.log("studentTags", this.studentTags);
-
     this.viewInternships = result.filter(x => {
-      return this.studentTags.some(st => {
-          console.log("st", st);
-          console.log("x.tags", x.tags);
-          console.log("st === x.tags", st === x.tags);
-
-          return st === x.tags;
-        }
-      )
+      return x.tags.filter(tag => {
+        return this.studentTags.includes(tag);
+      }).length !== 0;
     });
   }
 }

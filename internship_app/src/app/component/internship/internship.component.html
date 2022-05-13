@@ -42,6 +42,7 @@
         <li>
           <div class="media">
             <div class="media-body">
+              <h6 class="mb-1">Теги: {{internship.tags}}</h6>
               <div class="d-flex w-100 justify-content-between">
                 <h3 class="mb-1">{{internship.name}}</h3>
                 <h4 *ngIf="isStudent&&isInStudentsList(internship.id)">Вы уже откликнулись</h4>
@@ -52,8 +53,6 @@
                 <h5 class="mb-1" (click)="goToCompany(internship.company_id)">{{internship.company.name}}</h5>
               </div>
               <pre></pre>
-              <p class="mb-1">{{internship.tags}}</p>
-
               <p class="mb-1">{{internship.description}}</p>
             </div>
             <pre></pre>
