@@ -1,3 +1,2 @@
-web: cd internship_app && npm i && npm start
-server: cd src && npm i && npm start
+web: java -jar target/find-internships-0.0.1-SNAPSHOT.jar
 
