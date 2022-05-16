@@ -47,10 +47,19 @@
             <div class="media-body">
               <h6 class="mb-1">Тэги: {{internship.tags}}</h6>
               <div class="d-flex w-100 justify-content-between">
-                <h4 class="mb-1">{{internship.name}}</h4>
+                <h3 class="mb-1">{{internship.name}}</h3>
+                <h4 *ngIf="isStudent&&isInStudentsList(internship.id)">Вы уже откликнулись</h4>
               </div>
               <pre></pre>
               <p class="mb-1">{{internship.description}}</p>
+            </div>
+            <pre></pre>
+            <div class="media-right align-self-center">
+              <pre></pre>
+              <button href="#" class="btn btn-default"
+                      (click)="goToTheLink(internship); addInternshipToStudent(internship.id);"
+                      *ngIf="isStudent">Откликнуться
+              </button>
             </div>
           </div>
         </li>

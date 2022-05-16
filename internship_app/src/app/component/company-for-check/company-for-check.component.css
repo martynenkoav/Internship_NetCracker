@@ -1,36 +1,16 @@
 .row-section {
+  float: left;
   width: 100%;
   background: #734b6d;
-}
-
-.row-section h3 {
-  text-align: center;
-  width: 100%;
-  color: #42275a;
-  margin-bottom: 30px;
-  font-size: 20px;
 }
 
 .row-section h5 {
   float: left;
   width: 100%;
   color: #42275a;
-  margin-bottom: 30px;
-  font-size: 14px;
-}
-
-.row-section h5 span {
-  font-family: 'Libre Baskerville', serif;
-  display: block;
-  font-size: 45px;
-  text-transform: none;
-  margin-bottom: 20px;
-  margin-top: 30px;
-  font-weight: 700;
-}
-
-.row-section h5 a {
-  color: #d2abce;
+  margin-left: 15px;
+  margin-top: 8px;
+  font-size: 16px;
 }
 
 .row-section .row-block {
@@ -67,22 +47,18 @@
   white-space: pre-wrap;
 }
 
-.row-section .media .media-left img {
-  width: 75px;
-}
-
-.row-section .media .media-body p {
-  padding: 0 15px;
-  font-size: 14px;
-}
-
-.row-section .media .media-body h4 {
+.row-section .media .media-body h3 {
   color: #6b456a;
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 0;
   padding-left: 14px;
   margin-top: 12px;
+}
+
+.row-section .media .media-body h4 {
+  font-size: 18px;
+  color: #42A948;
 }
 
 .row-section .media .media-body h6 {
@@ -94,6 +70,10 @@
   color: #400ca4;
 }
 
+.p-3 py-5 btn-default:not(:last-child) {
+  border-right: none;
+}
+
 
 .btn-default {
   background: #6B456A;
@@ -103,8 +83,17 @@
   font-size: 16px;
 }
 
+.btn-checked {
+  background-color: #3d273c;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+}
+
 textarea {
   resize: none;
+
 }
 
 .media {
@@ -113,4 +102,65 @@ textarea {
   border-radius: 5px;
   background: #fff;
   word-wrap: break-word;
+}
+
+.btn-group a {
+  border: 1px solid #3d273c;
+  color: white;
+  padding: 10px 24px;
+  cursor: pointer;
+  float: left;
+}
+
+.btn-group a:hover {
+  background-color: #4c314c;
+}
+
+.btn-default:active {
+  background-color: #4c314c;
+}
+
+.btn-group a:focus {
+  background-color: #4c314c;
+}
+
+.alert {
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem
+}
+
+.alert-dismissible {
+  padding-right: 4rem
+}
+
+.alert-dismissible .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: .75rem 1.25rem;
+  color: inherit
+}
+
+.alert-warning .alert-link {
+  color: #533f03
+}
+
+.close {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5
+}
+
+button.close {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none
 }
