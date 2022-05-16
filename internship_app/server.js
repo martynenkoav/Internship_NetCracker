@@ -1,4 +1,3 @@
-/*
 const express = require('express');
 const path = require('path');
 
@@ -13,7 +12,7 @@ app.get('/', (req, res) =>
 
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8081)
-*/
+/*
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -24,3 +23,4 @@ app.get('/', function(req, res) {
 });
 
 app.listen(port, () => console.log(`url-shortener listening on port ${port}!`));
+*/
