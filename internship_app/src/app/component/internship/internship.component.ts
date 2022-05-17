@@ -41,6 +41,9 @@ enum TAGS {
 
 export class InternshipComponent implements OnInit {
 
+
+
+
   viewInternships: Internship[] = [];
   tags: Tag[] = [
     {value: 'ALL', viewValue: 'Все'},
@@ -108,6 +111,11 @@ export class InternshipComponent implements OnInit {
           internship.company = this.companies.find(company => company.id === internship.company_id);
         });
         this.viewInternships = internships;
+
+        for (let i = 0; i < 50; i++) {
+          this.viewInternships = [...internships, ...this.viewInternships];
+          console.log(internships);
+        }
       })
     } else {
       forkJoin(
@@ -123,6 +131,10 @@ export class InternshipComponent implements OnInit {
           internship.company = this.companies.find(company => company.id === internship.company_id);
         });
         this.viewInternships = internships;
+        for (let i = 0; i < 50; i++) {
+          this.viewInternships = [...internships, ...this.viewInternships];
+          console.log(internships);
+        }
       })
     }
   }
@@ -223,7 +235,7 @@ export class InternshipComponent implements OnInit {
 
     let result = allInternships.filter(internship => !studentInternshipsIds.includes(internship.id));
 
-    this.viewInternships = result.filter(x =>  x.tags.filter(tag => this.studentTags.includes(tag)).length !== 0);
+    this.viewInternships = result.filter(x => x.tags.filter(tag => this.studentTags.includes(tag)).length !== 0);
   }
 }
 

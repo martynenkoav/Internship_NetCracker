@@ -1,3 +1,4 @@
+<cdk-virtual-scroll-viewport itemSize="10" class="example-viewport">
 <section class="row-section">
   <br>
   <div class="container">
@@ -38,40 +39,45 @@
         </div>
       </div>
       <br>
-      <ul id="sortable" *ngFor="let internship of viewInternships">
-        <li>
-          <div class="media">
-            <div class="media-body">
-              <h6 class="mb-1">Теги: {{internship.tags}}</h6>
-              <div class="d-flex w-100 justify-content-between">
-                <h3 class="mb-1">{{internship.name}}</h3>
-                <h4 *ngIf="isStudent&&isInStudentsList(internship.id)">Вы уже откликнулись</h4>
+     <!-- <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+        <div *cdkVirtualFor="let internship of viewInternships" class="example-item">{{internship.name}}</div>
+      </cdk-virtual-scroll-viewport>-->
+
+
+        <ul id="sortable" *cdkVirtualFor="let internship of viewInternships">
+          <li>
+            <div class="media">
+              <div class="media-body">
+                <h6 class="mb-1">Теги: {{internship.tags}}</h6>
+                <div class="d-flex w-100 justify-content-between">
+                  <h3 class="mb-1">{{internship.name}}</h3>
+                  <h4 *ngIf="isStudent&&isInStudentsList(internship.id)">Вы уже откликнулись</h4>
+                </div>
+                <pre></pre>
+                <div class="d-flex w-100 justify-content-between" data-toggle="tooltip"
+                     title="Нажмите на компанию чтобы посмотреть информацию" *ngIf="hasAccess; else elseBlock">
+                  <h5 class="mb-1" (click)="goToCompany(internship.company_id)">{{internship.company.name}}</h5>
+                </div>
+                <pre></pre>
+                <p class="mb-1">{{internship.description}}</p>
               </div>
               <pre></pre>
-              <div class="d-flex w-100 justify-content-between" data-toggle="tooltip"
-                   title="Нажмите на компанию чтобы посмотреть информацию" *ngIf="hasAccess; else elseBlock">
-                <h5 class="mb-1" (click)="goToCompany(internship.company_id)">{{internship.company.name}}</h5>
+              <div class="media-right align-self-center">
+                <pre></pre>
+                <button href="#" class="btn btn-default"
+                        (click)="goToTheLink(internship); addInternshipToStudent(internship.id);"
+                        *ngIf="isStudent">Откликнуться
+                </button>
+                <ng-template #elseBlock><h5 class="mb-1">{{internship.company.name}}<br><br></h5></ng-template>
               </div>
-              <pre></pre>
-              <p class="mb-1">{{internship.description}}</p>
             </div>
-            <pre></pre>
-            <div class="media-right align-self-center">
-              <pre></pre>
-              <button href="#" class="btn btn-default"
-                      (click)="goToTheLink(internship); addInternshipToStudent(internship.id);"
-                      *ngIf="isStudent">Откликнуться
-              </button>
-              <ng-template #elseBlock><h5 class="mb-1">{{internship.company.name}}<br><br></h5></ng-template>
-            </div>
-          </div>
-        </li>
-        <br>
-      </ul>
+          </li>
+          <br>
+        </ul>
     </div>
   </div>
 </section>
-
+</cdk-virtual-scroll-viewport>
 <script>
   $('[data-toggle="tooltip"]').tooltip({
     placement: 'right',

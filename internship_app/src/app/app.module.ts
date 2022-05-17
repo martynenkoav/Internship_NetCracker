@@ -17,7 +17,7 @@ import {StudentComponent} from './component/student/student.component';
 import {CompanyForCheckComponent} from './component/company-for-check/company-for-check.component';
 import {ErrorPageComponent} from './component/error-page/error-page.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [
@@ -40,7 +40,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     HttpClientModule,
     MatFormFieldModule,
     MatSelectModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ScrollingModule
   ],
   providers: [
     authInterceptorProviders

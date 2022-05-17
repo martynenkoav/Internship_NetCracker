@@ -1,3 +1,12 @@
+html{
+  position: relative;
+  overflow-y:hidden;
+}
+
+.example-viewport {
+  height: 670px;
+}
+
 .row-section {
   float: left;
   width: 100%;
