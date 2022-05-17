@@ -153,7 +153,11 @@ export class InternshipComponent implements OnInit {
 
   filterSearch(event: any) {
     this.filters.set('name', event.target.value.toLowerCase());
-    this.doFilter();
+    if (this.filters.get('tags')?.includes('Все')){
+      this.viewInternships = this.internships;
+    } else {
+      this.doFilter();
+    }
   }
 
   filterTags(tags: FormControl) {
