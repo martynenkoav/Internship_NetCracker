@@ -41,10 +41,6 @@ enum TAGS {
 
 export class InternshipComponent implements OnInit {
 
-
-
-
-  viewInternships: Internship[] = [];
   tags: Tag[] = [
     {value: 'ALL', viewValue: 'Все'},
     {value: 'AUTOMOTIVE_BUSINESS', viewValue: 'Автомобильный бизнес'},
@@ -64,6 +60,7 @@ export class InternshipComponent implements OnInit {
   ];
   internships: Internship[];
   myInternships: Internship[] = [];
+  viewInternships: Internship[] = [];
   company: Company;
   companies: Company[] = [];
   roles: string[] = [];
