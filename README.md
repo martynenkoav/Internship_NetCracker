@@ -4,7 +4,7 @@
 
 При написании приложения были использованы:  
 
-Backend: spring boot, hibernate, lombok,  postgreSQL, FlyWay  
+Backend: java, spring boot, hibernate, lombok,  postgreSQL, FlyWay  
 
 Frontend: Angular, TypeScript, HTML, CSS, bootstrap  
 
